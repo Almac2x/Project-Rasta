@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1077205084138",
+    "project_id": "project-rasta",
+    "storage_bucket": "project-rasta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1077205084138:android:745cb6227a23ba49483493",
+        "android_client_info": {
+          "package_name": "com.rastatech.projectrasta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1077205084138-q3jm2bvhlr2qu7d7cdqp6616rmsa4udi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHkSdieIi0xLoK-iBz51AX7snfyFti-24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1077205084138-q3jm2bvhlr2qu7d7cdqp6616rmsa4udi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
