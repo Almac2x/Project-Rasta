@@ -8,7 +8,7 @@ data class Wish (
     val rastagems_required: Int,
     val rastagems_donated: Int,
     val user_id: String,
-
+    val image : Int
 
         )
 
