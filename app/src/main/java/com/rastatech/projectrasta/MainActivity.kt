@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rastatech.projectrasta.models.wish.Wish
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
+import com.rastatech.projectrasta.ui.theme.components.WishList
 
 class MainActivity : ComponentActivity() {
     @ExperimentalMaterialApi
@@ -50,66 +51,10 @@ fun HomeScreen(){
     wishes = wishes+wishes
     wishes = wishes+wishes
     
-    LazyVerticalGrid(cells = GridCells.Fixed(2),
-
-        contentPadding = PaddingValues( start = 10.dp, end = 10.dp, top = 10.dp, bottom = 10.dp),
-        content = {
-
-        items(items = wishes){ wish ->
-            WishTile(wish = wish)
-        }
-    } )
-
+    WishList(wishes = wishes)
 
 }
 
-
-@ExperimentalMaterialApi
-@Composable
-fun WishTile(wish : Wish? = null ){
-    val heightWeight = 1f
-
-    val imageSize = 150.dp
-    val itemName = "Wish Name"
-    val nameOfWisher = "Alejandro G. Blando III"
-
-   Card(modifier = Modifier
-       .height(250.dp). padding(10.dp)
-       .testTag("WishtTile"), elevation = 2.dp, backgroundColor = MaterialTheme.colors.primary,
-       onClick = {Log.i("Clicked","Clicked o")},
-   ) {
-       Column(modifier = Modifier
-           .fillMaxSize()
-           .padding(10.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
-
-           Image(painterResource(id = wish?.image ?: R.drawable.gift), contentDescription = "Image of ${wish?.wish_name}",// image of Wish
-               contentScale = ContentScale.Crop
-               ,modifier = Modifier
-                   .width(imageSize)
-                   .height(imageSize)
-                   .padding(bottom = 20.dp))
-
-           Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.Start) {
-               Text(text = itemName, textAlign = TextAlign.Start, style = TextStyle(
-
-               ))
-               Text(text = nameOfWisher)
-           }
-
-           // Add here Fill Bar
-
-           // Add here Row for Heart and UpVote and Down Vote for Wish TIle
-       }
-
-
-   }
-
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
