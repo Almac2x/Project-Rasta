@@ -52,6 +52,10 @@ android {
 
 dependencies {
 
+    //Api Dependencies
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+    //Jetpack Compose Version
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     //Import the Firebase BoM
