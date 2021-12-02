@@ -4,7 +4,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 
-private val AppColorPalette = lightColors(
+val AppColorPalette = lightColors(
     primary = Primary,
     secondary = Secondary,
     background = Background,
