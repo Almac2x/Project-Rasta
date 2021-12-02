@@ -10,16 +10,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectRasta">
         <activity
+            android:name=".login.Login"
+            android:exported="true"
+            android:label="@string/title_activity_login"
+            android:theme="@style/Theme.ProjectRasta.NoActionBar"/>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.ProjectRasta.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
         </activity>
+
     </application>
 
 </manifest>
