@@ -18,10 +18,13 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.rastatech.projectrasta.AUTH_GRAPH_ROUTE
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.screens.MainScreen
 import kotlinx.coroutines.delay
 
@@ -42,8 +45,15 @@ fun SplashScreen(navController: NavController) {
 
             )
         )
+
         delay(3000L)
-        navController.navigate("main_screen")
+        navController.navigate(AUTH_GRAPH_ROUTE){
+
+            popUpTo(route = AuthScreens.Splash.route){
+                inclusive = true
+            }
+
+        }
     }
 
 
@@ -56,25 +66,5 @@ fun SplashScreen(navController: NavController) {
             contentDescription = "Logo",
             modifier = Modifier.scale(scale.value))
     }
-
-}
-
-@ExperimentalFoundationApi
-@ExperimentalMaterialApi
-@Composable
-fun Navigation() {
-    val navController = rememberNavController()
-    
-    NavHost(navController = navController, startDestination = "splash_screen" ){
-        composable(route = "splash_screen"){
-            SplashScreen(navController = navController)
-        }
-        composable(route = "main_screen"){
-            MainScreen()
-
-        }
-    }
-
-
 
 }

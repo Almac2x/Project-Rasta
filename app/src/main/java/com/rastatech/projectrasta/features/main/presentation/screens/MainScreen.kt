@@ -8,15 +8,15 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.rastatech.projectrasta.BottomBarScreen
-import com.rastatech.projectrasta.BottomNavGraph
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
+import com.rastatech.projectrasta.NavGraph
+import com.rastatech.projectrasta.nav_graph.BottomNavGraph
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -24,12 +24,13 @@ import com.rastatech.projectrasta.BottomNavGraph
 fun MainScreen(){
 
     val navController = rememberNavController()
-    
+
     Scaffold(
         bottomBar = { BottomBar(navController = navController)}
     ) { innerPadding ->
         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())){
             BottomNavGraph(navController = navController)
+            
         }
     }
 
@@ -39,9 +40,9 @@ fun MainScreen(){
 fun BottomBar(navController: NavHostController){
 
     val screens = listOf(
-        BottomBarScreen.Home,
-        BottomBarScreen.Profile
+        BottomBarScreens.Home, BottomBarScreens.Profile
     )
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
     
@@ -61,7 +62,7 @@ fun BottomBar(navController: NavHostController){
 
 @Composable
 fun RowScope.AddItem(
-    screen: BottomBarScreen,
+    screen: BottomBarScreens,
     currentDestination: NavDestination?,
     navController: NavHostController
 ) {
@@ -82,7 +83,7 @@ fun RowScope.AddItem(
         unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
         onClick = {
             navController.navigate(screen.route){
-                popUpTo(navController.graph.findStartDestination().id)
+                popUpTo(BottomBarScreens.Home.route)
                 launchSingleTop = true
             }
         },

@@ -1,21 +1,12 @@
-package com.rastatech.projectrasta.login
+package com.rastatech.projectrasta.screens
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Surface
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Button
-import androidx.compose.material.Card
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,40 +17,18 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.rastatech.projectrasta.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.nav_graph.MAIN_GRAPH_ROUTE
+import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
-import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
 
-/**
- * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
- *
- * @author ChristianLloyd
- * @since 12/01/2021
- */
-
-class Login: ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ProjectRastaTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    LoginScreen()
-                }
-            }
-        }
-    }
-}
-
-/**
- * Login Screen
- */
-@Preview(showBackground = true)
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     val cardElevation = 3.dp
 
     val paddingCard = PaddingValues(start = 12.dp, end = 12.dp)
@@ -130,7 +99,13 @@ fun LoginScreen() {
 
                             // Login Button
                             Button(
-                                onClick = { },
+                                onClick = {
+                                          navController.navigate(HOME_GRAPH_ROUTE){
+                                              popUpTo(AuthScreens.Login.route){
+                                                  inclusive = true
+                                              }
+                                          }
+                                },
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp)
                             ) {
@@ -148,8 +123,16 @@ fun LoginScreen() {
                                     text = "Don't have an account?",
                                     modifier = Modifier.align(Alignment.CenterVertically)
                                 )
-                                TextButton(onClick = { }) {
-                                    Text(text = "Sign Up", fontWeight = FontWeight.Bold)
+                                TextButton(onClick = {
+                                    navController.navigate(AuthScreens.SignUp.route){
+                                        popUpTo(route = AuthScreens.Splash.route){
+                                            inclusive = true
+                                        }
+                                    }
+                                }) {
+                                    Text(text = "Sign Up", fontWeight = FontWeight.Bold,
+
+                                        )
                                 }
                             } // Row
                         }
@@ -161,5 +144,3 @@ fun LoginScreen() {
         } // Column
     } // Scaffold
 }
-
-

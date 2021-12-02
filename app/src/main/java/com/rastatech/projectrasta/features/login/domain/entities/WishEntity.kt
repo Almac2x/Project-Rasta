@@ -1,6 +1,6 @@
-package com.rastatech.projectrasta.models.wish
+package com.rastatech.projectrasta.features.login.domain.entities
 
-data class Wish (
+data class WishEntity (
 
     val wish_id : String,
     val wish_name : String,
@@ -9,6 +9,5 @@ data class Wish (
     val rastagems_donated: Int,
     val user_id: String,
     val image : Int
-
         )
 

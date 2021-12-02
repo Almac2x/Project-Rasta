@@ -1,6 +1,6 @@
-package com.rastatech.projectrasta.models.user
+package com.rastatech.projectrasta.features.login.domain.entities
 
-data class User(
+data class UserEntity(
 
     val id : Int,
     val user_name : String,
