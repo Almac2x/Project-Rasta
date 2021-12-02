@@ -37,7 +37,6 @@ fun WishList(wishes : List<Wish>){
                 WishTile(wish = wish)
             }
         } )
-
 }
 
 @ExperimentalMaterialApi
@@ -77,7 +76,6 @@ fun WishTile(wish : Wish? = null ){
 
             // Add here Row for Heart and UpVote and Down Vote for Wish TIle
         }
-
 
     }
 
