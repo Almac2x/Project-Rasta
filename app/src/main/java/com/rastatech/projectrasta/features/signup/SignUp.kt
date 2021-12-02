@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.signup
+package com.rastatech.projectrasta.features.signup
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

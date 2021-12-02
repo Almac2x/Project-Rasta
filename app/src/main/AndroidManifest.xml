@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectRasta">
         <activity
-            android:name=".login.Login"
+            android:name="com.rastatech.projectrasta.features.login.Login"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ProjectRasta.NoActionBar"/>
