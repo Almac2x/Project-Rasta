@@ -10,6 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.rastatech.projectrasta.models.wish.Wish
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import com.rastatech.projectrasta.login.LoginScreen
+import com.rastatech.projectrasta.signup.SignUpScreen
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
 import com.rastatech.projectrasta.ui.theme.components.WishList
 
@@ -22,7 +24,7 @@ class MainActivity : ComponentActivity() {
             ProjectRastaTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    HomeScreen()
+                    LoginScreen()
                 }
             }
         }
