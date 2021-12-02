@@ -20,6 +20,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.rastatech.projectrasta.features.splash.presentation.screens.Navigation
 import com.rastatech.projectrasta.models.wish.Wish
 import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.screens.MainScreen
@@ -35,7 +36,7 @@ class MainActivity : ComponentActivity() {
             ProjectRastaTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
-                    MainScreen()
+                    Navigation()
                 }
             }
         }
