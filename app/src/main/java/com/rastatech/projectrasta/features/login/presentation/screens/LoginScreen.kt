@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.login
+package com.rastatech.projectrasta.features.login.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

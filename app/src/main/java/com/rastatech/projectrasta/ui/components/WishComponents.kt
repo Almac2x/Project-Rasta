@@ -20,12 +20,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.rastatech.projectrasta.models.wish.Wish
+import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun WishList(wishes : List<Wish>){
+fun WishList(wishEntities : List<WishEntity>){
 
     LazyVerticalGrid(cells = GridCells.Fixed(2),
 
@@ -33,19 +33,19 @@ fun WishList(wishes : List<Wish>){
             top = 10.dp, bottom = 10.dp),
         content = {
 
-            items(items = wishes){ wish ->
-                WishTile(wish = wish)
+            items(items = wishEntities){ wish ->
+                WishTile(wishEntity = wish)
             }
         } )
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun WishTile(wish : Wish? = null ){
+fun WishTile(wishEntity : WishEntity? = null ){
     val heightWeight = 1f
 
     val imageSize = 150.dp
-    val itemName = "Wish Name"
+    val itemName = "WishEntity Name"
     val nameOfWisher = "Alejandro G. Blando III"
 
     Card(modifier = Modifier
@@ -58,7 +58,7 @@ fun WishTile(wish : Wish? = null ){
             .padding(10.dp), verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally) {
 
             Image(
-                painterResource(id = wish!!.image), contentDescription = "Image of ${wish?.wish_name}",// image of Wish
+                painterResource(id = wishEntity!!.image), contentDescription = "Image of ${wishEntity?.wish_name}",// image of WishEntity
                 contentScale = ContentScale.Crop
                 ,modifier = Modifier
                     .width(imageSize)
@@ -74,7 +74,7 @@ fun WishTile(wish : Wish? = null ){
 
             // Add here Fill Bar
 
-            // Add here Row for Heart and UpVote and Down Vote for Wish TIle
+            // Add here Row for Heart and UpVote and Down Vote for WishEntity TIle
         }
 
     }
