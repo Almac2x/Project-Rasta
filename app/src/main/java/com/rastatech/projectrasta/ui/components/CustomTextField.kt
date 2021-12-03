@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.OutlinedTextField
@@ -14,7 +15,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.*
 import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
 
 /**
@@ -28,10 +29,10 @@ import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
 /**
  * Custom Text Field
  *
- * @param textState text field text state
- * @param hintText text field hint text
- * @param leadingIcon leading icon for text field
- * @param isPassword enables text field password
+ * @param textState state of the text field
+ * @param hintText hint text to be displayed
+ * @param leadingIcon icon to be displayed at the start of the text field
+ * @param isPassword enables/disables text field password
  */
 @Composable
 fun CustomTextField(
@@ -47,6 +48,8 @@ fun CustomTextField(
         value = textState.value,
         onValueChange = { textState.value = it },
         shape = TextFieldCornerRadius.large,
+        keyboardOptions = KeyboardOptions(keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Ascii, imeAction = ImeAction.Done),
+        visualTransformation = if (isPasswordVisible.value && !isPassword) VisualTransformation.None else PasswordVisualTransformation(),
         label = {
             Text(text = hintText)
         },
