@@ -6,10 +6,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.rastatech.projectrasta.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.screens.HomeScreen
-import com.rastatech.projectrasta.screens.MainScreen
+import com.rastatech.projectrasta.features.main.presentation.screens.MainScreen
 
 
 const val MAIN_GRAPH_ROUTE = "main_screen"

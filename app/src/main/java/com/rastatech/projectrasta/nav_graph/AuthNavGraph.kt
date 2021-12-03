@@ -2,15 +2,12 @@ package com.rastatech.projectrasta.nav_graph
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.rastatech.projectrasta.AUTH_GRAPH_ROUTE
-import com.rastatech.projectrasta.features.splash.presentation.screens.SplashScreen
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
-import com.rastatech.projectrasta.screens.LoginScreen
+import com.rastatech.projectrasta.features.login.presentation.screens.LoginScreen
 import com.rastatech.projectrasta.features.signup.SignUpScreen
 
 @ExperimentalFoundationApi

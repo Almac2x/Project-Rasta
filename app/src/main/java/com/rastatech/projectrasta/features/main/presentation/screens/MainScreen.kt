@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.screens
+package com.rastatech.projectrasta.features.main.presentation.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -10,12 +10,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
-import com.rastatech.projectrasta.NavGraph
 import com.rastatech.projectrasta.nav_graph.BottomNavGraph
 
 @ExperimentalMaterialApi
@@ -26,7 +24,7 @@ fun MainScreen(){
     val navController = rememberNavController()
 
     Scaffold(
-        bottomBar = { BottomBar(navController = navController)}
+        bottomBar = { BottomBar(navController = navController) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())){
             BottomNavGraph(navController = navController)

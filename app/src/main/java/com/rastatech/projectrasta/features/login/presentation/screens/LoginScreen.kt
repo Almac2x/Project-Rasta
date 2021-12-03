@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.screens
+package com.rastatech.projectrasta.features.login.presentation.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -20,11 +20,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.rastatech.projectrasta.HOME_GRAPH_ROUTE
+import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.nav_graph.MAIN_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
-import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
 
 @Composable
