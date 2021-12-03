@@ -24,19 +24,6 @@ import com.rastatech.projectrasta.utils.animations.Pulsating
  * @author ChristianLloyd
  * @since 12/02/2021
  */
-class GemPage: ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ProjectRastaTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(color = MaterialTheme.colors.background) {
-                    // do something
-                }
-            }
-        }
-    }
-}
 
 /**
  * GemPage Screen
