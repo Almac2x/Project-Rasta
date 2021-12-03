@@ -9,5 +9,4 @@ data class UserEntity(
     val email : String,
     val rasta_gem_balance: Int,
     val avatar: String,
-    val nani: String
 )

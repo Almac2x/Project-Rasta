@@ -7,12 +7,10 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.rastatech.projectrasta.features.login.domain.entities.WishEntity
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
-import com.rastatech.projectrasta.ui.theme.components.WishList
 
 class MainActivity : ComponentActivity() {
 

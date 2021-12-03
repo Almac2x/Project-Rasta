@@ -4,7 +4,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.login.domain.entities.WishEntity
+import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
 import com.rastatech.projectrasta.ui.theme.components.WishList
 
 
