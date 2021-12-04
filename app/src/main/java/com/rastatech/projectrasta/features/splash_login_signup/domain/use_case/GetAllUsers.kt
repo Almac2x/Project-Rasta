@@ -11,7 +11,7 @@ class GetAllUsers(
     private val repository: UserRepository
 ){
 
-    operator  fun invoke(userOrder: UserOrder = UserOrder.LastName(OrderType.Descending)
+    operator fun invoke(userOrder: UserOrder = UserOrder.LastName(OrderType.Descending)
 
     ): Flow<List<UserEntity>> {
 

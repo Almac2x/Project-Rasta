@@ -5,10 +5,7 @@ import androidx.room.Room
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDatabase
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepository
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepositoryImpl
-import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.DeleteUser
-import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.GetSingleUser
-import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.GetAllUsers
-import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
+import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -50,8 +47,8 @@ object AppModule {
         return UserUseCases(
             getAllUsers = GetAllUsers(repository),
             deleteUser = DeleteUser(repository),
-            getUserUse = GetSingleUser(repository),
-            //addNote = AddUserUerUsecase(repository),
+            getSingleUser = GetSingleUser(repository),
+            addUser = AddUser(repository)
         )
     }
 

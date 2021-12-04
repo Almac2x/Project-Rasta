@@ -25,6 +25,6 @@ class UserRepositoryImpl (
 
     override suspend fun deleteUser(user: UserEntity) {
 
-        dao.deleteUser(user)
+        dao.deleteUser(user = user)
     }
 }

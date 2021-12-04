@@ -1,24 +1,28 @@
 package com.rastatech.projectrasta.features.splash_login_signup.presentation.login
 
 
+import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rastatech.projectrasta.features.splash_login_signup.domain.model.UserEntity
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.OrderType
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.UserOrder
-import com.rastatech.projectrasta.features.splash_login_signup.presentation.util.UserEvents
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.util.UserState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
+const val TAG = "LoginViewModel"
 @HiltViewModel
 class LoginViewModel@Inject constructor(
 
@@ -43,11 +47,11 @@ class LoginViewModel@Inject constructor(
      * @param event
      */
 
-    fun onEvent(event : UserEvents){
+    fun onEvent(event : LoginEvents){
 
         when(event){
 
-                is UserEvents.Order ->{
+                is LoginEvents.Order ->{
 
                     //Checks if the User order is the same as the User order we want to change it to AND same with the orderType if it is the same
                     // their is a ::class to check if the classes being compared are the same
@@ -56,10 +60,11 @@ class LoginViewModel@Inject constructor(
                         return
                     }
 
+                    getUsers(userOrder = event.userOrder)
 
 
                 }
-                is UserEvents.DeleteUser ->{
+                is LoginEvents.DeleteLogin ->{
 
                     viewModelScope.launch {
                         userUseCases.deleteUser(event.user) // uses the delete user UseCase to delete user from database
@@ -68,7 +73,7 @@ class LoginViewModel@Inject constructor(
 
                 }
                 // Restores the recently deleted user back into the database
-                is UserEvents.RestoreUser ->{
+                is LoginEvents.RestoreLogin ->{
 
                     viewModelScope.launch {
                         userUseCases.addUser(recentlyDeletedUser ?: return@launch) // returns a launch if the recentlyDeletedUser is Empty
@@ -76,7 +81,7 @@ class LoginViewModel@Inject constructor(
                     }
 
                 }
-                is UserEvents.ToggleOrderSection ->{
+                is LoginEvents.ToggleOrderSection ->{
 
                     _state.value = state.value.copy(  // makes a copy then change the value inside the state
                         isOrderSectionVisible = !state.value.isOrderSectionVisible

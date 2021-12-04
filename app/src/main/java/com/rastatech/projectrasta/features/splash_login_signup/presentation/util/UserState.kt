@@ -14,3 +14,5 @@ data class UserState(
     val userOrder: UserOrder = UserOrder.LastName(OrderType.Ascending),
     val isOrderSectionVisible: Boolean = false
 )
+
+

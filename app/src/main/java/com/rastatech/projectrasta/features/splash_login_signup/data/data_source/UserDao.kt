@@ -17,6 +17,6 @@ interface UserDao {
     suspend fun insertUser(user: UserEntity)
 
     @Delete
-    suspend fun deleteUser(uer:UserEntity)
+    suspend fun deleteUser(user:UserEntity)
 
 }

@@ -24,4 +24,4 @@ data class UserEntity(
 
 }
 
-class InvalidUserException(message: String): Exception(message = message)
+class InvalidUserException(message: String): Exception(message)
