@@ -11,6 +11,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
+import dagger.hilt.android.HiltAndroidApp
+
+
 
 class MainActivity : ComponentActivity() {
 
