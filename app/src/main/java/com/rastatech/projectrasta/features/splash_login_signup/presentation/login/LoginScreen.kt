@@ -110,7 +110,7 @@ fun LoginScreen(
                                 onClick = {
 
                                     // Gets the User to display
-                                    viewModel.onEvent(LoginEvents.Login(userName = "pp123", password = "11111111111" ))
+                                    viewModel.onEvent(LoginEvents.Login)
                                     /*
                                           navController.navigate(HOME_GRAPH_ROUTE){
                                               popUpTo(AuthScreens.Login.route){

@@ -42,15 +42,15 @@ class UserRepositoryImpl (
                 "\nUsername Sent: $username" +
                 "\nPassword Sent: $password ")
 
-        retrofit.loginApi.getToken(
-            LoginUserDTO(
-                username = "nilpogi",
-                password = "nilpogi"
-            )
+        val token =  retrofit.loginApi.getToken(
+                username = username,
+                password = password
+
         )
 
-    }
+        Log.i(TAG, "Token: ${token.access_token} \n Refresh Token: ${token.refresh_token}")
 
+    }
     override suspend fun createUserApiRequest(user: UserRequestDTO) {
         retrofit.signUpApi.createUser(user = user)
     }

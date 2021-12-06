@@ -8,16 +8,18 @@ import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.U
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface LoginApi {
 
-    ////https://shielded-retreat-23705.herokuapp.com/api/auth/login
+    ////https://shielded-retreat-23705.herokuapp.com/api/auth/login?username=value&password=value
+
 
     @GET("users")
     suspend fun getPosts(): List<UserResponseDTO>
 
     @POST("api/auth/login")
-    suspend fun getToken(@Body login: LoginUserDTO): TokenDTO // returns a TokenDTO
+    suspend fun getToken(@Query("username") username: String, @Query("password") password: String): TokenDTO // returns a TokenDTO
 
 
 }

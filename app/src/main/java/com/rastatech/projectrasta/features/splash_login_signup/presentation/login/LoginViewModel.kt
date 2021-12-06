@@ -54,8 +54,8 @@ class LoginViewModel@Inject constructor(
 
                     viewModelScope.launch{
                         userUseCases.getLoginTokenApiRequest(
-                            username = event.userName,
-                            password = event.password
+                            username = "nilpogi", // add here the Text Fields For UserName
+                            password = "nilpogi" // add here the TextFields for Password
                         )
                     }
 
