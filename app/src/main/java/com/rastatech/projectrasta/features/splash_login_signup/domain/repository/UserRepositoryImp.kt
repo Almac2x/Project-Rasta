@@ -38,6 +38,7 @@ class UserRepositoryImpl (
     }
 
     override suspend fun getLoginTokenApiRequest(username: String, password: String) {
+
         Log.i(TAG, "Function: getLoginTokenApiRequest " +
                 "\nUsername Sent: $username" +
                 "\nPassword Sent: $password ")
@@ -45,10 +46,23 @@ class UserRepositoryImpl (
         val token =  retrofit.loginApi.getToken(
                 username = username,
                 password = password
-
         )
 
-        Log.i(TAG, "Token: ${token.access_token} \n Refresh Token: ${token.refresh_token}")
+        if(token.isSuccessful){
+            Log.i(TAG, "Token: ${token.body()?.access_token} \n Refresh Token: ${token.body()?.refresh_token}")
+        }else{
+
+            when(token.code()){
+
+                403 ->{
+
+                }
+
+
+            }
+        }
+
+
 
     }
     override suspend fun createUserApiRequest(user: UserRequestDTO) {
