@@ -2,7 +2,10 @@ package com.rastatech.projectrasta.di
 
 import android.app.Application
 import androidx.room.Room
+import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDatabase
+import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.LoginApi
+import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.SignUpApi
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepository
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepositoryImpl
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.*
@@ -27,7 +30,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteDatabase(app: Application): UserDatabase {
+    fun provideUserDatabase(app: Application): UserDatabase {
         return Room.databaseBuilder(
             app,
             UserDatabase::class.java,
@@ -37,18 +40,20 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteRepository(db: UserDatabase): UserRepository {
-        return UserRepositoryImpl(db.userDao())
+    fun provideUserRepository(db: UserDatabase): UserRepository {
+        return UserRepositoryImpl(db.userDao(), retrofit = RetrofitInstance) // add here the retrofit instance
     }
 
     @Provides
     @Singleton
-    fun provideNoteUseCases(repository: UserRepository): UserUseCases {
+    fun provideUserUseCases(repository: UserRepository): UserUseCases {
         return UserUseCases(
             getAllUsers = GetAllUsers(repository),
             deleteUser = DeleteUser(repository),
             getSingleUser = GetSingleUser(repository),
-            addUser = AddUser(repository)
+            addUser = AddUser(repository),
+            addUserApiRequest = AddUserApiRequest(repository),
+            getLoginTokenApiRequest = GetLoginTokenApiRequest(repository)
         )
     }
 

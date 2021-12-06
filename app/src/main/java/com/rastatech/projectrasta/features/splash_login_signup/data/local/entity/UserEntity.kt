@@ -17,8 +17,8 @@ data class UserEntity(
     val avatar: String,
 
     // Tokens of user
-    val refresh_token :String,
-    val token: String
+    val refresh_token :String?,
+    val token: String?
 ){
 
 
