@@ -50,6 +50,17 @@ class LoginViewModel@Inject constructor(
 
         when(event){
 
+                is LoginEvents.Login ->{
+
+                    viewModelScope.launch{
+                        userUseCases.getLoginTokenApiRequest(
+                            username = event.userName,
+                            password = event.password
+                        )
+                    }
+
+                }
+
                 is LoginEvents.Order ->{
 
                     //Checks if the User order is the same as the User order we want to change it to AND same with the orderType if it is the same

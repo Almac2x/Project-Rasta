@@ -2,7 +2,6 @@ package com.rastatech.projectrasta.features.splash_login_signup.presentation.sig
 
 sealed class SignUpEvents {
 
-
     object AddUser: SignUpEvents()
 
 }

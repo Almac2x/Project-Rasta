@@ -7,9 +7,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.InvalidUserException
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.UserRequestDTO
 
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -37,25 +39,21 @@ class SignUpViewModel @Inject constructor(
 
         when (event){
             is SignUpEvents.AddUser -> {
-                viewModelScope.launch {
+                viewModelScope.launch(Dispatchers.IO) {
 
                     try {
-                        userUseCases.addUser( // add user UseCase
+                        userUseCases.addUserApiRequest( // add user UseCase
                             user =
 
-                            UserEntity(
-                                user_name = userName.value.text,
-                                first_name =firstName.value.text, // add here FirstName TextField
-                                last_name = lastName.value.text, // add Here LastName TextField
-                                id = 1, // get the id from API placeholder lang muna
-                                email = email.value.text,
-                                rasta_gem_balance = 100,
-                                avatar = "asdfasdf", // add here the url of the profile
+                           UserRequestDTO(
+                               email = "alejandro_blando@yahoo.com",
+                               first_name = "Alejandro",
+                               last_name = "Blando ",
+                               password = "password",
+                               phone_number = "12345678901",
+                               username = "alejandro123",
 
-                                refresh_token = "Token Refresh",
-                                token = "Token lang",
-
-                                )
+                           )
                         )
                         Log.i(TAG, "Added ${userName.value.text} to Database")
 

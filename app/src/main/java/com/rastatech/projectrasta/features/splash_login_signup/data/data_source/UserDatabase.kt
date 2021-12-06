@@ -10,7 +10,7 @@ import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity
 
 @Database(
     entities = [UserEntity::class],
-    version = 1
+    version = 2
 )
 abstract class UserDatabase: RoomDatabase() {
 
