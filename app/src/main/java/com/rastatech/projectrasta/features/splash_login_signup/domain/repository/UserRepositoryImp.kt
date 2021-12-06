@@ -1,7 +1,7 @@
 package com.rastatech.projectrasta.features.splash_login_signup.domain.repository
 
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDao
-import com.rastatech.projectrasta.features.splash_login_signup.domain.model.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 class UserRepositoryImpl (

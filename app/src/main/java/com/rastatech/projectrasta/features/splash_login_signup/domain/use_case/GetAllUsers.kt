@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.splash_login_signup.domain.use_case
 
-import com.rastatech.projectrasta.features.splash_login_signup.domain.model.UserEntity
+
+import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepository
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.OrderType
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.UserOrder

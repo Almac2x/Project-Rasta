@@ -5,8 +5,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rastatech.projectrasta.features.splash_login_signup.domain.model.InvalidUserException
-import com.rastatech.projectrasta.features.splash_login_signup.domain.model.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.InvalidUserException
+import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
+
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

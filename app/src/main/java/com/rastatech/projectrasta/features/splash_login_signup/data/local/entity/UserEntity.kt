@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.splash_login_signup.domain.model
+package com.rastatech.projectrasta.features.splash_login_signup.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

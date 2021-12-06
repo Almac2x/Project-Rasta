@@ -1,7 +1,7 @@
 package com.rastatech.projectrasta.features.splash_login_signup.data.data_source
 
 import androidx.room.*
-import com.rastatech.projectrasta.features.splash_login_signup.domain.model.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
 import kotlinx.coroutines.flow.Flow
 
 @Dao

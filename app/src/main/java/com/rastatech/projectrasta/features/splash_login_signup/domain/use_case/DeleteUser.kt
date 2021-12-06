@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.splash_login_signup.domain.use_case
 
-import com.rastatech.projectrasta.features.splash_login_signup.domain.model.UserEntity
+
+import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepository
 
 class DeleteUser(
@@ -8,6 +9,7 @@ class DeleteUser(
 ) {
     suspend operator fun invoke(user:UserEntity){
         repository.deleteUser(user)
+
     }
 
 
