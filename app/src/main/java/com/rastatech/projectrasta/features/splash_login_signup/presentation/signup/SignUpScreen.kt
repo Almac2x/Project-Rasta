@@ -15,23 +15,28 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpEvents
+import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpViewModel
+import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+
+    navController: NavController,
+    viewModel: SignUpViewModel = hiltViewModel()
+
+) {
+
+
     val cardElevation = 3.dp
     val paddingCard = 12.dp
     val paddingCardContent = 15.dp
 
-    val firstName = remember { mutableStateOf(TextFieldValue()) }
-    val lastName = remember { mutableStateOf(TextFieldValue()) }
-    val userName = remember { mutableStateOf(TextFieldValue()) }
-    val phoneNumber = remember { mutableStateOf(TextFieldValue()) }
-    val email = remember { mutableStateOf(TextFieldValue()) }
-    val password = remember { mutableStateOf(TextFieldValue()) }
-    val verifyPassword = remember { mutableStateOf(TextFieldValue()) }
 
     Scaffold(backgroundColor = AppColorPalette.primary) {
         Card(
@@ -52,7 +57,15 @@ fun SignUpScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
                 ) {
-                    IconButton(onClick = { /* return to login */ }) {
+                    IconButton(onClick = { navController.navigate(AuthScreens.Login.route){
+                        popUpTo(route = AuthScreens.Login.route){
+                            inclusive = true
+                        }
+                    }
+
+
+
+                    }) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Return to Login",
@@ -79,7 +92,7 @@ fun SignUpScreen() {
                 ) {
                     // First Name
                     CustomTextField(
-                        textState = firstName,
+                        textState = viewModel.firstName,
                         hintText = "First Name",
                         leadingIcon = Icons.Filled.Person
                     )
@@ -88,7 +101,7 @@ fun SignUpScreen() {
 
                     // Last Name
                     CustomTextField(
-                        textState = lastName,
+                        textState = viewModel.lastName,
                         hintText = "Last Name",
                         leadingIcon = Icons.Filled.Person
                     )
@@ -97,7 +110,7 @@ fun SignUpScreen() {
 
                     // Username
                     CustomTextField(
-                        textState = userName,
+                        textState = viewModel.userName,
                         hintText = "Username",
                         leadingIcon = Icons.Filled.Person
                     )
@@ -106,7 +119,7 @@ fun SignUpScreen() {
 
                     // Phone Number
                     CustomTextField(
-                        textState = phoneNumber,
+                        textState = viewModel.phoneNumber,
                         hintText = "Phone Number",
                         leadingIcon = Icons.Filled.ContactPhone
                     )
@@ -115,7 +128,7 @@ fun SignUpScreen() {
 
                     // Email
                     CustomTextField(
-                        textState = email,
+                        textState = viewModel.email,
                         hintText = "Email",
                         leadingIcon = Icons.Filled.Email
                     )
@@ -124,7 +137,7 @@ fun SignUpScreen() {
 
                     // Password
                     CustomTextField(
-                        textState = password,
+                        textState = viewModel.password,
                         hintText = "Password",
                         leadingIcon = Icons.Filled.Lock,
                         isPassword = true
@@ -134,7 +147,7 @@ fun SignUpScreen() {
 
                     // Verify Password
                     CustomTextField(
-                        textState = verifyPassword,
+                        textState = viewModel.verifyPassword,
                         hintText = "Verify Password",
                         leadingIcon = Icons.Filled.Lock,
                         isPassword = true
@@ -144,7 +157,8 @@ fun SignUpScreen() {
 
                     // Sign Up Button
                     Button(
-                        onClick = { /* Go to Home Screen? */ },
+                        onClick = { viewModel.onEvent(SignUpEvents.AddUser)}, // Pass an event to the viewmodel
+
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         colors = ButtonDefaults.buttonColors(

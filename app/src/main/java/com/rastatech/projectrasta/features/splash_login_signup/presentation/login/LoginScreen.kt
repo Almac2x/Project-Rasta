@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.login.presentation.screens
+package com.rastatech.projectrasta.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -19,14 +19,24 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
+import com.rastatech.projectrasta.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.splash_login_signup.domain.util.OrderType
+import com.rastatech.projectrasta.features.splash_login_signup.domain.util.UserOrder
+import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginViewModel
+import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginEvents
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
 
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(
+
+    navController: NavController,
+    viewModel: LoginViewModel = hiltViewModel()
+
+) {
     val cardElevation = 3.dp
 
     val paddingCard = PaddingValues(start = 12.dp, end = 12.dp)
@@ -98,11 +108,15 @@ fun LoginScreen(navController: NavController) {
                             // Login Button
                             Button(
                                 onClick = {
+
+                                    // Gets the User to display
+                                    viewModel.onEvent(LoginEvents.Login)
+                                    /*
                                           navController.navigate(HOME_GRAPH_ROUTE){
                                               popUpTo(AuthScreens.Login.route){
                                                   inclusive = true
                                               }
-                                          }
+                                          }*/
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp)
@@ -122,6 +136,7 @@ fun LoginScreen(navController: NavController) {
                                     modifier = Modifier.align(Alignment.CenterVertically)
                                 )
                                 TextButton(onClick = {
+
                                     navController.navigate(AuthScreens.SignUp.route){
                                         popUpTo(route = AuthScreens.Splash.route){
                                             inclusive = true
