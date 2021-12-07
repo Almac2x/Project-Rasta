@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.ui.components.CustomTextField
@@ -75,7 +76,7 @@ fun SignUpScreen() {
                         .fillMaxWidth()
                         .fillMaxHeight(),
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                    verticalArrangement = Arrangement.SpaceEvenly
                 ) {
                     // First Name
                     CustomTextField(
@@ -84,16 +85,12 @@ fun SignUpScreen() {
                         leadingIcon = Icons.Filled.Person
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
                     // Last Name
                     CustomTextField(
                         textState = lastName,
                         hintText = "Last Name",
                         leadingIcon = Icons.Filled.Person
                     )
-
-                    Spacer(modifier = Modifier.height(20.dp))
 
                     // Username
                     CustomTextField(
@@ -102,8 +99,6 @@ fun SignUpScreen() {
                         leadingIcon = Icons.Filled.Person
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
                     // Phone Number
                     CustomTextField(
                         textState = phoneNumber,
@@ -111,16 +106,12 @@ fun SignUpScreen() {
                         leadingIcon = Icons.Filled.ContactPhone
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
                     // Email
                     CustomTextField(
                         textState = email,
                         hintText = "Email",
                         leadingIcon = Icons.Filled.Email
                     )
-
-                    Spacer(modifier = Modifier.height(20.dp))
 
                     // Password
                     CustomTextField(
@@ -130,8 +121,6 @@ fun SignUpScreen() {
                         isPassword = true
                     )
 
-                    Spacer(modifier = Modifier.height(20.dp))
-
                     // Verify Password
                     CustomTextField(
                         textState = verifyPassword,
@@ -139,8 +128,6 @@ fun SignUpScreen() {
                         leadingIcon = Icons.Filled.Lock,
                         isPassword = true
                     )
-
-                    Spacer(modifier = Modifier.height(50.dp))
 
                     // Sign Up Button
                     Button(
@@ -172,4 +159,10 @@ fun SignUpScreen() {
             }
         }
     } // Scaffold
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    SignUpScreen()
 }

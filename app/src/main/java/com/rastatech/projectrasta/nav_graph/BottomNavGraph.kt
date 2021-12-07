@@ -8,7 +8,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.screens.HomeScreen
-import com.rastatech.projectrasta.ui.theme.components.WishList
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
@@ -23,5 +22,4 @@ fun BottomNavGraph(navController : NavHostController) {
             HomeScreen()
         }
     }
-
 }
