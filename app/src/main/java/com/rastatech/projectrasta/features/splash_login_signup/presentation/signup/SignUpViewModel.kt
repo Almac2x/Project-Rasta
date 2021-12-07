@@ -17,6 +17,13 @@ import javax.inject.Inject
 
 const val TAG = "SignUpViewModel"
 
+/**
+ * TODO for this Kotlin File
+ *  - Please Add logic to password
+ *
+ * @property userUseCases
+ */
+
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
 
@@ -41,20 +48,20 @@ class SignUpViewModel @Inject constructor(
             is SignUpEvents.AddUser -> {
                 viewModelScope.launch(Dispatchers.IO) {
 
+
+
                     try {
-                        userUseCases.addUserApiRequest( // add user UseCase
-                            user =
-
-                           UserRequestDTO(
-                               email = "alejandro_blando@yahoo.com",
-                               first_name = "Alejandro",
-                               last_name = "Blando ",
-                               password = "password",
-                               phone_number = "12345678901",
-                               username = "alejandro123",
-
+                         val reqest = userUseCases.addUserApiRequest( // add user UseCase
+                            user = UserRequestDTO(
+                               email = email.value.text,
+                               first_name = firstName.value.text ,
+                               last_name = lastName.value.text,
+                               password = password.value.text,
+                               phone_number = phoneNumber.value.text,
+                               username = userName.value.text,
                            )
                         )
+
                         Log.i(TAG, "Added ${userName.value.text} to Database")
 
                     } catch (e: InvalidUserException) {
@@ -69,6 +76,16 @@ class SignUpViewModel @Inject constructor(
 
             }
         }
+    }
+
+    fun checkPassword() : Boolean{
+
+        return true
+
+    }
+
+    fun checkEmail(): Boolean{
+        return true
     }
 
 }

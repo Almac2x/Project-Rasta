@@ -4,6 +4,7 @@ package com.rastatech.projectrasta.features.splash_login_signup.presentation.log
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -36,6 +37,9 @@ class LoginViewModel@Inject constructor(
 
     private var getUserJob: Job? = null //keeps track of the flow Job
 
+    val username = mutableStateOf(TextFieldValue()) // username textfield
+    val password =  mutableStateOf(TextFieldValue()) // password textfield
+
     init {
         getUsers(UserOrder.FirstName(OrderType.Ascending)) // initialize the list with this UserOrder at initialization
     }
@@ -54,8 +58,8 @@ class LoginViewModel@Inject constructor(
 
                     viewModelScope.launch{
                         userUseCases.getLoginTokenApiRequest(
-                            username = "cots1223", // add here the Text Fields For UserName
-                            password = "Cots" // add here the TextFields for Password
+                            username = username.value.text, // add here the Text Fields For UserName
+                            password = password.value.text // add here the TextFields for Password
                         )
                     }
 

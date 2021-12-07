@@ -43,29 +43,39 @@ class UserRepositoryImpl (
                 "\nUsername Sent: $username" +
                 "\nPassword Sent: $password ")
 
-        val token =  retrofit.loginApi.getToken(
+        val request  =  retrofit.loginApi.getToken(
                 username = username,
                 password = password
         )
 
-        if(token.isSuccessful){
-            Log.i(TAG, "Token: ${token.body()?.access_token} \n Refresh Token: ${token.body()?.refresh_token}")
+        if(request.isSuccessful){
+            Log.i(TAG, "Request Successful! Received = \n " +
+                    "Token: ${request.body()?.access_token} \n Refresh Token: ${request.body()?.refresh_token}")
         }else{
-
-            when(token.code()){
-
-                403 ->{
-
-                }
-
-
-            }
+            Log.i(TAG, "Request Failed! Error Code = ${request.code()} ")
         }
-
-
 
     }
     override suspend fun createUserApiRequest(user: UserRequestDTO) {
-        retrofit.signUpApi.createUser(user = user)
+
+        Log.i(TAG, "Function: createUserApiRequest " +
+                "\nusername Sent: ${user.username}" +
+                "\nemail Sent: ${user.email}" +
+                "\npassword Sent: ${user.password} " +
+                "\nfirst_name Sent: ${user.first_name} " +
+                "\nlast_name Sent: ${user.last_name} " +
+                "\nphone_number Sent: ${user.phone_number} ")
+
+         val request = retrofit.signUpApi.createUser(user = user)
+
+        if(request.isSuccessful){
+            Log.i(TAG, "Request Successful! Received = \n " +
+                    "")
+        }else{
+            Log.i(TAG, "Request Failed! Error Code = ${request.code()} " +
+                    "\nError Message: ${request.body()?.email} " +
+                    "\nError Message: ${request.body()?.phone_number} "+
+                    "\nError Message: ${request.body()?.username} ")
+        }
     }
 }

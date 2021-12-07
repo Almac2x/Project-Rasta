@@ -6,9 +6,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.rastatech.projectrasta.features.login.presentation.screens.LoginScreen
+
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.features.signup.SignUpScreen
+import com.rastatech.projectrasta.screens.LoginScreen
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
@@ -20,7 +21,7 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     ){
 
         composable (route = AuthScreens.Login.route){
-            LoginScreen(navController = navController)
+             LoginScreen(navController = navController)
         }
         composable(route = AuthScreens.SignUp.route){
            SignUpScreen(navController = navController)

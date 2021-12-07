@@ -49,7 +49,7 @@ fun CustomTextField(
         onValueChange = { textState.value = it },
         shape = TextFieldCornerRadius.large,
         keyboardOptions = KeyboardOptions(keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Ascii, imeAction = ImeAction.Done),
-        visualTransformation = if (isPasswordVisible.value && !isPassword) VisualTransformation.None else PasswordVisualTransformation(),
+        visualTransformation = if (!isPasswordVisible.value && !isPassword) VisualTransformation.None else PasswordVisualTransformation(),
         label = {
             Text(text = hintText)
         },

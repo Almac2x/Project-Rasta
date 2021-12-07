@@ -21,12 +21,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.rastatech.projectrasta.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.OrderType
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.UserOrder
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginViewModel
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginEvents
+import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
 
@@ -38,12 +38,9 @@ fun LoginScreen(
 
 ) {
     val cardElevation = 3.dp
-
     val paddingCard = PaddingValues(start = 12.dp, end = 12.dp)
     val paddingCardContent = 25.dp
 
-    val usernameText = remember { mutableStateOf(TextFieldValue()) }
-    val passwordText = remember { mutableStateOf(TextFieldValue()) }
 
     Scaffold(backgroundColor = MaterialTheme.colors.primary) {
         Column(
@@ -88,7 +85,7 @@ fun LoginScreen(
                         Column {
                             // Username
                             CustomTextField(
-                                textState = usernameText,
+                                textState = viewModel.username,
                                 hintText = "Username",
                                 leadingIcon = Icons.Filled.Person
                             )
@@ -97,7 +94,7 @@ fun LoginScreen(
 
                             // Password
                             CustomTextField(
-                                textState = passwordText,
+                                textState = viewModel.password,
                                 hintText = "Password",
                                 leadingIcon = Icons.Filled.Lock,
                                 isPassword = true

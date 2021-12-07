@@ -9,4 +9,5 @@ data class UserUseCases (
     val addUserApiRequest: AddUserApiRequest,
     val getLoginTokenApiRequest: GetLoginTokenApiRequest
         ){
+
 }
