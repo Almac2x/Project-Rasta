@@ -48,11 +48,13 @@ class UserRepositoryImpl (
                 password = password
         )
 
+        //bakit ayaw gumana
         if(request.isSuccessful){
             Log.i(TAG, "Request Successful! Received = \n " +
                     "Token: ${request.body()?.access_token} \n Refresh Token: ${request.body()?.refresh_token}")
         }else{
             Log.i(TAG, "Request Failed! Error Code = ${request.code()} ")
+
         }
 
     }
