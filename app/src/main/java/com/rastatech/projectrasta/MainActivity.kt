@@ -15,7 +15,6 @@ import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.HiltAndroidApp
 
-
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 

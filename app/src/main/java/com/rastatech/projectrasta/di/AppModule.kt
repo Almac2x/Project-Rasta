@@ -15,7 +15,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-
 /**
  * One Model Per Feature
  * According to Philipp Lackner Each Feature can have its own Module = Video(43:10)
