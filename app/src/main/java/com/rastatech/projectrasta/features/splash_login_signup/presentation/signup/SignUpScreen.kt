@@ -178,5 +178,5 @@ fun SignUpScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    SignUpScreen()
+
 }

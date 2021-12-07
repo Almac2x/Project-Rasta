@@ -40,13 +40,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ProjectRastaTheme {
                 // A surface container using the 'background' color from the theme
-                //navController = rememberNavController()
-                //NavGraph(navController = navController )
-                UserProfileScreen(
-                    firstName = "Christian Lloyd",
-                    lastName = "Salon",
-                    userName = "christian.salon"
-                )
+                navController = rememberNavController()
+                NavGraph(navController = navController )
+
             }
         }
     }
