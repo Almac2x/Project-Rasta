@@ -20,3 +20,5 @@ local.properties
 .gradle/checksums/checksums.lock
 .gradle/checksums/md5-checksums.bin
 .gradle/checksums/sha1-checksums.bin
+.idea/deploymentTargetDropDown.xml
+.idea/misc.xml
