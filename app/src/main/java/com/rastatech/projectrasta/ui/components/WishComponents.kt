@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.ui.theme.components
+package com.rastatech.projectrasta.ui.components
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi

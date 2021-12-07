@@ -27,5 +27,4 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
            SignUpScreen(navController = navController)
         }
     }
-
 }

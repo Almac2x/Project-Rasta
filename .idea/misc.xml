@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ChristianLloyd/Desktop/Project-Rasta-Android/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.28615384615384615" />
+        <entry key="..\:/Users/ChristianLloyd/Desktop/Project-Rasta-Android/app/src/main/res/drawable/ic_heart.xml" value="0.28615384615384615" />
+        <entry key="..\:/Users/ChristianLloyd/Desktop/Project-Rasta-Android/app/src/main/res/drawable/ic_heart_read.xml" value="0.28615384615384615" />
+        <entry key="..\:/Users/ChristianLloyd/Desktop/Project-Rasta-Android/app/src/main/res/drawable/ic_heart_red.xml" value="0.28615384615384615" />
       </map>
     </option>
   </component>

@@ -128,9 +128,7 @@ fun LoginScreen(navController: NavController) {
                                         }
                                     }
                                 }) {
-                                    Text(text = "Sign Up", fontWeight = FontWeight.Bold,
-
-                                        )
+                                    Text(text = "Sign Up", fontWeight = FontWeight.Bold)
                                 }
                             } // Row
                         }

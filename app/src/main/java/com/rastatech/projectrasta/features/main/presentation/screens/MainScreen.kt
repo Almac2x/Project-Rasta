@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.screens
+package com.rastatech.projectrasta.features.main.presentation.screens
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,7 @@ fun MainScreen(){
     val navController = rememberNavController()
 
     Scaffold(
-        bottomBar = { BottomBar(navController = navController)}
+        bottomBar = { BottomBar(navController = navController) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())){
             BottomNavGraph(navController = navController)
@@ -85,7 +85,5 @@ fun RowScope.AddItem(
                 launchSingleTop = true
             }
         },
-
     )
-
 }
