@@ -2,8 +2,10 @@ package com.rastatech.projectrasta.features.splash_login_signup.domain.repositor
 
 
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.TokenDTO
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.UserRequestDTO
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 interface UserRepository {
 
@@ -18,7 +20,7 @@ interface UserRepository {
 
     //User Api calls Repository
 
-    suspend fun getLoginTokenApiRequest(username: String, password: String)
+    suspend fun getLoginTokenApiRequest(username: String, password: String) : Response<TokenDTO>
     suspend fun createUserApiRequest(user: UserRequestDTO)
 
 

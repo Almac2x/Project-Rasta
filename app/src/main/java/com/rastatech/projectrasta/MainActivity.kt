@@ -54,6 +54,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     ProjectRastaTheme {
-        HomeScreen()
+
     }
 }

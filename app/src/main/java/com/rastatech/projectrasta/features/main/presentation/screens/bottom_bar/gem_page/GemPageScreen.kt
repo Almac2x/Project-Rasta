@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.ui.components.CustomIconButton
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
@@ -30,7 +31,9 @@ import com.rastatech.projectrasta.utils.animations.Pulsating
  *
  */
 @Composable
-fun GemPageScreen() {
+fun GemPageScreen(
+    navController: NavController
+) {
     val space = 30.dp
     val boxSize = 200.dp
 

@@ -3,6 +3,7 @@ package com.rastatech.projectrasta.screens
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
 import com.rastatech.projectrasta.ui.components.WishList
@@ -11,7 +12,10 @@ import com.rastatech.projectrasta.ui.components.WishList
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun HomeScreen(){
+fun HomeScreen(
+
+    navController: NavController
+){
 
     var wishEntities: List<WishEntity> = listOf(
         WishEntity(wish_id = "id", wish_name = "Nani", description = "Description", rastagems_donated = 15, rastagems_required = 15,

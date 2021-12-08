@@ -6,6 +6,7 @@ data class UserUseCases (
     val deleteUser: DeleteUser,
     val getSingleUser: GetSingleUser,
     val addUser: AddUser,
+
     val addUserApiRequest: AddUserApiRequest,
     val getLoginTokenApiRequest: GetLoginTokenApiRequest
         ){

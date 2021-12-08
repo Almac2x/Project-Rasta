@@ -22,6 +22,7 @@ import com.rastatech.projectrasta.features.splash_login_signup.presentation.sign
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpViewModel
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
+import com.rastatech.projectrasta.ui.components.LoadingDialog
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
@@ -40,6 +41,11 @@ fun SignUpScreen(
 
 
     Scaffold(backgroundColor = AppColorPalette.primary) {
+        // Loading Screen Dialog
+        if(viewModel.isLoading.value){
+            LoadingDialog(isVisible = viewModel.isLoading)
+        }
+
         Card(
             modifier = Modifier
                 .padding(paddingCard)
@@ -58,13 +64,13 @@ fun SignUpScreen(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Start,
                 ) {
-                    IconButton(onClick = { navController.navigate(AuthScreens.Login.route){
+                    IconButton(onClick = {
+
+                        navController.navigate(AuthScreens.Login.route){
                         popUpTo(route = AuthScreens.Login.route){
                             inclusive = true
                         }
                     }
-
-
 
                     }) {
                         Icon(
@@ -144,7 +150,12 @@ fun SignUpScreen(
 
                     // Sign Up Button
                     Button(
-                        onClick = { viewModel.onEvent(SignUpEvents.AddUser)}, // Pass an event to the viewmodel
+                        onClick = {
+
+                            viewModel.onEvent(SignUpEvents.AddUser)
+
+
+                            }, // Pass an event to the viewmodel
 
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
@@ -165,7 +176,13 @@ fun SignUpScreen(
                             text = "Already have an account?",
                             modifier = Modifier.align(Alignment.CenterVertically)
                         )
-                        TextButton(onClick = { /* Go to Log in */ }) {
+                        TextButton(onClick = {
+
+                                        navController.navigate(AuthScreens.Login.route){
+                                        popUpTo(AuthScreens.Login.route){
+                                            inclusive = true
+                                        }
+                        } }) {
                             Text(text = "Log in", fontWeight = FontWeight.Bold)
                         }
                     } // Row

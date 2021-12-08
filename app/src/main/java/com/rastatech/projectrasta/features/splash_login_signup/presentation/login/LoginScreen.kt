@@ -7,28 +7,32 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.presentation.screens.BottomBar
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.OrderType
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.UserOrder
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginViewModel
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginEvents
 import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
+import com.rastatech.projectrasta.ui.components.LoadingDialog
 
 @Composable
 fun LoginScreen(
@@ -40,14 +44,34 @@ fun LoginScreen(
     val cardElevation = 3.dp
     val paddingCard = PaddingValues(start = 12.dp, end = 12.dp)
     val paddingCardContent = 25.dp
+   // val navigate by viewModel.navigateToHomeGraph.observeAsState()
 
+    // Loading Screen Dialog
+    if(viewModel.isLoading.value){
+        LoadingDialog(isVisible = viewModel.isLoading)
+    }
 
+    // Navigate to HomeGraph if True
+    LaunchedEffect(key1 = viewModel.navigateToHomeGraph.value){
+
+        if(viewModel.navigateToHomeGraph.value){
+            navController.navigate(HOME_GRAPH_ROUTE){
+                popUpTo(BottomBarScreens.Home.route){
+                    inclusive = true
+                }
+            }
+        }
+
+    }
+
+    //Start of UI
     Scaffold(backgroundColor = MaterialTheme.colors.primary) {
         Column(
             Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
+
             // App Logo
             Image(
                 painter = painterResource(
@@ -107,13 +131,8 @@ fun LoginScreen(
                                 onClick = {
 
                                     // Gets the User to display
-                                    viewModel.onEvent(LoginEvents.Login)
-                                    /*
-                                          navController.navigate(HOME_GRAPH_ROUTE){
-                                              popUpTo(AuthScreens.Login.route){
-                                                  inclusive = true
-                                              }
-                                          }*/
+                                     viewModel.onEvent(LoginEvents.Login)
+
                                 },
                                 modifier = Modifier.fillMaxWidth(),
                                 shape = RoundedCornerShape(16.dp)

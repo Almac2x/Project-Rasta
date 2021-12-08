@@ -36,6 +36,7 @@ fun NavGraph(navController : NavHostController) {
         }
 
         authNavGraph(navController = navController)
+
         homeNavGraph(navController = navController)
 
     }

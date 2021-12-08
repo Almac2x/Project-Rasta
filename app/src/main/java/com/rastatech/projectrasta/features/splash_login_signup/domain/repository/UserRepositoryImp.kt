@@ -4,11 +4,10 @@ import android.util.Log
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDao
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
-import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.LoginApi
-import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.SignUpApi
-import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.LoginUserDTO
+import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.TokenDTO
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.UserRequestDTO
 import kotlinx.coroutines.flow.Flow
+import retrofit2.Response
 
 const val TAG = "UserRepositoryImpl"
 
@@ -37,26 +36,27 @@ class UserRepositoryImpl (
         dao.deleteUser(user = user)
     }
 
-    override suspend fun getLoginTokenApiRequest(username: String, password: String) {
+    override suspend fun getLoginTokenApiRequest(username: String, password: String): Response<TokenDTO> {
 
         Log.i(TAG, "Function: getLoginTokenApiRequest " +
                 "\nUsername Sent: $username" +
                 "\nPassword Sent: $password ")
 
-        val request  =  retrofit.loginApi.getToken(
+        val response  =  retrofit.loginApi.getToken(
                 username = username,
                 password = password
         )
 
         //bakit ayaw gumana
-        if(request.isSuccessful){
+        if(response.isSuccessful){
             Log.i(TAG, "Request Successful! Received = \n " +
-                    "Token: ${request.body()?.access_token} \n Refresh Token: ${request.body()?.refresh_token}")
+                    "Token: ${response.body()?.access_token} \n Refresh Token: ${response.body()?.refresh_token}")
         }else{
-            Log.i(TAG, "Request Failed! Error Code = ${request.code()} ")
+            Log.i(TAG, "Request Failed! Error Code = ${response.code()} ")
 
         }
 
+        return response
     }
     override suspend fun createUserApiRequest(user: UserRequestDTO) {
 
@@ -68,16 +68,14 @@ class UserRepositoryImpl (
                 "\nlast_name Sent: ${user.last_name} " +
                 "\nphone_number Sent: ${user.phone_number} ")
 
-         val request = retrofit.signUpApi.createUser(user = user)
+         val response = retrofit.signUpApi.createUser(user = user)
 
-        if(request.isSuccessful){
+        if(response.isSuccessful){
             Log.i(TAG, "Request Successful! Received = \n " +
                     "")
         }else{
-            Log.i(TAG, "Request Failed! Error Code = ${request.code()} " +
-                    "\nError Message: ${request.body()?.email} " +
-                    "\nError Message: ${request.body()?.phone_number} "+
-                    "\nError Message: ${request.body()?.username} ")
+
+           Log.i(TAG, "Request Failed! Error Code = ${response.code()} ")
         }
     }
 }

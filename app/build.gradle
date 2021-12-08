@@ -54,6 +54,8 @@ android {
 
 dependencies {
 
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+
     //Api Dependencies
     implementation 'com.google.code.gson:gson:2.8.9'
 

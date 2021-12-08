@@ -1,6 +1,10 @@
 package com.rastatech.projectrasta.features.splash_login_signup.presentation.signup
 
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.foundation.layout.Box
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
@@ -10,6 +14,7 @@ import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.UserRequestDTO
 
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
+import com.rastatech.projectrasta.ui.theme.Surface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -31,8 +36,14 @@ class SignUpViewModel @Inject constructor(
 
 ):ViewModel(){
 
+    //For Visibility of Loading Screen
+    private val _isLoading = mutableStateOf(false)
+    val isLoading : State<Boolean>
+    get() = _isLoading
+
     //This will be move to SignUpViewModel
     val firstName = mutableStateOf(TextFieldValue())
+
     val lastName =  mutableStateOf(TextFieldValue())
     val userName = mutableStateOf(TextFieldValue())
     val phoneNumber = mutableStateOf(TextFieldValue())
@@ -40,18 +51,20 @@ class SignUpViewModel @Inject constructor(
 
     val password =  mutableStateOf(TextFieldValue()) // This field is not stored and will be sent only to the API
     val verifyPassword = mutableStateOf(TextFieldValue())
+
     ///////
 
      fun onEvent(event: SignUpEvents){ // This event is supposedly not suspend. I just put suspend to prevent error for add user
+
 
         when (event){
             is SignUpEvents.AddUser -> {
                 viewModelScope.launch(Dispatchers.IO) {
 
-
-
                     try {
-                         val reqest = userUseCases.addUserApiRequest( // add user UseCase
+                        _isLoading.value = true
+
+                         val request = userUseCases.addUserApiRequest( // add user UseCase
                             user = UserRequestDTO(
                                email = email.value.text,
                                first_name = firstName.value.text ,
@@ -64,13 +77,16 @@ class SignUpViewModel @Inject constructor(
 
                         Log.i(TAG, "Added ${userName.value.text} to Database")
 
+
                     } catch (e: InvalidUserException) {
+
                         Log.e(TAG,"An Error Occurred, Cannot Add User.")
 
                     } finally {
 
-                    }
+                        _isLoading.value = false
 
+                    }
 
                 }
 

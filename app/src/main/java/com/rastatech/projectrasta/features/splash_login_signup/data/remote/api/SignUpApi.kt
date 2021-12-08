@@ -12,8 +12,11 @@ interface SignUpApi {
     //Api Call Sample
     //https://shielded-retreat-23705.herokuapp.com/api/auth/signup
 
+
+    // This needs to read different Body types for ErrorDTO, For Now Unit muna
     @POST("api/auth/signup") // API Call for Adding User to Remote
-    suspend fun createUser(@Body user: UserRequestDTO): Response<ErrorDTO?>
+    suspend fun createUser(@Body user: UserRequestDTO): Response<Unit>
+
 
 
 }

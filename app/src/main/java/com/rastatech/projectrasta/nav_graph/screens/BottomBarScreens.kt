@@ -25,4 +25,14 @@ sealed class BottomBarScreens(
         title = "Settings",
         icon = Icons.Default.Settings
     )
+    object GemsPage: BottomBarScreens(
+        route = "mygems",
+        title = "My Gems",
+        icon = Icons.Default.Money
+    )
+    object MakeWish: BottomBarScreens(
+        route = "make_wish",
+        title = "Make Wish",
+        icon = Icons.Default.Star
+    )
 }

@@ -3,23 +3,26 @@ package com.rastatech.projectrasta.features.splash_login_signup.presentation.log
 
 import android.util.Log
 import androidx.compose.runtime.State
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.TokenDTO
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.OrderType
 import com.rastatech.projectrasta.features.splash_login_signup.domain.util.UserOrder
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.util.UserState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.toList
+import java.lang.Exception
 import javax.inject.Inject
+import retrofit2.Response
 
 
 const val TAG = "LoginViewModel"
@@ -29,6 +32,15 @@ class LoginViewModel@Inject constructor(
     private val userUseCases: UserUseCases
 
 ):ViewModel(){
+
+    //For Visibility of Loading Screen
+    private val _isLoading = mutableStateOf(false)
+    val isLoading : State<Boolean>
+        get() = _isLoading
+
+    private val _navigateToHomeGraph = mutableStateOf(false)
+    val navigateToHomeGraph : State<Boolean>
+        get() = _navigateToHomeGraph
 
     private val _state = mutableStateOf<UserState>(UserState())
     val state: State<UserState> = _state
@@ -56,12 +68,32 @@ class LoginViewModel@Inject constructor(
 
                 is LoginEvents.Login ->{
 
-                    viewModelScope.launch{
-                        userUseCases.getLoginTokenApiRequest(
-                            username = username.value.text, // add here the Text Fields For UserName
-                            password = password.value.text // add here the TextFields for Password
-                        )
-                    }
+
+                   viewModelScope.launch(Dispatchers.Main){
+                        _isLoading.value = true
+
+                       var  response : Response<TokenDTO>? = null
+
+                       Log.i(TAG, "${response?.code().toString()}")
+
+
+                            val job = launch {
+                               response = userUseCases.getLoginTokenApiRequest(
+                                   username = username.value.text, // add here the Text Fields For UserName
+                                   password = password.value.text // add here the TextFields for Password
+                               )
+
+                           }
+
+                        job.join()
+
+                       Log.i(TAG, response?.code().toString())
+                           if (response?.code() == 200){
+                               _navigateToHomeGraph.value = true
+                               Log.i(TAG, "_navigationToHomeGraph Vale : ${navigateToHomeGraph.value}")
+                           }
+                            _isLoading.value = false
+                       }
 
                 }
 
@@ -88,9 +120,6 @@ class LoginViewModel@Inject constructor(
                 }
                 // Restores the recently deleted user back into the database
                 is LoginEvents.RestoreLogin ->{
-
-
-
 
                     viewModelScope.launch {
 
