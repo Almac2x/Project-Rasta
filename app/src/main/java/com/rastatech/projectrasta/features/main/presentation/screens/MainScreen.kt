@@ -7,19 +7,25 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.MainViewModel
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.BottomNavGraph
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun MainScreen(){
+fun MainScreen(
+
+    viewModel: MainViewModel = hiltViewModel()
+){
 
     val navController = rememberNavController()
 

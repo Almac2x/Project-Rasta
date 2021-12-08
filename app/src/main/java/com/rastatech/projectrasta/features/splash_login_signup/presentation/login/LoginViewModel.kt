@@ -49,6 +49,10 @@ class LoginViewModel@Inject constructor(
 
     private var getUserJob: Job? = null //keeps track of the flow Job
 
+    private var _argument : String? = null
+    val argument: String?
+    get() = _argument
+
     val username = mutableStateOf(TextFieldValue()) // username textfield
     val password =  mutableStateOf(TextFieldValue()) // password textfield
 
@@ -89,8 +93,12 @@ class LoginViewModel@Inject constructor(
 
                        Log.i(TAG, response?.code().toString())
                            if (response?.code() == 200){
+
+                               _argument = response?.body()?.access_token
+
                                _navigateToHomeGraph.value = true
-                               Log.i(TAG, "_navigationToHomeGraph Vale : ${navigateToHomeGraph.value}")
+                               Log.i(TAG, "_navigationToHomeGraph Value : ${navigateToHomeGraph.value}")
+
                            }
                             _isLoading.value = false
                        }

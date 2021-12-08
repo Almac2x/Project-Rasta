@@ -55,7 +55,7 @@ fun LoginScreen(
     LaunchedEffect(key1 = viewModel.navigateToHomeGraph.value){
 
         if(viewModel.navigateToHomeGraph.value){
-            navController.navigate(HOME_GRAPH_ROUTE){
+            navController.navigate(route = "$HOME_GRAPH_ROUTE/" + "${viewModel.argument}"){
                 popUpTo(BottomBarScreens.Home.route){
                     inclusive = true
                 }
@@ -75,13 +75,13 @@ fun LoginScreen(
             // App Logo
             Image(
                 painter = painterResource(
-                    id = R.drawable.gift
+                    id = R.drawable.title
                 ),
                 contentDescription = "App Logo",
                 modifier = Modifier
                     .weight(0.5f)
-                    .size(128.dp),
-                colorFilter = ColorFilter.tint(Color.White)
+                    .fillMaxWidth()
+                    .padding(start = 20.dp, end = 20.dp)
             )
 
             // Card Content

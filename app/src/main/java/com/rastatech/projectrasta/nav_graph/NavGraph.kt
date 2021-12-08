@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import com.rastatech.projectrasta.features.splash.presentation.screens.SplashScreen
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigation
 
 /**
  *
