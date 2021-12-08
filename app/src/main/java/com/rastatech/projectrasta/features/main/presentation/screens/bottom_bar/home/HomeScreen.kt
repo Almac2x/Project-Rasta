@@ -5,7 +5,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
+import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.ui.components.WishList
 
 

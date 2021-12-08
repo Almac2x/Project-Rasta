@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.main.domain.entities
+package com.rastatech.projectrasta.features.main.data.local
 
 data class WishEntity (
 

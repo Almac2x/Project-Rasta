@@ -32,7 +32,7 @@ sealed class BottomBarScreens(
     )
     object MakeWish: BottomBarScreens(
         route = "make_wish",
-        title = "Make Wish",
+        title = "Make A Wish",
         icon = Icons.Default.Star
     )
 }
