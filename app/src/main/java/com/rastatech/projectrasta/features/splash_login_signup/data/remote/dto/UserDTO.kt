@@ -12,7 +12,6 @@ data class UserRequestDTO(
     val phone_number: String,
 ) {
 
-
 }
 data class UserResponseDTO(
     val id : Long,

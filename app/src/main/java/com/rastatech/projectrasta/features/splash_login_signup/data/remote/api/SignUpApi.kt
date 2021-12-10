@@ -13,9 +13,9 @@ interface SignUpApi {
     //https://shielded-retreat-23705.herokuapp.com/api/auth/signup
 
 
-    // This needs to read different Body types for ErrorDTO, For Now Unit muna
+    // This needs to read different Body types for ErrorDTO, For Now Unit muna //Update Pwede ko gamitin Map as return
     @POST("api/auth/signup") // API Call for Adding User to Remote
-    suspend fun createUser(@Body user: UserRequestDTO): Response<Unit>
+    suspend fun createUser(@Body user: UserRequestDTO): Response<ErrorDTO>
 
 
 

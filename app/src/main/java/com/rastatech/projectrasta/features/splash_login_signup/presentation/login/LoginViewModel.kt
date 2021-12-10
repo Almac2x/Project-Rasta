@@ -38,6 +38,14 @@ class LoginViewModel@Inject constructor(
     val isLoading : State<Boolean>
         get() = _isLoading
 
+    private val _error = mutableStateOf("")
+    val error : State<String>
+        get() = _error
+
+    private val _hasError = mutableStateOf(false)
+    val hasError : State<Boolean>
+        get() = _hasError
+
     private val _navigateToHomeGraph = mutableStateOf(false)
     val navigateToHomeGraph : State<Boolean>
         get() = _navigateToHomeGraph
@@ -70,38 +78,52 @@ class LoginViewModel@Inject constructor(
 
         when(event){
 
+            //Add Try catch here so it wont crash when it timeouts or No internet or Wrong URL
                 is LoginEvents.Login ->{
 
+                    _isLoading.value = true
 
-                   viewModelScope.launch(Dispatchers.Main){
-                        _isLoading.value = true
+                   viewModelScope.launch(Dispatchers.IO){
 
                        var  response : Response<TokenDTO>? = null
+                       var job : Job? = null
 
-                       Log.i(TAG, "${response?.code().toString()}")
+                       withTimeout(5000L) {
 
+                           try {
 
-                            val job = launch {
                                response = userUseCases.getLoginTokenApiRequest(
                                    username = username.value.text, // add here the Text Fields For UserName
                                    password = password.value.text // add here the TextFields for Password
                                )
 
+                           } catch (e: Exception) {
+
+                               Log.i(TAG, e.message.toString())
+                               _error.value = e.message.toString()
+                               _hasError.value = true
+
+                           } finally {
+                               delay(1000L)
+
+                               Log.i(TAG, response?.code().toString())
+                               if (response?.code() == 200) {
+
+                                   _argument = response?.body()?.access_token
+
+                                   _navigateToHomeGraph.value = true // Di ko alam kung sa finally ito
+                                   Log.i(TAG, "_navigationToHomeGraph Value : ${navigateToHomeGraph.value}")
+                               }
+
+                               _error.value = ""
+                               _hasError.value = false
+                               _isLoading.value = false
                            }
 
-                        job.join()
-
-                       Log.i(TAG, response?.code().toString())
-                           if (response?.code() == 200){
-
-                               _argument = response?.body()?.access_token
-
-                               _navigateToHomeGraph.value = true
-                               Log.i(TAG, "_navigationToHomeGraph Value : ${navigateToHomeGraph.value}")
-
-                           }
-                            _isLoading.value = false
                        }
+
+                      //job?.join()
+                       } // End Coroutine
 
                 }
 

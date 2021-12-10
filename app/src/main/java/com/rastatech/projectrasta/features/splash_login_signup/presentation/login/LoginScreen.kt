@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,18 +52,15 @@ fun LoginScreen(
         LoadingDialog(isVisible = viewModel.isLoading)
     }
 
-    // Navigate to HomeGraph if True
-    LaunchedEffect(key1 = viewModel.navigateToHomeGraph.value){
+    //Toast
+    if(viewModel.hasError.value){
 
-        if(viewModel.navigateToHomeGraph.value){
-            navController.navigate(route = "$HOME_GRAPH_ROUTE/" + "${viewModel.argument}"){
-                popUpTo(BottomBarScreens.Home.route){
-                    inclusive = true
-                }
-            }
-        }
+        // This only solves, Error Exception not 403 Errors
+        Toast.makeText(LocalContext.current, "${viewModel.error.value}", Toast.LENGTH_LONG).show()
 
     }
+
+
 
     //Start of UI
     Scaffold(backgroundColor = MaterialTheme.colors.primary) {

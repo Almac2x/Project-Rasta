@@ -17,7 +17,9 @@ import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.U
 import com.rastatech.projectrasta.ui.theme.Surface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.lang.Exception
 import javax.inject.Inject
 
 const val TAG = "SignUpViewModel"
@@ -41,6 +43,18 @@ class SignUpViewModel @Inject constructor(
     val isLoading : State<Boolean>
     get() = _isLoading
 
+    private val _error = mutableStateOf("")
+    val error : State<String>
+        get() = _error
+
+    private val _hasError = mutableStateOf(false)
+    val hasError : State<Boolean>
+        get() = _hasError
+
+    private val _navigateToLogin = mutableStateOf(false)
+    val navigateToLogin : State<Boolean>
+        get() = _navigateToLogin
+
     //This will be move to SignUpViewModel
     val firstName = mutableStateOf(TextFieldValue())
 
@@ -61,10 +75,11 @@ class SignUpViewModel @Inject constructor(
             is SignUpEvents.AddUser -> {
                 viewModelScope.launch(Dispatchers.IO) {
 
-                    try {
-                        _isLoading.value = true
+                    _isLoading.value = true
 
-                         val request = userUseCases.addUserApiRequest( // add user UseCase
+                    try {
+
+                         val response = userUseCases.addUserApiRequest( // add user UseCase
                             user = UserRequestDTO(
                                email = email.value.text,
                                first_name = firstName.value.text ,
@@ -77,13 +92,23 @@ class SignUpViewModel @Inject constructor(
 
                         Log.i(TAG, "Added ${userName.value.text} to Database")
 
-
                     } catch (e: InvalidUserException) {
 
                         Log.e(TAG,"An Error Occurred, Cannot Add User.")
 
-                    } finally {
+                    } catch (e: Exception){
 
+                        Log.i(TAG, e.message.toString())
+                        _error.value = e.message.toString()
+                        _hasError.value = true
+                    }
+                    finally {
+                        delay(1000L)
+
+                        _navigateToLogin.value = true // Mali ito
+
+                        _error.value = ""
+                        _hasError.value = false
                         _isLoading.value = false
 
                     }

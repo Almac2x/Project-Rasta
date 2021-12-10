@@ -1,16 +1,19 @@
 package com.rastatech.projectrasta.features.signup
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,7 +23,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpEvents
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpViewModel
+import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.components.LoadingDialog
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
@@ -34,10 +39,33 @@ fun SignUpScreen(
 
 ) {
 
-
     val cardElevation = 3.dp
     val paddingCard = 12.dp
     val paddingCardContent = 15.dp
+
+    // Navigate to LoginScreen if True
+    LaunchedEffect(key1 = viewModel.navigateToLogin.value){
+
+        if(viewModel.navigateToLogin.value){
+            navController.navigate(route = "${AuthScreens.Login.route}"){
+                popUpTo(AuthScreens.Login.route){
+                    inclusive = true
+                }
+            }
+        }
+
+    }
+
+    //Toast
+    if(viewModel.hasError.value){
+        // This only solves, Error Exception not 403 Errors
+        Toast.makeText(LocalContext.current, "${viewModel.error.value}", Toast.LENGTH_LONG).show()
+    }
+
+    // Loading Screen Dialog
+    if(viewModel.isLoading.value){
+        LoadingDialog(isVisible = viewModel.isLoading)
+    }
 
 
     Scaffold(backgroundColor = AppColorPalette.primary) {
@@ -167,25 +195,6 @@ fun SignUpScreen(
                         Text(text = "SIGN UP")
                     } // Sign Up Button
 
-                    // Already have an account? Log in
-                    Row (
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.Center,
-                    ) {
-                        Text(
-                            text = "Already have an account?",
-                            modifier = Modifier.align(Alignment.CenterVertically)
-                        )
-                        TextButton(onClick = {
-
-                                        navController.navigate(AuthScreens.Login.route){
-                                        popUpTo(AuthScreens.Login.route){
-                                            inclusive = true
-                                        }
-                        } }) {
-                            Text(text = "Log in", fontWeight = FontWeight.Bold)
-                        }
-                    } // Row
                 }
             }
         }

@@ -43,6 +43,7 @@ object AppModule {
         return UserRepositoryImpl(db.userDao(), retrofit = RetrofitInstance) // add here the retrofit instance
     }
 
+
     @Provides
     @Singleton
     fun provideUserUseCases(repository: UserRepository): UserUseCases {
