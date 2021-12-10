@@ -1,6 +1,6 @@
 package com.rastatech.projectrasta.ui.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -16,6 +16,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.*
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
 
 /**
@@ -64,5 +68,43 @@ fun CustomTextField(
                 )
             }
         }
+    )
+}
+
+@Composable
+fun CustomTextField(
+    value: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    modifier: Modifier = Modifier,
+    label: String,
+    labelFontSize: TextUnit,
+    keyboardType: KeyboardType = KeyboardType.Text
+) {
+    Column {
+        Text(text = label, fontSize = labelFontSize)
+
+        Spacer(modifier = Modifier.height(5.dp))
+
+        OutlinedTextField(
+            value = value,
+            onValueChange = onValueChange,
+            modifier = modifier,
+            keyboardOptions = KeyboardOptions(keyboardType = keyboardType)
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview(){
+    val input = remember { mutableStateOf(TextFieldValue()) }
+
+    CustomTextField(
+        value = input.value,
+        onValueChange = {input.value = it},
+        modifier = Modifier.fillMaxWidth(),
+        label = "Gems",
+        keyboardType = KeyboardType.Number,
+        labelFontSize = 15.sp
     )
 }

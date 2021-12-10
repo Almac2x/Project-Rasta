@@ -1,10 +1,13 @@
 package com.rastatech.projectrasta.ui.components
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +34,8 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
  * @param painter image to be displayed
  * @param isHeart sets heart value, default is false
  */
+
+@ExperimentalFoundationApi
 @Composable
 fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
     val heart = remember {
@@ -40,9 +45,15 @@ fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
+            .fillMaxHeight(0.3f)
+            .combinedClickable(
+                onClick = {},
+                onLongClick = {
+                    heart.value = !heart.value
+                }
+            ),
         shape = CardCornerRadius.medium,
-        elevation = 10.dp
+        elevation = 5.dp
     ) {
         Image(painter = painter, contentDescription = "")
         Column(
@@ -55,8 +66,8 @@ fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
             // Icon Button with Heart Icon
             IconButton(
                 modifier = Modifier
-                    .height(50.dp)
-                    .width(50.dp),
+                    .fillMaxWidth(0.20f)
+                    .fillMaxHeight(0.35f),
                 onClick = {
                     heart.value = !heart.value
                 }
@@ -72,11 +83,14 @@ fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
     }
 }
 
+@ExperimentalFoundationApi
 @Preview
 @Composable
 private fun Preview() {
-    CustomImageWithHeart(
-        painter = painterResource(id = R.drawable.gift),
-        isHeart = false
-    )
+    Scaffold(modifier = Modifier.fillMaxSize()) {
+        CustomImageWithHeart(
+            painter = painterResource(id = R.drawable.gift),
+            isHeart = false
+        )
+    }
 }
