@@ -1,9 +1,11 @@
 package com.rastatech.projectrasta.features.wish_item_page.presentation.screens
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -15,14 +17,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
 import com.rastatech.projectrasta.ui.components.CustomVoteButton
-import com.rastatech.projectrasta.ui.components.VoteState
+import com.rastatech.projectrasta.ui.components.VoteType
+import com.rastatech.projectrasta.ui.theme.AppColorPalette
+import com.rastatech.projectrasta.utils.ValidateInput
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -44,6 +50,8 @@ import com.rastatech.projectrasta.ui.components.VoteState
  * @param reason reason for wishing
  * @param donors list of donors
  */
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @Composable
 fun WishItemPageScreen(
     wishName: String,
@@ -53,11 +61,13 @@ fun WishItemPageScreen(
     maxRastaGems: Int,
     upVote: Int,
     downVote: Int,
-    voteState: VoteState,
+    voteState: VoteType,
     reason: String,
     donors: List<Int> // TODO change data type later
 ) {
     val gems = remember { mutableStateOf(minRastaGems) }
+    val openDialog = remember { mutableStateOf(false)  }
+    val nGems = remember { mutableStateOf(0) }
 
     val dividerHeight = 5.dp
     val dividerColor = Color.Black
@@ -87,7 +97,9 @@ fun WishItemPageScreen(
 
             // App Name
             Image(
-                modifier = Modifier.width(200.dp).align(Alignment.CenterVertically),
+                modifier = Modifier
+                    .width(200.dp)
+                    .align(Alignment.CenterVertically),
                 painter = painterResource(id = R.drawable.title),
                 contentDescription = "title"
             )
@@ -112,11 +124,89 @@ fun WishItemPageScreen(
         // Donate Button
         Button(
             onClick = {
-                if (gems.value <= maxRastaGems)
-                    gems.value = gems.value.inc()
+                openDialog.value = true
             }
         ) {
             Text(text = "Donate")
+        }
+
+        if (openDialog.value) {
+            AlertDialog(
+                onDismissRequest = {
+                    // Dismiss the dialog when the user clicks outside the dialog or on the back
+                    // button. If you want to disable that functionality, simply use an empty
+                    // onCloseRequest.
+                    openDialog.value = false
+                },
+                title = {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        Icon(
+                            tint = Color.Green,
+                            painter = painterResource(id = R.drawable.diamond),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "Donate Gems",
+                            modifier = Modifier.align(Alignment.CenterVertically),
+                            color = Color.Black,
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                    }
+                },
+                text = {
+                    Column(modifier = Modifier
+                        .fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Enter amount:",
+                            color = Color.Black,
+                            fontSize = 16.sp
+                        )
+
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        OutlinedTextField(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .border(2.dp, Color.Black),
+                            value = if (nGems.value == 0) "" else nGems.value.toString(),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                            onValueChange = {
+                                nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
+                                else nGems.value
+                            }
+                        )
+                    }
+                },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            openDialog.value = false
+                            gems.value += nGems.value
+                            nGems.value = 0
+                        }) {
+                        Text("Donate")
+                    }
+                },
+                dismissButton = {
+                    Button(
+                        colors = ButtonDefaults
+                            .buttonColors(
+                                backgroundColor = AppColorPalette.error,
+                                contentColor = AppColorPalette.onError
+                            ),
+                        onClick = {
+                            openDialog.value = false
+                            nGems.value = 0
+                        }) {
+                        Text("Cancel")
+                    }
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(space))
@@ -142,7 +232,7 @@ fun WishItemPageScreen(
                 Text(text = wisherName, fontSize = 15.sp)
             }
             // UpVote DownVote Button
-            CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote, voteState = voteState)
+            CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote, voteType = voteState)
         }
 
         Spacer(modifier = Modifier.height(space))
@@ -153,9 +243,16 @@ fun WishItemPageScreen(
             .height(dividerHeight)
             .background(dividerColor)
         )
+
+        WishItemPageTabScreen(
+            reason = "Hello World",
+            donators = listOf()
+        )
     }
 }
 
+@ExperimentalPagerApi
+@ExperimentalFoundationApi
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
@@ -167,7 +264,7 @@ private fun Preview() {
         maxRastaGems = 200,
         upVote = 0,
         downVote = 200,
-        voteState = VoteState.NONE,
+        voteState = VoteType.NONE,
         reason = "IDK",
         donors = listOf(1, 2, 3)
     )

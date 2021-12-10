@@ -30,4 +30,4 @@ val OnSecondary = Color.Black
 val OnBackgroundBlack = Color.Black
 val OnBackgroundBlue = Color(0xFF0361EE)
 val OnSurface = Color(0xFFB00020)
-val OnError = Color(0xFFB00020)
+val OnError = Color(0xFFFFFFFF)

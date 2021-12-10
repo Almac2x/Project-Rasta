@@ -55,7 +55,6 @@ fun BottomBar(navController: NavHostController){
 
         }
     }
-
 }
 
 @Composable

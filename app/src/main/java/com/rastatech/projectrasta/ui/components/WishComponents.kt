@@ -19,8 +19,11 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
+import com.rastatech.projectrasta.screens.HomeScreen
 
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -34,9 +37,17 @@ fun WishList(wishEntities : List<WishEntity>){
         content = {
 
             items(items = wishEntities){ wish ->
-                WishTile(wishEntity = wish)
+                CustomWishTile()
             }
         } )
+}
+
+@ExperimentalFoundationApi
+@ExperimentalMaterialApi
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    HomeScreen()
 }
 
 @ExperimentalMaterialApi
@@ -49,7 +60,8 @@ fun WishTile(wishEntity : WishEntity? = null ){
     val nameOfWisher = "Alejandro G. Blando III"
 
     Card(modifier = Modifier
-        .height(250.dp). padding(10.dp)
+        .height(250.dp)
+        .padding(10.dp)
         .testTag("WishtTile"), elevation = 2.dp, backgroundColor = MaterialTheme.colors.primary,
         onClick = { Log.i("Clicked","Clicked o")},
     ) {

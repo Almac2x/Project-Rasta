@@ -1,6 +1,8 @@
 package com.rastatech.projectrasta.features.userprofile
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
@@ -14,7 +16,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.userprofile.presentation.screens.UserProfileTabScreen
+import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.WishItemPageTabScreen
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
 import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 
@@ -25,6 +30,9 @@ import com.rastatech.projectrasta.ui.components.CustomTextWithCount
  * @since 12/07/2021
  */
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalPagerApi
 @Composable
 fun UserProfileScreen(
     firstName: String,
@@ -91,14 +99,16 @@ fun UserProfileScreen(
         }
 
         Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(2.dp)
+            .fillMaxSize()
         ) {
-
+            UserProfileTabScreen(wishList = listOf(), wishFulfilled = listOf())
         }
     }
 }
 
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
+@ExperimentalPagerApi
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
