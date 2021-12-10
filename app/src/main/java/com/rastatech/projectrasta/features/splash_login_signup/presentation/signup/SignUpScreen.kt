@@ -47,7 +47,7 @@ fun SignUpScreen(
     LaunchedEffect(key1 = viewModel.navigateToLogin.value){
 
         if(viewModel.navigateToLogin.value){
-            navController.navigate(route = "${AuthScreens.Login.route}"){
+            navController.navigate(route = "${AuthScreens.Login.route}/"){
                 popUpTo(AuthScreens.Login.route){
                     inclusive = true
                 }

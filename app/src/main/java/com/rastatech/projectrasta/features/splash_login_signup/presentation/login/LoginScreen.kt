@@ -9,7 +9,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -60,7 +59,18 @@ fun LoginScreen(
 
     }
 
+    // Navigate to LoginScreen if True
+    LaunchedEffect(key1 = viewModel.navigateToHomeGraph.value){
 
+        if(viewModel.navigateToHomeGraph.value){
+            navController.navigate(route = "${HOME_GRAPH_ROUTE}/" + viewModel.argument){
+                popUpTo(AuthScreens.Login.route){
+                    inclusive = true
+                }
+            }
+        }
+
+    }
 
     //Start of UI
     Scaffold(backgroundColor = MaterialTheme.colors.primary) {

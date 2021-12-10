@@ -3,7 +3,6 @@ package com.rastatech.projectrasta.features.splash_login_signup.presentation.log
 
 import android.util.Log
 import androidx.compose.runtime.State
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.LiveData
