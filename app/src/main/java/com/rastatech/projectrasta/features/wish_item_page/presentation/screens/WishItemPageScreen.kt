@@ -50,6 +50,7 @@ import com.rastatech.projectrasta.utils.ValidateInput
  * @param reason reason for wishing
  * @param donors list of donors
  */
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
@@ -251,6 +252,7 @@ fun WishItemPageScreen(
     }
 }
 
+@ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Preview(showBackground = true)

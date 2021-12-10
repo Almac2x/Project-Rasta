@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rastatech.projectrasta.features.gempage.GemPageScreen
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.presentation.screens.UserProfileScreen
+import com.rastatech.projectrasta.features.userprofile.UserProfileScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.screens.HomeScreen
 

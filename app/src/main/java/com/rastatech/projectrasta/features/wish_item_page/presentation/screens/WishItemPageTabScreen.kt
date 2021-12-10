@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
-import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
+import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.DonatorsTabScreen
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.ReasonTabScreen
 import kotlinx.coroutines.launch

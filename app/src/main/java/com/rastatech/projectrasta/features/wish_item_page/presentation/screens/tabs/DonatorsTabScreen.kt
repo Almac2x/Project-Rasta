@@ -8,7 +8,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
+import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.screens.HomeScreen
 
 /**
@@ -23,6 +23,6 @@ import com.rastatech.projectrasta.screens.HomeScreen
 @Composable
 fun DonatorsTabScreen(list: List<WishEntity>) {
     Box(modifier = Modifier.fillMaxSize()) {
-        HomeScreen()
+        // HomeScreen()
     }
 }

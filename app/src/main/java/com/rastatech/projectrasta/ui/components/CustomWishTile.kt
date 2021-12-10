@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.domain.entities.WishEntity
+import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
