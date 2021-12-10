@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page
 
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -14,8 +16,11 @@ class GemPageViewModel@Inject constructor(
 
 
 ):ViewModel(){
+    private val _showAddGemDialog = mutableStateOf(false)
+    val showAddGemDialog: State<Boolean>
+        get() = _showAddGemDialog
 
-     fun testGet(){
+    fun testGet(){
 
          viewModelScope.launch(Dispatchers.IO) {
 
