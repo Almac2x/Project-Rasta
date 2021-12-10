@@ -9,6 +9,7 @@ import com.rastatech.projectrasta.features.splash.presentation.screens.SplashScr
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.navigation
+import com.google.accompanist.pager.ExperimentalPagerApi
 
 /**
  *
@@ -21,6 +22,7 @@ const val ROOT_GRAPH_ROUTE = "root_graph"
 const val AUTH_GRAPH_ROUTE = "root_auth"
 const val HOME_GRAPH_ROUTE = "root_home"
 
+@ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
