@@ -20,7 +20,8 @@ interface LoginApi {
     suspend fun getPosts(): List<UserResponseDTO>
 
     @POST("api/auth/login")
-    suspend fun getToken(@Query("username") username: String, @Query("password") password: String): Response<TokenDTO> // returns a TokenDTO
+    suspend fun getToken(@Query("username") username: String, @Query("password") password: String
+    ): Response<TokenDTO> // returns a TokenDTO
 
 
 }

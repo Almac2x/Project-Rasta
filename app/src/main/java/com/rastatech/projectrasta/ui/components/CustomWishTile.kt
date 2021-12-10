@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
@@ -125,7 +126,7 @@ fun CustomWishTile(
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = 0, downVoteCount = 200, voteType = VoteType.NONE)
+                CustomVoteButton(upvoteCount = 0, downVoteCount = 200, voteType = VoteType.None)
             }
         }
     }

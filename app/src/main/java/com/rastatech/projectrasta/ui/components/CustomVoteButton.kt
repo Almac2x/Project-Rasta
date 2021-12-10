@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.domain.util.VoteType
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -23,11 +24,6 @@ import com.rastatech.projectrasta.R
  * @since 12/06/2021
  */
 
-enum class VoteType {
-    NONE,
-    UPVOTE,
-    DOWNVOTE
-}
 
 @Composable
 fun CustomVoteButton(
@@ -44,17 +40,17 @@ fun CustomVoteButton(
         IconButton(
             onClick = {
                 when (vote.value) {
-                    VoteType.NONE -> {
-                        vote.value = VoteType.UPVOTE
+                    VoteType.None -> {
+                        vote.value = VoteType.UpVote
                         upVote.value = upVote.value + 1
                     }
-                    VoteType.UPVOTE -> {
+                    VoteType.UpVote -> {
                         // remove count from upvote if you click upvote button again
-                        vote.value = VoteType.NONE
+                        vote.value = VoteType.None
                         upVote.value = upVote.value - 1
                     }
-                    VoteType.DOWNVOTE -> {
-                        vote.value = VoteType.UPVOTE
+                    VoteType.DownVote -> {
+                        vote.value = VoteType.UpVote
                         upVote.value = upVote.value + 1
                         downVote.value = downVote.value - 1
                     }
@@ -62,7 +58,7 @@ fun CustomVoteButton(
             }
         ) {
             Icon(
-                tint = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
+                tint = if (vote.value == VoteType.UpVote) Color.Blue else Color.Black,
                 modifier = Modifier.fillMaxSize(fraction = 0.8f),
                 painter = painterResource(
                     id = R.drawable.upvote
@@ -71,7 +67,7 @@ fun CustomVoteButton(
             )
         }
         Text(
-            color = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
+            color = if (vote.value == VoteType.UpVote) Color.Blue else Color.Black,
             fontSize = 20.sp,
             text = "${upVote.value}",
             modifier = Modifier.align(Alignment.CenterVertically)
@@ -81,17 +77,17 @@ fun CustomVoteButton(
         IconButton(
             onClick = {
                 when (vote.value) {
-                    VoteType.NONE -> {
-                        vote.value = VoteType.DOWNVOTE
+                    VoteType.None -> {
+                        vote.value = VoteType.DownVote
                         downVote.value = downVote.value + 1
                     }
-                    VoteType.DOWNVOTE -> {
+                    VoteType.DownVote -> {
                         // remove count from upvote if you click upvote button again
-                        vote.value = VoteType.NONE
+                        vote.value = VoteType.None
                         downVote.value = downVote.value - 1
                     }
-                    VoteType.UPVOTE -> {
-                        vote.value = VoteType.DOWNVOTE
+                    VoteType.UpVote -> {
+                        vote.value = VoteType.DownVote
                         downVote.value = downVote.value + 1
                         upVote.value = upVote.value - 1
                     }
@@ -99,7 +95,7 @@ fun CustomVoteButton(
             }
         ) {
             Icon(
-                tint = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
+                tint = if (vote.value == VoteType.DownVote) Color.Blue else Color.Black,
                 modifier = Modifier.fillMaxSize(fraction = 0.8f),
                 painter = painterResource(
                     id = R.drawable.downvote
@@ -108,7 +104,7 @@ fun CustomVoteButton(
             )
         }
         Text(
-            color = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
+            color = if (vote.value == VoteType.DownVote) Color.Blue else Color.Black,
             fontSize = 20.sp,
             text = "${downVote.value}",
             modifier = Modifier.align(Alignment.CenterVertically)
@@ -122,6 +118,6 @@ private fun Preview() {
     CustomVoteButton(
         upvoteCount = 200,
         downVoteCount = 100,
-        voteType = VoteType.NONE
+        voteType = VoteType.None
     )
 }

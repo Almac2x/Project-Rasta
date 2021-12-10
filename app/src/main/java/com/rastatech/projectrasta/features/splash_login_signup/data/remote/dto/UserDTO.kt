@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto
 
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
+import com.rastatech.projectrasta.features.splash_login_signup.domain.model.User
 
 data class UserRequestDTO(
 
@@ -10,6 +11,7 @@ data class UserRequestDTO(
     val last_name: String,
     val password: String,
     val phone_number: String,
+
 ) {
 
 }
@@ -23,7 +25,6 @@ data class UserResponseDTO(
     val phone_number: String,
     val rasta_gem_balance: Int,
     val avatar : String
-
 
 ){
     fun toUserEntity(): UserEntity {

@@ -6,8 +6,8 @@ import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDatabase
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.LoginApi
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.SignUpApi
+import com.rastatech.projectrasta.features.splash_login_signup.data.repository.UserRepositoryImpl
 import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepository
-import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepositoryImpl
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.*
 import dagger.Module
 import dagger.Provides

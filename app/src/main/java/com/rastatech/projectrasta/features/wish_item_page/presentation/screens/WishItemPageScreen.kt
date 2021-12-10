@@ -23,10 +23,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
 import com.rastatech.projectrasta.ui.components.CustomVoteButton
-import com.rastatech.projectrasta.ui.components.VoteType
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.utils.ValidateInput
 
@@ -266,7 +266,7 @@ private fun Preview() {
         maxRastaGems = 200,
         upVote = 0,
         downVote = 200,
-        voteState = VoteType.NONE,
+        voteState = VoteType.None,
         reason = "IDK",
         donors = listOf(1, 2, 3)
     )

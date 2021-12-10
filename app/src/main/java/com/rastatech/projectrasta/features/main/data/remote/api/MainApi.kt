@@ -1,14 +1,10 @@
 package com.rastatech.projectrasta.features.main.data.remote.api
 
-import com.rastatech.projectrasta.features.main.data.remote.dto.CreateWishResponseDTO
+import retrofit2.Response
 import com.rastatech.projectrasta.features.main.data.remote.dto.CurrentUserDTO
-import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.data.util.ApiKey
 import retrofit2.http.*
 
-
-const val AUTHORIZATION_BEARER_KEY = "Authorization"
-const val DESCRIPTION_KEY = "description"
-const val IMAGE_URL_KEY = "image_url"
 
 interface MainApi {
 
@@ -23,7 +19,8 @@ interface MainApi {
      */
     // Gets the CurrentUsers Profile Details
     @GET("api/users/own")
-    suspend fun getOwnProfile(@Header(AUTHORIZATION_BEARER_KEY) token: String):CurrentUserDTO
+    suspend fun getOwnProfile(@Header(ApiKey.AuthorizationBearer.value) token: String
+    ): Response<CurrentUserDTO>
 
 
     /**
@@ -32,7 +29,8 @@ interface MainApi {
 
     //GET
     @GET("/api/users/balance")
-    suspend fun getUserBalance(@Header(AUTHORIZATION_BEARER_KEY) token: String): Map<String,Int>
+    suspend fun getUserBalance(@Header(ApiKey.AuthorizationBearer.value) token: String
+    ): Response<Map<String,Int>>
 
     //POST
 

@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.splash_login_signup.domain.repository
+package com.rastatech.projectrasta.features.splash_login_signup.data.repository
 
 import android.util.Log
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
@@ -6,10 +6,11 @@ import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.TokenDTO
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.UserRequestDTO
+import com.rastatech.projectrasta.features.splash_login_signup.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import retrofit2.Response
 
-const val TAG = "UserRepositoryImpl"
+private const val TAG = "UserRepositoryImpl"
 
 class UserRepositoryImpl (
     private  val dao : UserDao,

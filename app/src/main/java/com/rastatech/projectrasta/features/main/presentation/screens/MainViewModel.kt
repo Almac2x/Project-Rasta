@@ -5,9 +5,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
-import com.rastatech.projectrasta.features.main.data.remote.api.AMOUNT_KEY
-import com.rastatech.projectrasta.features.main.data.remote.api.RASTAGEMS_REQUIRED_KEY
-import com.rastatech.projectrasta.features.main.data.remote.dto.CreateWishResponseDTO
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -35,7 +32,7 @@ class MainViewModel @Inject constructor(
             val request2 = async { RetrofitInstance.wishApi.getHomeScreenWishes(userToken?:"") }
             val request3 = async { RetrofitInstance.wishApi.createWish(
                                                             token = userToken?:"",
-                                                            createWish = CreateWishResponseDTO(
+                                                            createWish = CreateWishRequestDTO(
                                                                 description = "SAME",
                                                                 rastagems_required = 9,
                                                                 wish_name = "Boss",
@@ -54,7 +51,7 @@ class MainViewModel @Inject constructor(
             val request6 = async { RetrofitInstance.wishApi.voteWish(
                 token = userToken?:"",
                 wishID = 2,
-                voteType = mapOf("vote_type" to "DOWNVOTE")
+                voteType = mapOf("vote_type" to "DownVote")
 
             ) }
             val request7 = async { RetrofitInstance.mainApi.getUserBalance(
@@ -75,11 +72,11 @@ class MainViewModel @Inject constructor(
             Log.i(TAG, request7.await()[RASTAGEMS_REQUIRED_KEY].toString())
             */
 
-            val request9 = async { RetrofitInstance.wishApi.donateToAWish(
+            /*val request9 = async { RetrofitInstance.wishApi.donateToAWish(
                 token = userToken?:"",
                 wishID = 3,
                 amount = mapOf("$AMOUNT_KEY" to 5)
-            ) }
+            ) }*/
 
 
         }

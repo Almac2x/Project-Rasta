@@ -23,6 +23,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpEvents
 import com.rastatech.projectrasta.features.splash_login_signup.presentation.signup.SignUpViewModel
+import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
@@ -47,7 +48,7 @@ fun SignUpScreen(
     LaunchedEffect(key1 = viewModel.navigateToLogin.value){
 
         if(viewModel.navigateToLogin.value){
-            navController.navigate(route = "${AuthScreens.Login.route}/"){
+            navController.navigate(route = "$AUTH_GRAPH_ROUTE"){
                 popUpTo(AuthScreens.Login.route){
                     inclusive = true
                 }
