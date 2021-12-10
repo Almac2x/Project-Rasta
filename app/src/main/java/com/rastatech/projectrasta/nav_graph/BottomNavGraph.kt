@@ -3,9 +3,12 @@ package com.rastatech.projectrasta.nav_graph
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.gempage.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
@@ -16,10 +19,16 @@ import com.rastatech.projectrasta.screens.HomeScreen
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun BottomNavGraph(navController : NavHostController) {
-    NavHost(navController = navController, startDestination = BottomBarScreens.Home.route
+fun BottomNavGraph(navController : NavHostController,  token : String) {
+    NavHost(navController = navController, startDestination = "${BottomBarScreens.Home.route}/{$ACCESS_TOKEN_ARGUMENT_KEY}"
     ){
-        composable (route = BottomBarScreens.Home.route){
+        composable (route = "${BottomBarScreens.Home.route}/{$ACCESS_TOKEN_ARGUMENT_KEY}",
+        arguments = listOf(navArgument(ACCESS_TOKEN_ARGUMENT_KEY){
+            type = NavType.StringType
+            defaultValue = token
+         }
+        )
+            ){
             HomeScreen(navController = navController)
         }
         composable(route = BottomBarScreens.Profile.route){

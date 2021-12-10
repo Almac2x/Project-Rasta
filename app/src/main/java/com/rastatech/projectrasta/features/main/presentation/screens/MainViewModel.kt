@@ -1,12 +1,10 @@
-package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar
+package com.rastatech.projectrasta.features.main.presentation.screens
 
 import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,20 +12,22 @@ import javax.inject.Inject
 const val TAG ="MainViewModel"
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val state : SavedStateHandle
-
+    state : SavedStateHandle
     // add here the userCases for this feature
 ):ViewModel(){
 
+    private val  _userToken = state.get<String>("access_token")
+    val userToken : String
+        get() = _userToken.toString()
+
     init {
-        var userToken = state.get<String>("access_token")
-        Log.i(TAG, "UserToken: "+ userToken.toString())
+        Log.i(TAG, "UserToken: "+ _userToken.toString())
 
         // Test lang
         viewModelScope.launch {
-            Log.i(TAG, "UserTokenCouroutine: "+ userToken.toString())
+            Log.i(TAG, "UserTokenCoroutine: "+ _userToken.toString())
 
-            userToken  = "Bearer $userToken"
+            //_userToken  = "Bearer $_userToken"
            /* val request =  async{RetrofitInstance.mainApi.getOwnProfile(userToken?:"")}
             val request2 = async { RetrofitInstance.wishApi.getHomeScreenWishes(userToken?:"") }
             val request3 = async { RetrofitInstance.wishApi.createWish(

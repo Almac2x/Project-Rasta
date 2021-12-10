@@ -5,5 +5,5 @@ import dagger.hilt.android.HiltAndroidApp
 
 
 @HiltAndroidApp
-class SplashLoginSignUpApp: Application() {
+class SecretRastaApp: Application() {
 }

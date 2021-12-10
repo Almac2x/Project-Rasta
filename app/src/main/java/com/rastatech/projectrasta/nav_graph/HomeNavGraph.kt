@@ -39,7 +39,6 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
         arguments = listOf(navArgument(ACCESS_TOKEN_ARGUMENT_KEY){
             type = NavType.StringType
         })
-
              ){
             Log.i(TAG, "Access_Token Received: ${it.arguments?.getString(ACCESS_TOKEN_ARGUMENT_KEY)}")
 
