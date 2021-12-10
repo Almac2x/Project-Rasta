@@ -14,7 +14,7 @@ private const val TAG = "UserRepositoryImpl"
 
 class UserRepositoryImpl (
     private  val dao : UserDao,
-    private val retrofit : RetrofitInstance
+    private val retrofit : RetrofitInstance /**TODO Pass An API not an Insance of Retrofit */
         ) : UserRepository {
 
 

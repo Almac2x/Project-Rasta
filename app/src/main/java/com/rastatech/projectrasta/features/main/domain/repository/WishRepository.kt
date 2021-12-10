@@ -19,7 +19,7 @@ interface WishRepository {
     suspend fun createAWish(token: String, description: String,
                             imageURL: String, rastaGemsRequired: Int,
                             wishName: String): Response<CreateWishRequestDTO>
-    suspend fun likeAWish(token: String, wishID : Int)
+    suspend fun likeAWish(token: String, wishID : Int): Response<Unit>
     suspend fun donateToAWish(token:String, wishID: Int, amount : Int)
 
     suspend fun voteAWish(token: String,wishID: Int, voteType: VoteType)

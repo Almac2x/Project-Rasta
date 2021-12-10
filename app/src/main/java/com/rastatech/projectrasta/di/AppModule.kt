@@ -3,6 +3,19 @@ package com.rastatech.projectrasta.di
 import android.app.Application
 import androidx.room.Room
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
+import com.rastatech.projectrasta.features.main.data.remote.api.WishApi
+import com.rastatech.projectrasta.features.main.data.repository.MainRepositoryImp
+import com.rastatech.projectrasta.features.main.data.repository.WishRepositoryImp
+import com.rastatech.projectrasta.features.main.domain.repository.MainRepository
+import com.rastatech.projectrasta.features.main.domain.repository.WishRepository
+import com.rastatech.projectrasta.features.main.domain.use_case.MainUseCases
+import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
+import com.rastatech.projectrasta.features.main.domain.use_case.main_use_case.GetOwnProfile
+import com.rastatech.projectrasta.features.main.domain.use_case.main_use_case.GetUserBalance
+import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.CreateAWish
+import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.GetHomeScreenWishes
+import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.GetWish
+import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.LikeAWish
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDatabase
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.LoginApi
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.SignUpApi
@@ -37,13 +50,22 @@ object AppModule {
         ).build()
     }
 
+
+    /**
+     *
+     *
+     * Provides User Repository
+     */
+
     @Provides
     @Singleton
     fun provideUserRepository(db: UserDatabase): UserRepository {
         return UserRepositoryImpl(db.userDao(), retrofit = RetrofitInstance) // add here the retrofit instance
     }
 
-
+    /**
+     * Provides User Use-Cases
+     */
     @Provides
     @Singleton
     fun provideUserUseCases(repository: UserRepository): UserUseCases {
@@ -54,6 +76,45 @@ object AppModule {
             addUser = AddUser(repository),
             addUserApiRequest = AddUserApiRequest(repository),
             getLoginTokenApiRequest = GetLoginTokenApiRequest(repository)
+        )
+    }
+
+
+    /**
+     * Provides Wish Dependencies
+     */
+    @Provides
+    @Singleton
+    fun provideWishRepository(): WishRepository{
+        return WishRepositoryImp(api = RetrofitInstance.wishApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideWishUseCases(repository: WishRepository): WishUseCases{
+        return WishUseCases(
+            getWish = GetWish(repository = repository),
+            getHomeScreenWishes = GetHomeScreenWishes(repository = repository),
+            likeAWish = LikeAWish(repository = repository),
+            createAWish = CreateAWish(repository = repository)
+        )
+    }
+
+    /**
+     * Provide Main Feature Dependencies
+     */
+    @Provides
+    @Singleton
+    fun provideMainRepository(): MainRepository {
+        return MainRepositoryImp(api = RetrofitInstance.mainApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMainUseCases(repository: MainRepository): MainUseCases {
+        return MainUseCases(
+            getOwnProfile = GetOwnProfile(repository = repository),
+            getUserBalance = GetUserBalance(repository = repository)
         )
     }
 

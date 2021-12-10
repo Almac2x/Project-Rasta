@@ -33,7 +33,7 @@ interface WishApi {
     @POST("/api/wishes/{${ApiKey.WishID.value}}/like")
     suspend fun likeAWish(@Header(ApiKey.AuthorizationBearer.value) token: String,
                           @Path(ApiKey.WishID.value)wishID : Int
-    )
+    ): Response<Unit>
 
     // TODO: Did pa nilagay sa WishRespository
     //Get All Votes of a User

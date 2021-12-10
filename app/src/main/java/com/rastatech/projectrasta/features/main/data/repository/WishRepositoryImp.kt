@@ -35,7 +35,7 @@ class WishRepositoryImp(
         return api.createAWish(token = token, createWish = createWish)
     }
 
-    override suspend fun likeAWish(token: String, wishID: Int) {
+    override suspend fun likeAWish(token: String, wishID: Int): Response<Unit>{
         return api.likeAWish(token = token, wishID = wishID)
     }
 
