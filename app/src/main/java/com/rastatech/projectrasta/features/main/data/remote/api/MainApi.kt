@@ -8,22 +8,12 @@ import retrofit2.http.*
 
 interface MainApi {
 
-    /**
-    "Content-Type": "application/json",
-    "Authorization": "Bearer \(authToken!.accessToken)"
-     */
-
 
     /**
-     * User Api Calls
+     * Tested? = Yes
+     * Used? = Yes
      */
 
-    /**
-     * TODO
-     *
-     * @param token
-     * @return
-     */
     // Gets the CurrentUsers Profile Details
     @GET("api/users/own")
     suspend fun getOwnProfile(@Header(ApiKey.Authorization.value) token: String
@@ -32,21 +22,55 @@ interface MainApi {
 
     /**
      * Wishes Api Calls
+     * Tested? = Yes
+     * Used? = No
      */
 
     //GET
-
-    /**
-     * TODO
-     *
-     * @param token
-     * @return
-     */
+    
     @GET("/api/users/balance")
     suspend fun getUserBalance(@Header(ApiKey.Authorization.value) token: String
     ): Response<Map<String,Int>>
 
-    //POST
+    @GET("/api/rastagem/history")
+    suspend fun getTransactionHistory(@Header(ApiKey.Authorization.value) token: String
+
+    ) :Response<Unit>// ADD HERE THE DTO FOR TRANSACTION
+
+    /**
+     * Tested? = No
+     * Used? = No
+     */
+
+    //////////////POST
+    @POST("/api/rastagem/add")
+    suspend fun addGems(@Header(ApiKey.Authorization.value) token: String
+    ):Response<Unit>
+
+    /**
+     * Tested? = No
+     * Used? = No
+     */
+
+    @POST("/api/rastagem/transfer/{${ApiKey.UserID.value}}")
+    suspend fun transferGems(@Header(ApiKey.Authorization.value) token: String,
+                             @Path(ApiKey.UserID.value) userID: Int
+    ):Response<Unit>
+
+
+    /**
+     *  Tested? = No
+     *  Used? = No
+     *   //Same with donateToAWish in Wish Api
+     */
+
+    @POST("/api/rastagem/donate/{${ApiKey.WishID.value}}")
+    suspend fun donateGemsToAWish(@Header(ApiKey.Authorization.value) token: String,
+                                  @Path(ApiKey.WishID.value)wishID : Int,
+                                  @Body amount: Map<String,Int>
+    ):Response<Unit>
+
+
 
 
 
