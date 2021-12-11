@@ -1,6 +1,5 @@
-package com.rastatech.projectrasta.features.transactions
+package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.transactions
 
-import androidx.compose.runtime.Composable
 import javax.inject.Inject
 
 /**

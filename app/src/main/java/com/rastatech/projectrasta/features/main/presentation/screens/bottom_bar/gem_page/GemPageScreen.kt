@@ -99,24 +99,12 @@ fun GemPageScreen(
                         viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Open))
                     }
                 )
-                CustomIconButton(id = R.drawable.gift, title = "Send Gems",
-                    onClick = {
-                        GemPageEvents.SendGemDialog(showType = ShowType.Open)
-                })
-                CustomIconButton(id = R.drawable.gift, title = "Transactions",
-                    onClick = {
-                    GemPageEvents.TransactionGemDialog(showType = ShowType.Open)
-                })
-                        viewModel.showAddGemDialog.value = true
-                    }
-                )
-
                 // Send Gems Button
                 CustomIconButton(
                     id = R.drawable.gift,
                     title = "Send Gems",
                     onClick = {
-                        viewModel.showSendGemDialog.value = true
+                        viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Open))
                     }
                 )
                 CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {})
@@ -159,18 +147,22 @@ private fun AddGemsDialog(viewModel: GemPageViewModel) {
             }
         },
         onDismissRequest = {
-            viewModel.showAddGemDialog.value = false
+            viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Close))
         },
         confirmButton = {
             Button(
-                onClick = { viewModel.showAddGemDialog.value = false }
+                onClick = {
+                    viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Close))
+                }
             ) {
                 Text(text = "Add")
             }
         },
         dismissButton = {
             Button(
-                onClick = { viewModel.showAddGemDialog.value = false }
+                onClick = {
+                    viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Close))
+                }
             ) {
                 Text(text = "Cancel")
             }
@@ -231,23 +223,25 @@ private fun SendGemDialog(viewModel: GemPageViewModel) {
             }
         },
         onDismissRequest = {
-            viewModel.showSendGemDialog.value = false
+            viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Close))
         },
         confirmButton = {
             Button(
-                onClick = { viewModel.showSendGemDialog.value = false }
+                onClick = {
+                    viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Close))
+                }
             ) {
                 Text(text = "Send")
             }
         },
         dismissButton = {
             Button(
-                onClick = { viewModel.showSendGemDialog.value = false }
+                onClick = {
+                    viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Close))
+                }
             ) {
                 Text(text = "Cancel")
             }
         }
     )
-
-    nGems.value = 0
 }

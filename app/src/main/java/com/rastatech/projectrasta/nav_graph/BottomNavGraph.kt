@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
@@ -42,7 +44,7 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
         composable(route = "${BottomBarScreens.MakeWish.route}",
             arguments = tokenNavArgument){
 
-           //Add here the Make Wish Page
+            AddUpdateWishScreen(type = WishProcess.Add)
         }
         composable(route ="${BottomBarScreens.GemsPage.route}",
             arguments = tokenNavArgument){

@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.transactions
+package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.transactions
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn

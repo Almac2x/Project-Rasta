@@ -5,6 +5,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -14,6 +15,9 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishEvents
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishViewModel
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
@@ -27,23 +31,18 @@ import com.rastatech.projectrasta.utils.ValidateInput
  */
 
 /**
- * Add or Update Wish Screen
+ * Add and Update Screen
  *
- * @param id
- * @param title
- * @param wish_name
- * @param wishReason
- * @param wishImageUrl
- * @param gemsRequired
+ * @param type type of wish process
+ * @param viewModel Screen view model
  */
 @Composable
 fun AddUpdateWishScreen(
 
-    type : WishProcess
+    type : WishProcess,
+    viewModel: AddUpdateWishViewModel = hiltViewModel()
 
 ) {
-
-    /*
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -72,9 +71,10 @@ fun AddUpdateWishScreen(
                 .padding(25.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            // Wish Name TextField
             CustomTextField(
-                value = wishName.value,
-                onValueChange = {wishName.value = it},
+                value = viewModel.wishName.value,
+                onValueChange = {viewModel.wishName.value = it},
                 modifier = Modifier.fillMaxWidth(),
                 label = "Wish Name",
                 labelFontSize = 15.sp
@@ -83,8 +83,8 @@ fun AddUpdateWishScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             CustomTextField(
-                value = reason.value,
-                onValueChange = {reason.value = it},
+                value = viewModel.reason.value,
+                onValueChange = {viewModel.reason.value = it},
                 modifier = Modifier.fillMaxWidth(),
                 label = "Reason for wishing",
                 labelFontSize = 15.sp
@@ -93,8 +93,9 @@ fun AddUpdateWishScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             CustomTextField(
-                value = gems.value,
-                onValueChange = {gems.value = if (ValidateInput.isNumber(it.text)) it else gems.value},
+                value = viewModel.gemsRequired.value,
+                onValueChange = {
+                    viewModel.gemsRequired.value = if (ValidateInput.isNumber(it.text)) it else viewModel.gemsRequired.value },
                 modifier = Modifier.fillMaxWidth(),
                 label = "How many gems do you need?",
                 keyboardType = KeyboardType.Number,
@@ -104,15 +105,15 @@ fun AddUpdateWishScreen(
             Spacer(modifier = Modifier.height(10.dp))
 
             CustomTextField(
-                value = url.value,
-                onValueChange = {url.value = if (ValidateInput.isNumber(it.text)) it else gems.value},
+                value = viewModel.imageURL.value,
+                onValueChange = {viewModel.imageURL.value = if (ValidateInput.isNumber(it.text)) it else viewModel.gemsRequired.value},
                 modifier = Modifier.fillMaxWidth(),
                 label = "Image Url",
                 labelFontSize = 15.sp
             )
 
             Box(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize(0.5f),
                 contentAlignment = Alignment.BottomEnd
             ) {
                 Button(
@@ -126,7 +127,7 @@ fun AddUpdateWishScreen(
                 }
             }
         }
-    }*/
+    }
 }
 
 @Preview(showBackground = true)

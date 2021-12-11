@@ -1,18 +1,12 @@
 package com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
-import com.rastatech.projectrasta.features.transactions.TransactionScreen
-import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.ui.components.CustomDonatorsItem
 
 /**
