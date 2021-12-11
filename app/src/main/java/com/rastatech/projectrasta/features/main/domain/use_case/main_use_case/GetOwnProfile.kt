@@ -11,7 +11,7 @@ class GetOwnProfile(
 
     suspend operator fun invoke(token : String): Response<CurrentUserDTO> {
 
-      return  repository.getOwnProfile(token = token)
+      return repository.getOwnProfile(token = token)
 
     }
 }

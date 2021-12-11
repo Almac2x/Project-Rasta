@@ -18,7 +18,7 @@ sealed class ApiKey{
     object RastaGemsRequired: ApiKey(){
         const val value = "rastagems_required"
     }
-    object AuthorizationBearer: ApiKey(){
+    object Authorization: ApiKey(){
         const val value = "Authorization"
     }
     object Description: ApiKey(){
@@ -27,5 +27,9 @@ sealed class ApiKey{
     object ImageURL: ApiKey(){
         const val value = "image_url"
     }
+    object Bearer: ApiKey(){
+        const val value = "Bearer "
+    }
+
 
 }

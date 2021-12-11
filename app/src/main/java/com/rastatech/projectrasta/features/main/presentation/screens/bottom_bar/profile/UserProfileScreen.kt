@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
@@ -35,7 +36,9 @@ import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 fun UserProfileScreen(
     firstName: String,
     lastName: String,
-    userName: String
+    userName: String,
+
+    viewModel: UserProfileViewModel = hiltViewModel()
 ) {
     Column(
         modifier = Modifier

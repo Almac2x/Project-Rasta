@@ -19,7 +19,7 @@ interface MainApi {
      */
     // Gets the CurrentUsers Profile Details
     @GET("api/users/own")
-    suspend fun getOwnProfile(@Header(ApiKey.AuthorizationBearer.value) token: String
+    suspend fun getOwnProfile(@Header(ApiKey.Authorization.value) token: String
     ): Response<CurrentUserDTO>
 
 
@@ -29,7 +29,7 @@ interface MainApi {
 
     //GET
     @GET("/api/users/balance")
-    suspend fun getUserBalance(@Header(ApiKey.AuthorizationBearer.value) token: String
+    suspend fun getUserBalance(@Header(ApiKey.Authorization.value) token: String
     ): Response<Map<String,Int>>
 
     //POST

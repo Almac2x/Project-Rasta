@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rastatech.projectrasta.SecretRastaApp.Companion.prefs
 import com.rastatech.projectrasta.features.splash_login_signup.data.local.entity.UserEntity
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.dto.TokenDTO
 import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.UserUseCases
@@ -104,6 +105,8 @@ class LoginViewModel@Inject constructor(
 
                            } finally {
                                delay(1000L)
+
+                               prefs?.accessToken = response?.body()?.access_token // saves the token locally
 
                                Log.i(TAG, response?.code().toString())
                                if (response?.code() == 200) {

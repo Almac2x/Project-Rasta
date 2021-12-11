@@ -15,6 +15,8 @@ class GemPageViewModel@Inject constructor(
 
 ):ViewModel(){
 
+
+
     private val _gemBalance = mutableStateOf(0)
     val gemBalance : Int
         get() = _gemBalance.value
@@ -45,7 +47,6 @@ class GemPageViewModel@Inject constructor(
             }
             is GemPageEvents.AddGems -> {
                 viewModelScope.launch(Dispatchers.IO) {
-
 
                 }
             }

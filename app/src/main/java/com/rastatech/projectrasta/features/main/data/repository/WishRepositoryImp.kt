@@ -11,17 +11,17 @@ import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.
 import retrofit2.Response
 
 private const val TAG = "WishRepositoryImp"
-
+private const val BEARER_KEY ="Bearer"
 class WishRepositoryImp(
     private val api: WishApi
 
 ): WishRepository {
     override suspend fun getHomeScreenWishes(token: String): Response<List<WishDTO>> {
-        return api.getHomeScreenWishes(token = token)
+        return api.getHomeScreenWishes(token = "${ApiKey.Bearer.value}$token")
     }
 
     override suspend fun getWish(token: String, wishID: Int): Response<WishDTO> {
-        return api.getWish(token = token,
+        return api.getWish(token = "${ApiKey.Bearer.value}$token",
                                         wishID = wishID)
     }
 
@@ -32,25 +32,25 @@ class WishRepositoryImp(
         val createWish = CreateWishRequestDTO( description = description,image_url = imageURL,
                                                rastagems_required = rastaGemsRequired, wish_name = wishName
         )
-        return api.createAWish(token = token, createWish = createWish)
+        return api.createAWish(token = "${ApiKey.Bearer.value}$token", createWish = createWish)
     }
 
     override suspend fun likeAWish(token: String, wishID: Int): Response<Unit>{
-        return api.likeAWish(token = token, wishID = wishID)
+        return api.likeAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID)
     }
 
     override suspend fun donateToAWish(token: String, wishID: Int, amount: Int) {
-        return api.donateToAWish(token = token, wishID = wishID,
+        return api.donateToAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID,
                                  amount = mapOf("${ApiKey.Amount.value}" to amount))  //get amount key from sealed class
     }
 
     override suspend fun voteAWish(token: String, wishID: Int, voteType: VoteType) {
-        return api.voteAWish(token = token, wishID = wishID,
+        return api.voteAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID,
                              voteType = mapOf("${ApiKey.VoteType.value}" to voteType.value)) // get the Vote Type from sealed Class
     }
 
     override suspend fun deleteAWish(token: String, wishID: Int) {
-        return api.deleteAWish(token = token, wishID = wishID)
+        return api.deleteAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID)
     }
 
     override suspend fun getAllVotes() {
