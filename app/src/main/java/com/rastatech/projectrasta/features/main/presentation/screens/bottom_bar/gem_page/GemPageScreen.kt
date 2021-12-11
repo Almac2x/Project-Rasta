@@ -1,16 +1,11 @@
-package com.rastatech.projectrasta.features.gempage
+package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page
 
-import android.app.AlertDialog
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -19,6 +14,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -28,8 +25,6 @@ import com.rastatech.projectrasta.features.main.domain.util.ShowType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageEvents
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageViewModel
 import com.rastatech.projectrasta.ui.components.CustomIconButton
-import com.rastatech.projectrasta.ui.theme.AppColorPalette
-import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
 import com.rastatech.projectrasta.utils.ValidateInput
 import com.rastatech.projectrasta.utils.animations.Pulsating
 
@@ -53,8 +48,14 @@ fun GemPageScreen(
     val space = 30.dp
     val boxSize = 200.dp
 
-    val nGems = remember { mutableStateOf(0) }
+    if (viewModel.showAddGemDialog.value) {
+        AddGemsDialog(viewModel = viewModel)
+    }
+    else if (viewModel.showSendGemDialog.value) {
+        SendGemDialog(viewModel = viewModel)
+    }
 
+    // UI
     Scaffold {
         Column(
             Modifier
@@ -90,6 +91,7 @@ fun GemPageScreen(
                 Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
+                // Add Gems Button
                 CustomIconButton(
                     id = R.drawable.gift,
                     title = "Add Gems",
@@ -105,50 +107,147 @@ fun GemPageScreen(
                     onClick = {
                     GemPageEvents.TransactionGemDialog(showType = ShowType.Open)
                 })
+                        viewModel.showAddGemDialog.value = true
+                    }
+                )
+
+                // Send Gems Button
+                CustomIconButton(
+                    id = R.drawable.gift,
+                    title = "Send Gems",
+                    onClick = {
+                        viewModel.showSendGemDialog.value = true
+                    }
+                )
+                CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {})
             }
         }
     }
+}
 
+@Composable
+private fun AddGemsDialog(viewModel: GemPageViewModel) {
+    val nGems = remember { mutableStateOf(0) }
 
-    if (viewModel.showAddGemDialog.value) {
-        AlertDialog( // Make this into a seperate Composable
-            title = {
-                Text(text = "Add Gems")
-            },
-            text = {
-                Column(modifier = Modifier
-                    .fillMaxWidth()
-                ) {
-                    Text(
-                        text = "Enter amount:",
-                        color = Color.Black,
-                        fontSize = 16.sp
-                    )
+    AlertDialog(
+        title = {
+            Text(text = "Add Gems")
+        },
+        text = {
+            Column(modifier = Modifier
+                .fillMaxWidth()
+            ) {
+                Text(
+                    text = "Enter amount:",
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
 
-                    Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
 
-                    OutlinedTextField(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .border(2.dp, Color.Black),
-                        value = if (viewModel.gemBalance == 0) "" else viewModel.gemBalance.toString(),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                        onValueChange = {
-                            GemPageEvents.CheckInput(input = viewModel.gemBalance.toString())
-                        }
-                    )
-                }
-            },
-            onDismissRequest = {
-                GemPageEvents.AddGemDialog(showType = ShowType.Close)
-            },
-            confirmButton = {
-                GemPageEvents.AddGemDialog(showType = ShowType.Close)
-            },
-            dismissButton = {
-                GemPageEvents.AddGemDialog(showType = ShowType.Close)
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(2.dp, Color.Black),
+                    value = if (nGems.value == 0) "" else nGems.value.toString(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    onValueChange = {
+                        nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
+                        else nGems.value
+                    }
+                )
             }
-        )
-       // nGems.value = 0 <- Di ko alam kung papaano ito
-    }
+        },
+        onDismissRequest = {
+            viewModel.showAddGemDialog.value = false
+        },
+        confirmButton = {
+            Button(
+                onClick = { viewModel.showAddGemDialog.value = false }
+            ) {
+                Text(text = "Add")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = { viewModel.showAddGemDialog.value = false }
+            ) {
+                Text(text = "Cancel")
+            }
+        }
+    )
+
+    nGems.value = 0
+}
+
+@Composable
+private fun SendGemDialog(viewModel: GemPageViewModel) {
+    val nGems = remember { mutableStateOf(0) }
+    val username = remember { mutableStateOf(TextFieldValue()) }
+
+    AlertDialog(
+        title = {
+            Text(text = "Send Gems")
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                Text(
+                    text = "Enter amount:",
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
+
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(2.dp, Color.Black),
+                    value = if (nGems.value == 0) "" else nGems.value.toString(),
+                    onValueChange = {
+                        nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
+                        else nGems.value
+                    }
+                )
+
+                Text(
+                    text = "Username",
+                    color = Color.Black,
+                    fontSize = 16.sp
+                )
+
+                OutlinedTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .border(2.dp, Color.Black),
+                    value = username.value,
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    onValueChange = {
+                        username.value = it
+                    }
+                )
+            }
+        },
+        onDismissRequest = {
+            viewModel.showSendGemDialog.value = false
+        },
+        confirmButton = {
+            Button(
+                onClick = { viewModel.showSendGemDialog.value = false }
+            ) {
+                Text(text = "Send")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = { viewModel.showSendGemDialog.value = false }
+            ) {
+                Text(text = "Cancel")
+            }
+        }
+    )
+
+    nGems.value = 0
 }

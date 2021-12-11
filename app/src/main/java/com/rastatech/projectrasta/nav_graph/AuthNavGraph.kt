@@ -9,7 +9,7 @@ import androidx.navigation.navigation
 
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.features.signup.SignUpScreen
-import com.rastatech.projectrasta.screens.LoginScreen
+import com.rastatech.projectrasta.features.splash_login_signup.presentation.login.LoginScreen
 
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
