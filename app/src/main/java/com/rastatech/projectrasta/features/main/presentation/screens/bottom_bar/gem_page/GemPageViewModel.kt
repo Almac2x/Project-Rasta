@@ -16,9 +16,12 @@ class GemPageViewModel@Inject constructor(
 
 
 ):ViewModel(){
-    private val _showAddGemDialog = mutableStateOf(false)
-    val showAddGemDialog: State<Boolean>
-        get() = _showAddGemDialog
+
+    // For Add Gem Alert Dialog Visibility
+    val showAddGemDialog = mutableStateOf(false)
+
+    // For Add Gem Alert Dialog Visibility
+    val showSendGemDialog = mutableStateOf(false)
 
     fun testGet(){
 

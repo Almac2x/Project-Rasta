@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.screens
+package com.rastatech.projectrasta.features.splash_login_signup.presentation.login
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
