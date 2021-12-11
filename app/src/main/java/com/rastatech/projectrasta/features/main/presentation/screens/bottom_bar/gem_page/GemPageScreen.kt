@@ -21,8 +21,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.domain.util.ShowType
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageEvents
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageViewModel
 import com.rastatech.projectrasta.ui.components.CustomIconButton
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
@@ -42,16 +46,13 @@ import com.rastatech.projectrasta.utils.animations.Pulsating
  */
 @Composable
 fun GemPageScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: GemPageViewModel = hiltViewModel()
 ) {
     val space = 30.dp
     val boxSize = 200.dp
 
     val nGems = remember { mutableStateOf(0) }
-
-    val addGemOpenDialog = remember { mutableStateOf(false) }
-    val sendGemOpenDialog = remember { mutableStateOf(false) }
-    val transactionOpenDialog = remember { mutableStateOf(false) }
 
     Scaffold {
         Column(
@@ -92,17 +93,23 @@ fun GemPageScreen(
                     id = R.drawable.gift,
                     title = "Add Gems",
                     onClick = {
-                        addGemOpenDialog.value = true
+                        GemPageEvents.AddGemDialog( showType = ShowType.Open)
                     }
                 )
-                CustomIconButton(id = R.drawable.gift, title = "Send Gems", onClick = {})
-                CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {})
+                CustomIconButton(id = R.drawable.gift, title = "Send Gems",
+                    onClick = {
+                        GemPageEvents.SendGemDialog(showType = ShowType.Open)
+                })
+                CustomIconButton(id = R.drawable.gift, title = "Transactions",
+                    onClick = {
+                    GemPageEvents.TransactionGemDialog(showType = ShowType.Open)
+                })
             }
         }
     }
 
-    if (addGemOpenDialog.value) {
-        AlertDialog(
+    if (viewModel.showAddGemDialog.value) {
+        AlertDialog( // Make this into a seperate Composable
             title = {
                 Text(text = "Add Gems")
             },
@@ -122,25 +129,24 @@ fun GemPageScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .border(2.dp, Color.Black),
-                        value = if (nGems.value == 0) "" else nGems.value.toString(),
+                        value = if (viewModel.gemBalance == 0) "" else viewModel.gemBalance.toString(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                         onValueChange = {
-                            nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
-                            else nGems.value
+                            GemPageEvents.CheckInput(input = viewModel.gemBalance.toString())
                         }
                     )
                 }
             },
             onDismissRequest = {
-                addGemOpenDialog.value = false
+                GemPageEvents.AddGemDialog(showType = ShowType.Close)
             },
             confirmButton = {
-                addGemOpenDialog.value = false
+                GemPageEvents.AddGemDialog(showType = ShowType.Close)
             },
             dismissButton = {
-                addGemOpenDialog.value = false
+                GemPageEvents.AddGemDialog(showType = ShowType.Close)
             }
         )
-        nGems.value = 0
+       // nGems.value = 0 <- Di ko alam kung papaano ito
     }
 }

@@ -13,6 +13,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.gempage.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
+import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import com.rastatech.projectrasta.screens.HomeScreen
 
 @ExperimentalPagerApi
@@ -20,24 +21,31 @@ import com.rastatech.projectrasta.screens.HomeScreen
 @ExperimentalMaterialApi
 @Composable
 fun BottomNavGraph(navController : NavHostController,  token : String) {
-    NavHost(navController = navController, startDestination = "${BottomBarScreens.Home.route}/{$ACCESS_TOKEN_ARGUMENT_KEY}"
+
+    val tokenNavArgument = listOf(navArgument(NavigationKey.AccessToken.value){
+                                                                    type = NavType.StringType
+                                                                    defaultValue = token
+    })
+
+    NavHost(navController = navController, startDestination = "${BottomBarScreens.Home.route}"
     ){
-        composable (route = "${BottomBarScreens.Home.route}/{$ACCESS_TOKEN_ARGUMENT_KEY}",
-        arguments = listOf(navArgument(ACCESS_TOKEN_ARGUMENT_KEY){
-            type = NavType.StringType
-            defaultValue = token
-         }
-        )
-            ){
+        composable (route = "${BottomBarScreens.Home.route}",
+        arguments = tokenNavArgument
+        ){
             HomeScreen(navController = navController)
         }
-        composable(route = BottomBarScreens.Profile.route){
+        composable(route = "${BottomBarScreens.Profile.route}",
+            arguments = tokenNavArgument){
+
             UserProfileScreen(firstName = "Christian ", lastName = "Salon", userName = "Lloyd")
         }
-        composable(route = BottomBarScreens.MakeWish.route){
+        composable(route = "${BottomBarScreens.MakeWish.route}",
+            arguments = tokenNavArgument){
+
            //Add here the Make Wish Page
         }
-        composable(route = BottomBarScreens.GemsPage.route ){
+        composable(route ="${BottomBarScreens.GemsPage.route}",
+            arguments = tokenNavArgument){
             GemPageScreen(navController = navController)
         }
     }

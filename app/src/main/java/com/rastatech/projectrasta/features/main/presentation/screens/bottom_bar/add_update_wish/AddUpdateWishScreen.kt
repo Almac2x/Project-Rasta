@@ -44,17 +44,7 @@ fun AddUpdateWishScreen(
     wishImageUrl: String = "",
     gemsRequired: Int = 0
 ) {
-    val wishName = remember { mutableStateOf(TextFieldValue(wish_name)) }
-    val reason = remember { mutableStateOf(TextFieldValue(wishReason)) }
-    val url = remember { mutableStateOf(TextFieldValue(wishImageUrl)) }
-    val gems = remember {
-        mutableStateOf(
-            TextFieldValue(if (gemsRequired == 0)
-                "" else gemsRequired.toString()
-            )
-        )
-    }
-
+    /*
     Column(
         modifier = Modifier
             .fillMaxSize(),
@@ -137,7 +127,7 @@ fun AddUpdateWishScreen(
                 }
             }
         }
-    }
+    }*/
 }
 
 @Preview(showBackground = true)

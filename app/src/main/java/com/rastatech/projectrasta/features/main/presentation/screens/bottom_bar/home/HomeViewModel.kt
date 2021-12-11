@@ -22,7 +22,7 @@ class HomeViewModel @Inject constructor(
 ):ViewModel() {
 
 
-    var userToken = state.get<String>("access_token") ?: ""
+    private val userToken = state.get<String>("access_token") ?: ""
 
     init {
         viewModelScope.launch (Dispatchers.IO){

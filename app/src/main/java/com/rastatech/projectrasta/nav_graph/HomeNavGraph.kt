@@ -13,6 +13,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.MainScreen
+import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 
 /**
  * This File might not be in used
@@ -20,7 +21,7 @@ import com.rastatech.projectrasta.features.main.presentation.screens.MainScreen
 const val MAIN_GRAPH_ROUTE = "main_screen"
 const val TAG = "HomeNavGraph"
 
-const val ACCESS_TOKEN_ARGUMENT_KEY = "access_token"
+
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
@@ -28,19 +29,19 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
 
     navigation(
        startDestination = MAIN_GRAPH_ROUTE,
-        route = "$HOME_GRAPH_ROUTE/{$ACCESS_TOKEN_ARGUMENT_KEY}",
-        arguments = listOf(navArgument(ACCESS_TOKEN_ARGUMENT_KEY){
+        route = "$HOME_GRAPH_ROUTE/{${NavigationKey.AccessToken.value}}",
+        arguments = listOf(navArgument(NavigationKey.AccessToken.value){
             type = NavType.StringType
         })
 
     ){
 
         composable(route = MAIN_GRAPH_ROUTE,
-        arguments = listOf(navArgument(ACCESS_TOKEN_ARGUMENT_KEY){
+        arguments = listOf(navArgument(NavigationKey.AccessToken.value){
             type = NavType.StringType
         })
              ){
-            Log.i(TAG, "Access_Token Received: ${it.arguments?.getString(ACCESS_TOKEN_ARGUMENT_KEY)}")
+            Log.i(TAG, "Access_Token Received: ${it.arguments?.getString(NavigationKey.AccessToken.value)}")
 
             MainScreen()
         }
