@@ -14,6 +14,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 import com.rastatech.projectrasta.utils.ValidateInput
@@ -37,13 +38,11 @@ import com.rastatech.projectrasta.utils.ValidateInput
  */
 @Composable
 fun AddUpdateWishScreen(
-    id: Int,
-    title: String,
-    wish_name: String = "",
-    wishReason: String = "",
-    wishImageUrl: String = "",
-    gemsRequired: Int = 0
+
+    type : WishProcess
+
 ) {
+
     /*
     Column(
         modifier = Modifier
@@ -52,7 +51,7 @@ fun AddUpdateWishScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TopAppBar(
-            title = { Text(text = title) },
+            title = { Text(text = type.toString) },
             navigationIcon = {
                 IconButton(
                     onClick = {
@@ -133,12 +132,5 @@ fun AddUpdateWishScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    AddUpdateWishScreen(
-        id = 1,
-        title = "Update Wish",
-        wish_name = "PS5",
-        wishReason = "I don't know",
-        wishImageUrl = "None",
-        gemsRequired = 200
-    )
+    AddUpdateWishScreen(type = WishProcess.Add)
 }

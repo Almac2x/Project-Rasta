@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.text.input.TextFieldValue
@@ -22,11 +23,13 @@ class AddUpdateWishViewModel @Inject constructor(
     private val useCases: WishUseCases
 ):ViewModel() {
 
+
     private val userToken = state.get<String>("access_token") ?: ""
 
-    private val wishName =  mutableStateOf(TextFieldValue())
-    private val reason =  mutableStateOf(TextFieldValue())
-    private val imageURL =   mutableStateOf(TextFieldValue())
+     val wishName =  mutableStateOf(TextFieldValue())
+     val reason =  mutableStateOf(TextFieldValue())
+     val imageURL =   mutableStateOf(TextFieldValue())
+
 
    // val gems =  mutableStateOf(TextFieldValue(if (gemsRequired == 0) "" else gemsRequired.toString()))
    private val gemsRequired =  mutableStateOf(TextFieldValue())
