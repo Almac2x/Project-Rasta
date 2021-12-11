@@ -2,23 +2,24 @@ package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
 import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 
@@ -34,6 +35,8 @@ import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 @ExperimentalPagerApi
 @Composable
 fun UserProfileScreen(
+    navController: NavController,
+    userType: UserType,
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
     Column(
@@ -42,29 +45,49 @@ fun UserProfileScreen(
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Row(
-            modifier = Modifier.fillMaxWidth()
+
+        //Hard Coded Please adapt this to Make A Wish Screen
+        Surface(
+            modifier = Modifier.fillMaxWidth(),color = Color.Black.copy(alpha = 0f)
         ) {
-            // Back Button
-            IconButton(
-                onClick = {  }
-            ) {
-                Icon(
-                    modifier = Modifier.fillMaxSize(),
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back"
-                )
+
+                Surface(modifier = Modifier.fillMaxWidth(),color =  Color.Black.copy(alpha = 0f)) {
+                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                        Text(
+                            text = "Profile",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 30.sp,
+                        )
+                    }
+                }
+            if(userType == UserType.Other) {
+                Surface(modifier = Modifier.fillMaxWidth(), color = Color.Black.copy(alpha = 0f)) {
+                    Row(
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        // Back Button
+                        IconButton(
+                            onClick = { }
+                        ) {
+                            Icon(
+                                modifier = Modifier.width(25.dp).height(25.dp),
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
+                        Text(
+                            text = "Back",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp,
+                        )
+                    }
+                }
             }
 
-            Spacer(modifier = Modifier.width(10.dp))
-
-            Text(
-                text = "Back",
-                fontSize = 20.sp,
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
         }
 
+        // Please add padding para ma distinguish yung sa taas
         CustomProfileImage(
             painter = painterResource(id = R.drawable.profile),
             diameter = 150.dp,
@@ -76,7 +99,7 @@ fun UserProfileScreen(
                 Text(
                     text = "${viewModel.firstName} ${viewModel.lastName}",
                     fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                    fontSize = 32.sp
                 )
 
                 Text(
@@ -112,5 +135,5 @@ fun UserProfileScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    UserProfileScreen()
+    UserProfileScreen(navController = rememberNavController(), userType = UserType.Current)
 }

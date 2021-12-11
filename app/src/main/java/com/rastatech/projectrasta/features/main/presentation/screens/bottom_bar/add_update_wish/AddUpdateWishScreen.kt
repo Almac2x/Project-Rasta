@@ -5,18 +5,14 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishEvents
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishViewModel
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.ui.components.CustomTextField
@@ -33,13 +29,13 @@ import com.rastatech.projectrasta.utils.ValidateInput
 /**
  * Add and Update Screen
  *
- * @param type type of wish process
+ * @param processType type of wish process
  * @param viewModel Screen view model
  */
 @Composable
 fun AddUpdateWishScreen(
 
-    type : WishProcess,
+    processType : WishProcess,
     viewModel: AddUpdateWishViewModel = hiltViewModel()
 
 ) {
@@ -50,7 +46,12 @@ fun AddUpdateWishScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         TopAppBar(
-            title = { Text(text = type.toString) },
+            title = {
+                Text(text = processType.toString)
+
+                    },
+            elevation = 0.dp,
+            backgroundColor = Color.Black.copy(alpha = 0f),
             navigationIcon = {
                 IconButton(
                     onClick = {
@@ -133,5 +134,5 @@ fun AddUpdateWishScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    AddUpdateWishScreen(type = WishProcess.Add)
+    AddUpdateWishScreen(processType = WishProcess.Add)
 }
