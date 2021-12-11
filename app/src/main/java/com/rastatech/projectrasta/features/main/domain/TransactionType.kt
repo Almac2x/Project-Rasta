@@ -2,6 +2,7 @@ package com.rastatech.projectrasta.features.main.domain
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CardGiftcard
 import androidx.compose.material.icons.filled.Remove
 import androidx.compose.ui.graphics.vector.ImageVector
 
@@ -13,37 +14,43 @@ import androidx.compose.ui.graphics.vector.ImageVector
  */
 
 sealed class TransactionType(
-    open val value: String,
-    open var amount: Int,
-    open val icon: ImageVector
+
+    val amount : Int,
+    val wishID : Int
+
 ) {
-    data class Donate(
-        override val value: String,
-        override var amount: Int,
-        override val icon: ImageVector
-        ): TransactionType(
-        value = "Donate",
-        amount = 0,
-        icon = Icons.Default.Add
-    )
+    class Donate(
+        wishID: Int,
+        amount: Int,
+    ): TransactionType(amount = amount, wishID = wishID){
+        val icon: ImageVector = Icons.Default.CardGiftcard
+        companion object {
+            const val value = "Donate"
 
-    data class Add(
-        override val value: String,
-        override var amount: Int,
-        override val icon: ImageVector
-    ): TransactionType(
-        value = "Add",
-        amount = 0,
-        icon = Icons.Default.Add
-    )
+        }
+    }
 
-    data class Send(
-        override val value: String,
-        override var amount: Int,
-        override val icon: ImageVector
-    ): TransactionType(
-        value = "Send",
-        amount = 0,
-        icon = Icons.Default.Remove
-    )
+    class Add(wishID: Int,
+              amount: Int,
+    ): TransactionType(amount = amount, wishID = wishID) {
+
+        val icon: ImageVector = Icons.Default.Add
+
+        companion object {
+            const val value = "Add"
+
+        }
+    }
+
+    class Send(
+        wishID: Int,
+        amount: Int,
+    ): TransactionType(amount = amount, wishID = wishID){
+        val icon = Icons.Default.Remove
+        companion object {
+            const val value = "Send"
+
+        }
+    }
+
 }
