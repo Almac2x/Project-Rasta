@@ -17,6 +17,13 @@ interface MainApi {
     /**
      * User Api Calls
      */
+
+    /**
+     * TODO
+     *
+     * @param token
+     * @return
+     */
     // Gets the CurrentUsers Profile Details
     @GET("api/users/own")
     suspend fun getOwnProfile(@Header(ApiKey.Authorization.value) token: String
@@ -28,6 +35,13 @@ interface MainApi {
      */
 
     //GET
+
+    /**
+     * TODO
+     *
+     * @param token
+     * @return
+     */
     @GET("/api/users/balance")
     suspend fun getUserBalance(@Header(ApiKey.Authorization.value) token: String
     ): Response<Map<String,Int>>

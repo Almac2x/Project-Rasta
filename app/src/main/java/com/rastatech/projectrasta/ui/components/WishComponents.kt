@@ -34,7 +34,7 @@ fun WishList(wishEntities : List<WishEntity>){
         content = {
 
             items(items = wishEntities){ wish ->
-                WishTile(wishEntity = wish)
+                CustomWishTile(wishEntity = wish)
             }
         } )
 }

@@ -37,7 +37,7 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
         composable(route = "${BottomBarScreens.Profile.route}",
             arguments = tokenNavArgument){
 
-            UserProfileScreen(firstName = "Christian ", lastName = "Salon", userName = "Lloyd")
+            UserProfileScreen()
         }
         composable(route = "${BottomBarScreens.MakeWish.route}",
             arguments = tokenNavArgument){

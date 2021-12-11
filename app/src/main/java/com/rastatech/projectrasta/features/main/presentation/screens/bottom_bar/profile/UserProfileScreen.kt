@@ -34,10 +34,6 @@ import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 @ExperimentalPagerApi
 @Composable
 fun UserProfileScreen(
-    firstName: String,
-    lastName: String,
-    userName: String,
-
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
     Column(
@@ -78,13 +74,13 @@ fun UserProfileScreen(
         Box(modifier = Modifier.padding(10.dp)) {
             Column {
                 Text(
-                    text = "$firstName $lastName",
+                    text = "${viewModel.firstName} ${viewModel.lastName}",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
                 )
 
                 Text(
-                    text = userName,
+                    text = viewModel.userName,
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     fontSize = 15.sp
                 )
@@ -116,9 +112,5 @@ fun UserProfileScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    UserProfileScreen(
-        firstName = "Christian Lloyd",
-        lastName = "Salon",
-        userName = "christian.salon"
-    )
+    UserProfileScreen()
 }

@@ -48,6 +48,7 @@ import com.rastatech.projectrasta.utils.animations.Pulsating
 fun GemPageScreen(
     navController: NavController,
     viewModel: GemPageViewModel = hiltViewModel()
+
 ) {
     val space = 30.dp
     val boxSize = 200.dp
@@ -93,7 +94,7 @@ fun GemPageScreen(
                     id = R.drawable.gift,
                     title = "Add Gems",
                     onClick = {
-                        GemPageEvents.AddGemDialog( showType = ShowType.Open)
+                        viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Open))
                     }
                 )
                 CustomIconButton(id = R.drawable.gift, title = "Send Gems",
@@ -107,6 +108,7 @@ fun GemPageScreen(
             }
         }
     }
+
 
     if (viewModel.showAddGemDialog.value) {
         AlertDialog( // Make this into a seperate Composable

@@ -3,6 +3,10 @@ package com.rastatech.projectrasta.features.main.data.util
 
 sealed class ApiKey{
 
+    object UserID: ApiKey(){
+        const val value = "user_id"
+    }
+
     object VoteType: ApiKey (){
         const val value = "vote_type"
     }

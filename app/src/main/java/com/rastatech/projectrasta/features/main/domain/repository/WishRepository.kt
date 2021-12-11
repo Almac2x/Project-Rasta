@@ -14,6 +14,7 @@ interface WishRepository {
     //Get
     suspend fun getHomeScreenWishes(token:String) : Response<List<WishDTO>>
     suspend fun getWish(token : String,wishID: Int) : Response<WishDTO>
+    suspend fun getWishListOfAUser(token: String, userID: Int): Response<List<WishDTO>>
 
     //Post
     suspend fun createAWish(token: String, description: String,

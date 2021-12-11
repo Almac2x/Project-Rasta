@@ -7,7 +7,6 @@ import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.data.util.ApiKey
 import com.rastatech.projectrasta.features.main.domain.repository.WishRepository
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
-import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDao
 import retrofit2.Response
 
 private const val TAG = "WishRepositoryImp"
@@ -23,6 +22,11 @@ class WishRepositoryImp(
     override suspend fun getWish(token: String, wishID: Int): Response<WishDTO> {
         return api.getWish(token = "${ApiKey.Bearer.value}$token",
                                         wishID = wishID)
+    }
+
+    override suspend fun getWishListOfAUser(token: String, userID: Int): Response<List<WishDTO>> {
+        return api.getWishListOfAUser(token = "${ApiKey.Bearer.value}$token",
+                                      userID = userID)
     }
 
     override suspend fun createAWish(token: String, description: String,

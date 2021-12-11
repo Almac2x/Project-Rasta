@@ -10,9 +10,33 @@ import retrofit2.http.*
 
 interface WishApi {
 
-    //Gets the HomeScreen Wishes to be Displayed
+    /**
+     * Gets the HomeScreen Wishes to be Displayed
+     * Used? = Yes
+     * Tested? = Yes
+     */
+
     @GET("/api/wishes")
     suspend fun  getHomeScreenWishes(@Header(ApiKey.Authorization.value) token: String
+    ): Response<List<WishDTO>>
+
+    //Gets the WishList of Donated Wishes by the User Specified
+    @GET("/api/wishes/donated/{${ApiKey.UserID.value}}")
+    suspend fun getWishListContributedByUser()
+
+    //Gets the WishList of a User that is Fulfilled
+    @GET("/api/wishes/granted/{${ApiKey.UserID.value}}")
+    suspend fun getWishListFulfilled()
+
+
+    /**
+     *
+     * Gets  the wish list of a specific user
+     */
+
+    @GET("/api/wishes/user/{${ApiKey.UserID.value}}")
+    suspend fun getWishListOfAUser(@Header(ApiKey.Authorization.value) token: String,
+                                   @Path(ApiKey.UserID.value) userID: Int
     ): Response<List<WishDTO>>
 
     //Gets a single Wish
@@ -55,6 +79,14 @@ interface WishApi {
     suspend fun voteAWish (@Header(ApiKey.Authorization.value) token: String,
                            @Path("${ApiKey.WishID.value}") wishID: Int,
                            @Body voteType: Map<String, String>
+    )
+
+    ///PUT///////////
+    @PUT("/api/wishes/{wish_id}")
+    suspend fun updateAWish(@Header(ApiKey.Authorization.value) token: String,
+                            @Path("${ApiKey.WishID.value}") wishID: Int,
+                            @Body createWish: CreateWishRequestDTO
+
     )
 
     //DELETE///////////////////

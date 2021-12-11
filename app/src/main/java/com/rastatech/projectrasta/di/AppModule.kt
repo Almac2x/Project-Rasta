@@ -12,10 +12,7 @@ import com.rastatech.projectrasta.features.main.domain.use_case.MainUseCases
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
 import com.rastatech.projectrasta.features.main.domain.use_case.main_use_case.GetOwnProfile
 import com.rastatech.projectrasta.features.main.domain.use_case.main_use_case.GetUserBalance
-import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.CreateAWish
-import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.GetHomeScreenWishes
-import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.GetWish
-import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.LikeAWish
+import com.rastatech.projectrasta.features.main.domain.use_case.wish_use_case.*
 import com.rastatech.projectrasta.features.splash_login_signup.data.data_source.UserDatabase
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.LoginApi
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.SignUpApi
@@ -96,7 +93,8 @@ object AppModule {
             getWish = GetWish(repository = repository),
             getHomeScreenWishes = GetHomeScreenWishes(repository = repository),
             likeAWish = LikeAWish(repository = repository),
-            createAWish = CreateAWish(repository = repository)
+            createAWish = CreateAWish(repository = repository),
+            getUserWishList = GetUserWishList(repository = repository)
         )
     }
 
