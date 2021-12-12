@@ -20,18 +20,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun WishList(wishEntities : List<WishDTO>,navController : NavController){
+fun WishList(wishEntities : List<WishDTO>,navController : NavController,
 
+viewModel: WishViewModel = hiltViewModel()
+){
 
     LazyVerticalGrid(cells = GridCells.Fixed(2),
 
@@ -41,7 +44,7 @@ fun WishList(wishEntities : List<WishDTO>,navController : NavController){
 
             items(items = wishEntities){ wish ->
 
-                CustomWishTile(wishEntity = wish, navController = navController)
+                CustomWishTile(wishEntity = wish, navController = navController, viewModel = viewModel)
             }
         } )
 }

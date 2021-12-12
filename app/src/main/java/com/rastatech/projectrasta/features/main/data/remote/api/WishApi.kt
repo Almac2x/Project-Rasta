@@ -160,6 +160,6 @@ interface WishApi {
     @DELETE("/api/wishes/{${ApiKey.WishID.value}}")
     suspend fun deleteAWish(@Header(ApiKey.Authorization.value) token: String,
                             @Path(ApiKey.WishID.value)wishID : Int
-    )
+    ):Response<Unit>
 
 }

@@ -15,15 +15,16 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.nav_graph.WISH_LIST_PAGE
 import com.rastatech.projectrasta.nav_graph.WISH_PAGE_ROUTE
-import com.rastatech.projectrasta.nav_graph.WishGraph
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
@@ -39,7 +40,8 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 fun CustomWishTile(
     wishEntity: WishDTO? = null,
     isHeart: Boolean = false,
-    navController: NavController
+    navController: NavController,
+    viewModel : WishViewModel
 
 ) {
     val tileHeight = 300.dp
@@ -55,8 +57,8 @@ fun CustomWishTile(
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
             .combinedClickable(
                 onClick = {
-                    navController.navigate(WISH_PAGE_ROUTE){
-                        popUpTo(WISH_LIST_PAGE){
+                    navController.navigate(WISH_PAGE_ROUTE) {
+                        popUpTo(WISH_LIST_PAGE) {
                             inclusive = true
                         }
                     }
@@ -192,6 +194,8 @@ fun CustomWishTile(
                             contentColor = AppColorPalette.onError
                         ),
                     onClick = {
+
+                        viewModel.onEvent(WishPageEvents.DeleteWish(wishID = wishEntity?.wish_id!!)) // dapat wag gamitin ito ->!!
                         openDialog.value = false
                     }
                 ) {
@@ -212,7 +216,7 @@ private fun Preview() {
             rastagems_donated = 1, wish_id = 1, liked = false, upvotes = 1, downvotes = 1,
             wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = "nani"
             ),
-            navController = rememberNavController()
+            navController = rememberNavController(), viewModel = viewModel()
         )
     }
 }
