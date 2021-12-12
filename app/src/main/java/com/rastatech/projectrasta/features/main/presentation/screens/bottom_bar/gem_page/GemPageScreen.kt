@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -25,6 +27,7 @@ import com.rastatech.projectrasta.features.main.domain.util.ShowType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageEvents
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageViewModel
 import com.rastatech.projectrasta.ui.components.CustomIconButton
+import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 import com.rastatech.projectrasta.utils.animations.Pulsating
 
@@ -39,6 +42,7 @@ import com.rastatech.projectrasta.utils.animations.Pulsating
  * GemPage Screen
  *
  */
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun GemPageScreen(
     navController: NavController,
@@ -65,7 +69,11 @@ fun GemPageScreen(
             verticalArrangement = Arrangement.Center
         ) {
             // Number of Gems
-            Text(text = "1,000", fontSize = 60.sp, fontWeight = FontWeight.Bold)
+            Text(
+                text = Convert.toCompactNumber(1000),
+                fontSize = 60.sp,
+                fontWeight = FontWeight.Bold
+            )
 
             Spacer(modifier = Modifier.height(space))
 
@@ -198,6 +206,7 @@ private fun SendGemDialog(viewModel: GemPageViewModel) {
                         .fillMaxWidth()
                         .border(2.dp, Color.Black),
                     value = if (nGems.value == 0) "" else nGems.value.toString(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = {
                         nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
                         else nGems.value
@@ -215,7 +224,6 @@ private fun SendGemDialog(viewModel: GemPageViewModel) {
                         .fillMaxWidth()
                         .border(2.dp, Color.Black),
                     value = username.value,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     onValueChange = {
                         username.value = it
                     }

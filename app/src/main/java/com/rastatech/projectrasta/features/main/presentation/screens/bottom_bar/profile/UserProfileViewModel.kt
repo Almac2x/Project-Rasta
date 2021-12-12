@@ -53,6 +53,9 @@ class UserProfileViewModel @Inject constructor(
     val wishesFulfilled : Int
         get() = _wishesFulfilled.value
 
+    val logout = mutableStateOf(false)
+    val logoutAlertDialog = mutableStateOf(false)
+
     init {
 
         viewModelScope.launch(Dispatchers.Main) {

@@ -10,6 +10,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.WishItemPageScreen
 import com.rastatech.projectrasta.nav_graph.NavGraph
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
 import dagger.hilt.android.AndroidEntryPoint
