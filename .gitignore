@@ -22,3 +22,6 @@ local.properties
 .gradle/checksums/sha1-checksums.bin
 .idea/deploymentTargetDropDown.xml
 .idea/misc.xml
+/app/keystore/rasta_keystore.jks
+keystore.properties
+/fastlane/.env.default
