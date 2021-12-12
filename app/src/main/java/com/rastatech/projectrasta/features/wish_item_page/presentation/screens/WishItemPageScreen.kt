@@ -21,6 +21,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
@@ -50,6 +53,7 @@ import com.rastatech.projectrasta.utils.ValidateInput
  * @param reason reason for wishing
  * @param donors list of donors
  */
+
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
@@ -64,7 +68,8 @@ fun WishItemPageScreen(
     downVote: Int,
     voteState: VoteType,
     reason: String,
-    donors: List<Int> // TODO change data type later
+    donors: List<Int>,
+    viewModel: WishItemPageViewModel = hiltViewModel()
 ) {
     val gems = remember { mutableStateOf(minRastaGems) }
     val openDialog = remember { mutableStateOf(false)  }
@@ -118,7 +123,12 @@ fun WishItemPageScreen(
 
         Spacer(modifier = Modifier.height(space))
 
-        CustomImageWithHeart(painter = painterResource(id = R.drawable.gift))
+        CustomImageWithHeart(
+            painter = if (viewModel.imageURL.value.text.isBlank())
+                painterResource(id = R.drawable.gift)
+            else
+                rememberImagePainter(data = viewModel.imageURL.value)
+        )
 
         Spacer(modifier = Modifier.height(space))
 

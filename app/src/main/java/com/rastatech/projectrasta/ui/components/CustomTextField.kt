@@ -1,5 +1,8 @@
 package com.rastatech.projectrasta.ui.components
 
+import android.util.Log
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
@@ -15,12 +18,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
+import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -52,8 +60,8 @@ fun CustomTextField(
         value = textState.value,
         onValueChange = { textState.value = it },
         shape = TextFieldCornerRadius.large,
-        keyboardOptions = KeyboardOptions(keyboardType = if (isPassword) KeyboardType.Password else KeyboardType.Ascii, imeAction = ImeAction.Done),
-        visualTransformation = if (!isPasswordVisible.value && !isPassword) VisualTransformation.None else PasswordVisualTransformation(),
+        keyboardOptions = KeyboardOptions(keyboardType = if (isPasswordVisible.value) KeyboardType.Password else KeyboardType.Ascii, imeAction = ImeAction.Done),
+        visualTransformation = if (!isPasswordVisible.value && isPassword) PasswordVisualTransformation() else VisualTransformation.None,
         label = {
             Text(text = hintText)
         },
@@ -61,7 +69,11 @@ fun CustomTextField(
             Icon(imageVector = leadingIcon, contentDescription = "$hintText Icon")
         },
         trailingIcon = {
-            if (isPassword) IconButton(onClick = { isPasswordVisible.value = !isPasswordVisible.value }) {
+            if (isPassword) IconButton(
+                onClick = {
+                    isPasswordVisible.value = !isPasswordVisible.value
+                }
+            ) {
                 Icon(
                     imageVector = if(isPasswordVisible.value) Icons.Default.Visibility else Icons.Default.VisibilityOff,
                     contentDescription = "Password Visibility"

@@ -121,6 +121,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
 
+    // Jetpack Compose Coil Dependency
+    implementation "io.coil-kt:coil-compose:1.4.0"
 
     // Room components
     implementation "androidx.room:room-runtime:2.3.0"
