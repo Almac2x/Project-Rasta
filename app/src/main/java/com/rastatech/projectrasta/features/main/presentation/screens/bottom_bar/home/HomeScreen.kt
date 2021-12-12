@@ -21,15 +21,7 @@ fun HomeScreen(
     navController: NavController
 ){
 
-    var wishEntities: List<WishEntity> = listOf(
-        WishEntity(wish_id = "id", wish_name = "Nani", description = "Description", rastagems_donated = 15, rastagems_required = 15,
-        user_id = "121", image = R.drawable.gift),
-        WishEntity(wish_id = "id", wish_name = "Nani", description = "Description", rastagems_donated = 15, rastagems_required = 15,
-        user_id = "121", image = R.drawable.gift)
-    )
-    wishEntities = wishEntities+wishEntities
-    wishEntities = wishEntities+wishEntities
 
-    WishList(wishEntities = wishEntities)
+    WishList(wishEntities = viewModel.allWishes)
 
 }

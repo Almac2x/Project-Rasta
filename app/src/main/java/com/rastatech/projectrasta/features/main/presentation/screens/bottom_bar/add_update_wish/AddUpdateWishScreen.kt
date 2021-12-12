@@ -45,26 +45,31 @@ fun AddUpdateWishScreen(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopAppBar(
-            title = {
-                Text(text = processType.toString)
 
-                    },
-            elevation = 0.dp,
-            backgroundColor = Color.Black.copy(alpha = 0f),
-            navigationIcon = {
-                IconButton(
-                    onClick = {
-                        // Return to previous screen
+        if(processType == WishProcess.Update){// Will only show if it is an Update
+
+            TopAppBar(
+                title = {
+                    Text(text = processType.toString)
+
+                },
+                elevation = 0.dp,
+                backgroundColor = Color.Black.copy(alpha = 0f),
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            // Return to previous screen
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
                 }
-            }
-        )
+            )
+        }
+
 
         Column(
             modifier = Modifier

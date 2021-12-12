@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
@@ -31,8 +32,9 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 @ExperimentalFoundationApi
 @Composable
 fun CustomWishTile(
-    wishEntity: WishEntity? = null,
-    isHeart: Boolean = false
+    wishEntity: WishDTO? = null,
+    isHeart: Boolean = false,
+
 ) {
     val tileHeight = 300.dp
     val tileElevation = 5.dp
@@ -47,6 +49,7 @@ fun CustomWishTile(
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
             .combinedClickable(
                 onClick = {
+
                     // go to Wish Item Page
                 },
                 onLongClick = {
@@ -66,11 +69,13 @@ fun CustomWishTile(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
+
+                //Add Here Coil Image
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp),
-                    painter = painterResource(
+                    painter = painterResource( // Ilagay Dito Coil
                         id = R.drawable.gift
                     ),
                     contentDescription = "",
@@ -85,12 +90,12 @@ fun CustomWishTile(
                             verticalArrangement = Arrangement.SpaceEvenly
                         ) {
                             Text(
-                                text = "Wish Name Hello World",
+                                text = wishEntity?.wish_name.toString(),
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
                             Text(
-                                text = "Wisher",
+                                text = wishEntity?.wish_owner_username.toString(), // dapat name ng wisher
                                 fontSize = 13.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
@@ -98,7 +103,7 @@ fun CustomWishTile(
                         }
                     }
 
-                    Box(
+                    Box(// Heart
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.CenterEnd
                     ) {
@@ -119,17 +124,17 @@ fun CustomWishTile(
                 }
                 
                 CustomGemProgressBar(
-                    progress = 30,
-                    maxProgress = 200,
+                    progress = wishEntity?.rastagems_donated?:0,
+                    maxProgress = wishEntity?.rastagems_required?:0,
                     progressColor = Color.Green,
                     backgroundColor = Color.LightGray,
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = 0, downVoteCount = 200, voteType = VoteType.None)
+                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0, voteType = VoteType.None)
             }
         }
-    }
+    }//////// End of Card
 
     if (openDialog.value) {
         AlertDialog(
@@ -190,6 +195,10 @@ fun CustomWishTile(
 @Composable
 private fun Preview() {
     Scaffold(modifier = Modifier.fillMaxSize()) {
-        CustomWishTile()
+        CustomWishTile(wishEntity = WishDTO(
+            wish_name = "Nani", description = "nani", image_url = "url", rastagems_required = 2,
+            rastagems_donated = 1, wish_id = 1, liked = false, upvotes = 1, downvotes = 1,
+            wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = "nani"
+        ))
     }
 }

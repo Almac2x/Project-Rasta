@@ -36,5 +36,10 @@ sealed class BottomBarScreens(
         title = "Make A Wish",
         icon = Icons.Default.Star
     )
+    object WishPage: BottomBarScreens(
+        route = "wish_page/{${NavigationKey.WishID.value}}",
+        title = "Wish Page",
+        icon = Icons.Default.Star
+    )
 
 }

@@ -21,8 +21,13 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
@@ -55,6 +60,8 @@ import com.rastatech.projectrasta.utils.ValidateInput
 @ExperimentalFoundationApi
 @Composable
 fun WishItemPageScreen(
+    navController: NavController,
+    viewModel : ViewModel,
     wishName: String,
     wisherName: String,
     userRastaGems: Int,
@@ -259,6 +266,7 @@ fun WishItemPageScreen(
 @Composable
 private fun Preview() {
     WishItemPageScreen(
+        viewModel = viewModel(),
         wishName = "Wish",
         wisherName = "Hello",
         userRastaGems = 200,
@@ -268,6 +276,7 @@ private fun Preview() {
         downVote = 200,
         voteState = VoteType.None,
         reason = "IDK",
-        donors = listOf(1, 2, 3)
+        donors = listOf(1, 2, 3),
+        navController = rememberNavController()
     )
 }
