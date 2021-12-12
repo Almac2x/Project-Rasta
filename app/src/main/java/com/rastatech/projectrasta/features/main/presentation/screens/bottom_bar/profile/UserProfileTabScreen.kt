@@ -46,7 +46,7 @@ fun UserProfileTabScreen(viewModel: UserProfileViewModel) {
 fun ProfileTabsContent(wishlist: List<WishDTO>, wishFulfilled: List<WishDTO>, pagerState: PagerState) {
     HorizontalPager(state = pagerState) { page ->
         when(page) {
-            0 -> WishListScreen(list = wishlist) // ipass ang mga wish list dito
+            0 -> WishListScreen(wishList = wishlist) // ipass ang mga wish list dito
             1 -> WishesFulfilled(wishList = wishFulfilled) // ipass ang mga wish lsit dito
         }
     }

@@ -20,13 +20,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 
+@ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun WishList(wishEntities : List<WishDTO>){
+fun WishList(wishEntities : List<WishDTO>,navController : NavController){
+
 
     LazyVerticalGrid(cells = GridCells.Fixed(2),
 
@@ -35,7 +40,8 @@ fun WishList(wishEntities : List<WishDTO>){
         content = {
 
             items(items = wishEntities){ wish ->
-                CustomWishTile(wishEntity = wish)
+
+                CustomWishTile(wishEntity = wish, navController = navController)
             }
         } )
 }
@@ -50,7 +56,8 @@ fun WishTile(wishEntity : WishEntity? = null ){
     val nameOfWisher = "Alejandro G. Blando III"
 
     Card(modifier = Modifier
-        .height(250.dp). padding(10.dp)
+        .height(250.dp)
+        .padding(10.dp)
         .testTag("WishtTile"), elevation = 2.dp, backgroundColor = MaterialTheme.colors.primary,
         onClick = { Log.i("Clicked","Clicked o")},
     ) {

@@ -6,9 +6,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.nav_graph.WishGraph
 import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.ui.components.WishList
 
@@ -19,12 +22,15 @@ import com.rastatech.projectrasta.ui.components.WishList
  * @since 12/10/2021
  */
 
+@ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
 fun WishesFulfilled(wishList : List<WishDTO>) {
 
+    val navController = rememberNavController()
+
     Box(modifier = Modifier.fillMaxSize()) {
-        WishList(wishEntities = wishList)
+        WishGraph(navController = navController, wishList = wishList)
     }
 }

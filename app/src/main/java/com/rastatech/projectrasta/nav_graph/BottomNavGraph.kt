@@ -36,7 +36,7 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
         composable (route = "${BottomBarScreens.Home.route}",
         arguments = tokenNavArgument
         ){
-            HomeScreen(navController = navController)
+            HomeScreen()
         }
         composable(route = "${BottomBarScreens.Profile.route}",
             arguments = tokenNavArgument){
@@ -52,12 +52,7 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
             arguments = tokenNavArgument){
             GemPageScreen(navController = navController)
         }
-        composable(route = "${BottomBarScreens.WishPage.route}",
-        arguments = listOf(navArgument(NavigationKey.WishID.value){
-            type = NavType.IntType
-        })){
-            //WishItemPageScreen(navController = navController)
-        }
+
 
 
     }
