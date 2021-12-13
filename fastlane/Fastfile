@@ -42,7 +42,7 @@ platform :android do
       gradle(task: "clean assembleRelease")
       firebase_app_distribution(
           app: ENV['APP_ID'],
-          groups: "UI Devs",
+          groups: "testers",
           release_notes: "Lots of amazing new features to test out!"
       )
   end
