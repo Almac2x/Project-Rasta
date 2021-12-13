@@ -8,11 +8,14 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.HomeEvents
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,16 +26,24 @@ class AddUpdateWishViewModel @Inject constructor(
     state: SavedStateHandle,
     private val useCases: WishUseCases
 ):ViewModel() {
-    private val userToken = state.get<String>("access_token") ?: ""
+    private val retroFitToken = SecretRastaApp.prefs?.accessToken
 
     val wishName =  mutableStateOf(TextFieldValue())
     val reason =  mutableStateOf(TextFieldValue())
     val imageURL =   mutableStateOf(TextFieldValue())
     val gemsRequired =  mutableStateOf(TextFieldValue())
 
+    private val _toastMessage = mutableStateOf("")
+    val toastMessage: State<String>
+        get() = _toastMessage
+
+    private val _showToast = mutableStateOf(false)
+    val showToast: State<Boolean>
+        get() = _showToast
+
     init {
         viewModelScope.launch (Dispatchers.IO){
-            Log.i(TAG, "UserToken: $userToken")
+            Log.i(TAG, "UserToken: $retroFitToken")
         }
     }
 
@@ -45,15 +56,33 @@ class AddUpdateWishViewModel @Inject constructor(
                 }
             }
             is AddUpdateWishEvents.AddWish ->{
-                viewModelScope.launch(Dispatchers.IO) {
-                    val request = useCases.createAWish(
-                        token = userToken,
+
+              val evenRequest =  viewModelScope.launch(Dispatchers.IO) {
+                    val requestAddWish = async{ useCases.createAWish(
+                        token = retroFitToken?:"",
                         description = reason.value.text,
                         imageURL = imageURL.value.text,
                         wishName = wishName.value.text,
                         rastaGemsRequired = gemsRequired.value.text.toInt()
-                    )
+                    )}
+
+                    when (requestAddWish.await().code()){
+
+                        200 ->{
+                            _showToast.value = true
+                            _toastMessage.value = "Add Wish Successful"
+                        }
+                        else ->{
+                            _showToast.value = true
+                            _toastMessage.value ="Something Went Wrong"
+                        }
+                    }
+
+                  delay(1000L)
                 }
+                _toastMessage.value = ""
+                _showToast.value = false
+
             }
             is AddUpdateWishEvents.UpdateWish -> TODO()
         }

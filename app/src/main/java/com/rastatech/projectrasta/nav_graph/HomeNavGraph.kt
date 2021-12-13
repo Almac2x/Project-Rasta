@@ -43,8 +43,12 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
              ){
             Log.i(TAG, "Access_Token Received: ${it.arguments?.getString(NavigationKey.AccessToken.value)}")
 
-            MainScreen()
+            MainScreen(mainNavController = navController)
         }
+
+
+
+
 
     }
 

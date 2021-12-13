@@ -44,7 +44,8 @@ interface MainApi {
 
     //////////////POST
     @POST("/api/rastagem/add")
-    suspend fun addGems(@Header(ApiKey.Authorization.value) token: String
+    suspend fun addGems(@Header(ApiKey.Authorization.value) token: String,
+                        @Body amount: Map<String, Int>
     ):Response<Unit>
 
     /**
@@ -52,9 +53,10 @@ interface MainApi {
      * Used? = No
      */
 
-    @POST("/api/rastagem/transfer/{${ApiKey.UserID.value}}")
-    suspend fun transferGems(@Header(ApiKey.Authorization.value) token: String,
-                             @Path(ApiKey.UserID.value) userID: Int
+    @POST("/api/rastagem/transfer/{${ApiKey.UserName.value}}")
+    suspend fun sendGems(@Header(ApiKey.Authorization.value) token: String,
+                             @Path(ApiKey.UserName.value) userName: String,
+                         @Body amount : Map<String,Int>
     ):Response<Unit>
 
 

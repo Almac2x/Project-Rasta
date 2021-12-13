@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page
 
 import android.os.Build
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -13,19 +14,17 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.ShowType
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageEvents
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageViewModel
 import com.rastatech.projectrasta.ui.components.CustomIconButton
 import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
@@ -52,9 +51,20 @@ fun GemPageScreen(
     val space = 30.dp
     val boxSize = 200.dp
 
+
+    //Toast
+    if(viewModel.showToast.value){
+
+        // This only solves, Error Exception not 403 Errors
+        Toast.makeText(LocalContext.current, "${viewModel.toastMessage.value}", Toast.LENGTH_LONG).show()
+
+    }
+
+    //Add Gem Dialog Show or Not
     if (viewModel.showAddGemDialog.value) {
         AddGemsDialog(viewModel = viewModel)
     }
+    //Send Gem Dialog Show or Not
     else if (viewModel.showSendGemDialog.value) {
         SendGemDialog(viewModel = viewModel)
     }
@@ -70,7 +80,7 @@ fun GemPageScreen(
         ) {
             // Number of Gems
             Text(
-                text = Convert.toCompactNumber(1000),
+                text = Convert.toCompactNumber(viewModel.gemBalance),
                 fontSize = 60.sp,
                 fontWeight = FontWeight.Bold
             )
@@ -141,12 +151,13 @@ private fun AddGemsDialog(viewModel: GemPageViewModel) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
+                // Issue when developer used keyboard on emulator please handle kung may time
                 OutlinedTextField(
                     modifier = Modifier
                         .fillMaxWidth()
                         .border(2.dp, Color.Black),
-                    value = if (nGems.value == 0) "" else nGems.value.toString(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                    value = if (nGems.value == 0) "" else nGems.value.toString(),
                     onValueChange = {
                         nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
                         else nGems.value
@@ -160,7 +171,7 @@ private fun AddGemsDialog(viewModel: GemPageViewModel) {
         confirmButton = {
             Button(
                 onClick = {
-                    viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Close))
+                    viewModel.events(GemPageEvents.AddGems(showType = ShowType.Close, amount = nGems.value))
                 }
             ) {
                 Text(text = "Add")
@@ -176,7 +187,6 @@ private fun AddGemsDialog(viewModel: GemPageViewModel) {
             }
         }
     )
-
     nGems.value = 0
 }
 
@@ -236,7 +246,7 @@ private fun SendGemDialog(viewModel: GemPageViewModel) {
         confirmButton = {
             Button(
                 onClick = {
-                    viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Close))
+                    viewModel.events(GemPageEvents.SendGems(showType = ShowType.Close, amount = nGems.value, userName = username.value.text))
                 }
             ) {
                 Text(text = "Send")
@@ -252,4 +262,5 @@ private fun SendGemDialog(viewModel: GemPageViewModel) {
             }
         }
     )
+    nGems.value = 0
 }

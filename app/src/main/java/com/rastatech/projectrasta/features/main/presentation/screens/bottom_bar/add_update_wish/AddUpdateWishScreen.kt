@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.features.add_update_wish
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -8,11 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishEvents
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishViewModel
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.ui.components.CustomTextField
@@ -39,32 +42,46 @@ fun AddUpdateWishScreen(
     viewModel: AddUpdateWishViewModel = hiltViewModel()
 
 ) {
+
+    //Toast
+    if(viewModel.showToast.value){
+
+        // This only solves, Error Exception not 403 Errors
+        Toast.makeText(LocalContext.current, "${viewModel.toastMessage.value}", Toast.LENGTH_SHORT).show()
+
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TopAppBar(
-            title = {
-                Text(text = processType.toString)
 
-                    },
-            elevation = 0.dp,
-            backgroundColor = Color.Black.copy(alpha = 0f),
-            navigationIcon = {
-                IconButton(
-                    onClick = {
-                        // Return to previous screen
+        if(processType == WishProcess.Update){// Will only show if it is an Update
+
+            TopAppBar(
+                title = {
+                    Text(text = processType.toString)
+
+                },
+                elevation = 0.dp,
+                backgroundColor = Color.Black.copy(alpha = 0f),
+                navigationIcon = {
+                    IconButton(
+                        onClick = {
+                            // Return to previous screen
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
                 }
-            }
-        )
+            )
+        }
+
 
         Column(
             modifier = Modifier
@@ -121,7 +138,7 @@ fun AddUpdateWishScreen(
                     shape = CardCornerRadius.small,
                     modifier = Modifier.fillMaxWidth(),
                     onClick = {
-
+                        viewModel.onEvent(AddUpdateWishEvents.AddWish)
                     }
                 ) {
                     Text(text = "Post Wish")
