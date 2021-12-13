@@ -59,7 +59,6 @@ class WishViewModel@Inject constructor(
                         }
                     }
 
-
                     delay(1000L)
 
                     _showToast.value = false

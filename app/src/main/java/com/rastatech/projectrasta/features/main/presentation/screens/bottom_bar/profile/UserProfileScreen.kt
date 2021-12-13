@@ -114,8 +114,8 @@ fun UserProfileScreen(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            CustomTextWithCount(title = "Active Wishes", count = 5)
-            CustomTextWithCount(title = "Wishes Fulfilled", count = 5)
+            CustomTextWithCount(title = "Active Wishes", count = viewModel.numberOfActiveWishes)
+            CustomTextWithCount(title = "Wishes Fulfilled", count = viewModel.numberOfFulfiledWishes)
         }
 
         Box(modifier = Modifier

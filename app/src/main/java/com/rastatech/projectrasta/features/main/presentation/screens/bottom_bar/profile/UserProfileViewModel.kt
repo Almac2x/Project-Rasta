@@ -53,6 +53,14 @@ class UserProfileViewModel @Inject constructor(
     val wishesFulfilled : List<WishDTO>
         get() = _wishesFulfilled.value
 
+    private var _numberOfActiveWishes = mutableStateOf(0)
+    val numberOfActiveWishes : Int
+        get() = _numberOfActiveWishes.value
+
+    private var _numberOfFulfiledWishes = mutableStateOf(0)
+    val numberOfFulfiledWishes : Int
+        get() = _numberOfFulfiledWishes.value
+
 
     init {
 
@@ -64,15 +72,19 @@ class UserProfileViewModel @Inject constructor(
             requestUserProfile.join()
 
             // Double Check with other account
-            val requestUserActiveWishList = async { RetrofitInstance.wishApi.getAUserActiveWishList(token = retroFitToken.toString(), userID =userID?:2 )} // dapat hindi 1 default
-
+            val requestUserActiveWishList = async { RetrofitInstance.wishApi.getAUserActiveWishList(token = retroFitToken.toString(), userID =userID?:2 )} // dapat hindi 2 default
             val requestUserWishListFulfilled = async { RetrofitInstance.wishApi.getAUserWishListFulfilled(token = retroFitToken, userID =userID?:2 ) }
+            val requestUserWishStatus = async { RetrofitInstance.wishApi.getWishStatus(token = retroFitToken, userID = userID?:2) }
 
-            requestUserActiveWishList.join()
+           /* requestUserActiveWishList.join()
             requestUserWishListFulfilled.join()
+            requestUserWishStatus.join()*/
 
             _activeWishes.value = requestUserActiveWishList.await().body()!!
             _wishesFulfilled.value = requestUserWishListFulfilled.await().body()!!
+
+            _numberOfActiveWishes.value = requestUserWishStatus.await().body()?.get("active_wishes")!!
+            _numberOfFulfiledWishes.value = requestUserWishStatus.await().body()?.get("fulfilled_wishes")!!
 
 
             _firstName.value = requestUserProfile.await().body()?.first_name.toString() // kung null to string ko lang

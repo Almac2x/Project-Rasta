@@ -81,6 +81,12 @@ interface WishApi {
                                    @Path(ApiKey.UserID.value) userID: Int
     ): Response<List<WishDTO>>
 
+    @GET("/api/wishes/status/{${ApiKey.UserID.value}}")
+    suspend fun getWishStatus(@Header(ApiKey.Authorization.value) token: String,
+                              @Path(ApiKey.UserID.value) userID: Int
+
+    ): Response<Map<String,Int>>
+
 
     //Post//////////////
     /**
