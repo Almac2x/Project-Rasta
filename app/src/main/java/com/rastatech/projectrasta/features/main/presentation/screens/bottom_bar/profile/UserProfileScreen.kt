@@ -5,12 +5,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -45,21 +47,75 @@ fun UserProfileScreen(
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (viewModel.logoutAlertDialog.value) {
+            AlertDialog(
+                title = {
+                    Text(
+                        text = "Log out",
+                        fontSize = 20.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                },
+                text = {
+                    Text(text = "Are you sure you want to logout?")
+                },
+                onDismissRequest = { viewModel.logoutAlertDialog.value = false },
+                confirmButton = {
+                    Button(
+                        onClick = {
+                            viewModel.logoutAlertDialog.value = false
+                            viewModel.logout.value = true
+                        }
+                    ) {
+                        Text(text = "OK")
+                    }
+                },
+                dismissButton = {
+                    Button(
+                        onClick = {
+                            viewModel.logoutAlertDialog.value = false
+                            viewModel.logout.value = false
+                        }
+                    ) {
+                        Text(text = "Cancel")
+                    }
+                }
+            )
+        }
 
         //Hard Coded Please adapt this to Make A Wish Screen
         Surface(
             modifier = Modifier.fillMaxWidth(),color = Color.Black.copy(alpha = 0f)
         ) {
-
-                Surface(modifier = Modifier.fillMaxWidth(),color =  Color.Black.copy(alpha = 0f)) {
-                    Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+            Surface(modifier = Modifier.fillMaxWidth(),color =  Color.Black.copy(alpha = 0f)) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.CenterEnd
+                    ) {
+                        // Profile Text
                         Text(
                             text = "Profile",
-                            fontWeight = FontWeight.Bold,
+                            textAlign = TextAlign.Center,
                             fontSize = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.fillMaxWidth()
                         )
+
+                        // Logout
+                        IconButton(
+                            onClick = {
+                                viewModel.logoutAlertDialog.value = true
+                            }
+                        ) {
+                            Icon(
+                                modifier = Modifier.fillMaxSize(0.8f),
+                                imageVector = Icons.Filled.Logout,
+                                contentDescription = "Logout"
+                            )
+                        }
                     }
-                }
+            }
+
             if(userType == UserType.Other) {
                 Surface(modifier = Modifier.fillMaxWidth(), color = Color.Black.copy(alpha = 0f)) {
                     Row(
@@ -71,7 +127,9 @@ fun UserProfileScreen(
                             onClick = { }
                         ) {
                             Icon(
-                                modifier = Modifier.width(25.dp).height(25.dp),
+                                modifier = Modifier
+                                    .width(25.dp)
+                                    .height(25.dp),
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = "Back"
                             )
@@ -84,15 +142,15 @@ fun UserProfileScreen(
                     }
                 }
             }
-
         }
 
-        // Please add padding para ma distinguish yung sa taas
-        CustomProfileImage(
-            painter = painterResource(id = R.drawable.profile),
-            diameter = 150.dp,
-            borderThickness = 5.dp
-        )
+        Box(modifier = Modifier.padding(10.dp)) {
+            CustomProfileImage(
+                painter = painterResource(id = R.drawable.profile),
+                diameter = 150.dp,
+                borderThickness = 5.dp
+            )
+        }
 
         Box(modifier = Modifier.padding(10.dp)) {
             Column {
@@ -108,6 +166,10 @@ fun UserProfileScreen(
                     fontSize = 15.sp
                 )
             }
+        }
+
+        Box(modifier = Modifier.padding(10.dp)) {
+
         }
 
         Row(

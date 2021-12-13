@@ -53,6 +53,9 @@ class UserProfileViewModel @Inject constructor(
     val wishesFulfilled : List<WishDTO>
         get() = _wishesFulfilled.value
 
+    val logout = mutableStateOf(false)
+    val logoutAlertDialog = mutableStateOf(false)
+
     private var _numberOfActiveWishes = mutableStateOf(0)
     val numberOfActiveWishes : Int
         get() = _numberOfActiveWishes.value

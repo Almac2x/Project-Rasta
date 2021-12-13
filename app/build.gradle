@@ -8,8 +8,40 @@ plugins {
 
 apply plugin: 'com.google.gms.google-services'
 
+// Create a variable called keystorePropertiesFile, and initialize it to your
+// keystore.properties file, in the rootProject folder.
+var keystorePropertiesFile = rootProject.file("keystore.properties")
+
+// Initialize a new Properties() object called keystoreProperties.
+var keystoreProperties = new Properties()
+
+// Load your keystore.properties file into the keystoreProperties object.
+keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+
 android {
+    lintOptions {
+        abortOnError false
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file(keystoreProperties["storeFile"])
+            storePassword keystoreProperties["storePassword"]
+            keyAlias keystoreProperties["keyAlias"]
+            keyPassword keystoreProperties["keyPassword"]
+        }
+        release {
+            storeFile file(keystoreProperties["storeFile"])
+            storePassword keystoreProperties["storePassword"]
+            keyAlias keystoreProperties["keyAlias"]
+            keyPassword keystoreProperties["keyPassword"]
+        }
+    }
     compileSdk 31
+
+    buildFeatures {
+        viewBinding true
+    }
 
     defaultConfig {
         applicationId "com.rastatech.projectrasta"
@@ -22,12 +54,20 @@ android {
         vectorDrawables {
             useSupportLibrary true
         }
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            debuggable true
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {
@@ -53,6 +93,8 @@ android {
 }
 
 dependencies {
+    //Resolve jdk8+ Generation Annotations - javax annotation does not exist
+    compileOnly 'com.github.pengrad:jdk9-deps:1.0'
 
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
@@ -78,13 +120,15 @@ dependencies {
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
 
     //Import the Firebase BoM
-    implementation platform('com.google.firebase:firebase-bom:29.0.0')
+    implementation platform('com.google.firebase:firebase-bom:29.0.2')
 
     // Add the dependency for the Firebase SDK for Google Analytics
     // When using the BoM, don't specify versions in Firebase dependencies
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-storage-ktx'
 
+    // Jetpack Compose Coil Dependency
+    implementation "io.coil-kt:coil-compose:1.4.0"
 
     // Room components
     implementation "androidx.room:room-runtime:2.4.0-alpha03"

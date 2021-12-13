@@ -25,6 +25,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import androidx.hilt.navigation.compose.hiltViewModel
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
@@ -60,7 +63,7 @@ import com.rastatech.projectrasta.utils.ValidateInput
 @Composable
 fun WishItemPageScreen(
     navController: NavController,
-    viewModel : ViewModel,
+    viewModel : WishItemPageViewModel = hiltViewModel(),
     wishName: String,
     wisherName: String,
     userRastaGems: Int,
@@ -124,7 +127,12 @@ fun WishItemPageScreen(
 
         Spacer(modifier = Modifier.height(space))
 
-        CustomImageWithHeart(painter = painterResource(id = R.drawable.gift))
+        CustomImageWithHeart(
+            painter = if (viewModel.imageURL.value.text.isBlank())
+                painterResource(id = R.drawable.gift)
+            else
+                rememberImagePainter(data = viewModel.imageURL.value)
+        )
 
         Spacer(modifier = Modifier.height(space))
 
@@ -265,7 +273,6 @@ fun WishItemPageScreen(
 @Composable
 private fun Preview() {
     WishItemPageScreen(
-        viewModel = viewModel(),
         wishName = "Wish",
         wisherName = "Hello",
         userRastaGems = 200,
