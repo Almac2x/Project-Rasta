@@ -20,6 +20,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.nav_graph.WISH_LIST_PAGE
 import com.rastatech.projectrasta.nav_graph.WISH_PAGE_ROUTE
@@ -39,9 +40,9 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 @Composable
 fun CustomWishTile(
     wishEntity: WishDTO? = null,
-    isHeart: Boolean = false,
     navController: NavController,
-    viewModel : WishViewModel
+    viewModel : WishViewModel,
+    displayType : DisplayType
 
 ) {
     val tileHeight = 300.dp
@@ -49,7 +50,7 @@ fun CustomWishTile(
     val heartButtonSize = 35.dp
 
     val openDialog = remember { mutableStateOf(false)  }
-    val heart = remember { mutableStateOf(isHeart) }
+    val heart = remember { mutableStateOf(wishEntity?.liked ?: false) }
 
     Card(
         modifier = Modifier
@@ -62,12 +63,15 @@ fun CustomWishTile(
                             inclusive = true
                         }
                     }
-
                     // go to Wish Item Page
                 },
                 onLongClick = {
-                    // update or delete alert dialog
-                    openDialog.value = true
+
+                    if(displayType == DisplayType.Editable){
+                        // update or delete alert dialog
+                        openDialog.value = true
+                    }
+
                 },
             ),
         shape = CardCornerRadius.small,
@@ -145,7 +149,7 @@ fun CustomWishTile(
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0, voteType = VoteType.None)
+                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0, voteType = VoteType.NONE)
             }
         }
     }//////// End of Card
@@ -214,9 +218,9 @@ private fun Preview() {
         CustomWishTile(wishEntity = WishDTO(
             wish_name = "Nani", description = "nani", image_url = "url", rastagems_required = 2,
             rastagems_donated = 1, wish_id = 1, liked = false, upvotes = 1, downvotes = 1,
-            wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = "nani"
+            wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = VoteType.DOWNVOTE.value
             ),
-            navController = rememberNavController(), viewModel = viewModel()
+            navController = rememberNavController(), viewModel = viewModel(), displayType = DisplayType.ReadOnly
         )
     }
 }

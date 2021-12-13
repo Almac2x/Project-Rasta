@@ -47,7 +47,7 @@ fun AddUpdateWishScreen(
     if(viewModel.showToast.value){
 
         // This only solves, Error Exception not 403 Errors
-        Toast.makeText(LocalContext.current, "${viewModel.toastMessage.value}", Toast.LENGTH_LONG).show()
+        Toast.makeText(LocalContext.current, "${viewModel.toastMessage.value}", Toast.LENGTH_SHORT).show()
 
     }
 

@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.nav_graph.WishGraph
 import com.rastatech.projectrasta.ui.components.WishList
 
@@ -30,6 +31,6 @@ fun WishListScreen(wishList: List<WishDTO>) {
 
     Box(modifier = Modifier.fillMaxSize()) {
 
-        WishGraph(navController = navController, wishList = wishList)
+        WishGraph(navController = navController, wishList = wishList, displayType = DisplayType.Editable)
     }
 }

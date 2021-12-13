@@ -27,7 +27,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
@@ -239,7 +238,7 @@ fun WishItemPageScreen(
                 Text(text = wishName, fontSize = 25.sp, fontWeight = FontWeight.Bold)
                 Text(text = wisherName, fontSize = 15.sp)
             }
-            // UpVote DownVote Button
+            // UPVOTE DOWNVOTE Button
             CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote, voteType = voteState)
         }
 
@@ -274,7 +273,7 @@ private fun Preview() {
         maxRastaGems = 200,
         upVote = 0,
         downVote = 200,
-        voteState = VoteType.None,
+        voteState = VoteType.NONE,
         reason = "IDK",
         donors = listOf(1, 2, 3),
         navController = rememberNavController()

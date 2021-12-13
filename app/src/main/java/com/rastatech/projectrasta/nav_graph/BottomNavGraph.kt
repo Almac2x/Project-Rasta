@@ -46,7 +46,7 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
         composable(route = "${BottomBarScreens.MakeWish.route}",
             arguments = tokenNavArgument){
 
-            AddUpdateWishScreen(processType = WishProcess.Update)
+            AddUpdateWishScreen(processType = WishProcess.Add)
         }
         composable(route ="${BottomBarScreens.GemsPage.route}",
             arguments = tokenNavArgument){

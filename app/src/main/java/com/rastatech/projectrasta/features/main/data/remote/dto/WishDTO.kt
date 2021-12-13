@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.features.main.data.remote.dto
 
+import com.rastatech.projectrasta.features.main.domain.util.VoteType
+
 data class WishDTO(
 
     val description: String,

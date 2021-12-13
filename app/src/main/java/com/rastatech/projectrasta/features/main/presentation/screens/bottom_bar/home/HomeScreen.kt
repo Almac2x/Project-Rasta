@@ -10,6 +10,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.HomeViewModel
 import com.rastatech.projectrasta.nav_graph.WishGraph
 import com.rastatech.projectrasta.ui.components.WishList
@@ -25,6 +26,6 @@ fun HomeScreen(
 ){
     val navController = rememberNavController()
 
-    WishGraph(navController = navController, wishList = viewModel.allWishes )
+    WishGraph(navController = navController, wishList = viewModel.allWishes, displayType = DisplayType.ReadOnly )
 
 }

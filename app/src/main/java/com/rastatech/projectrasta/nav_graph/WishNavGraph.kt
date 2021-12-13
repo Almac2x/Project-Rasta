@@ -15,6 +15,7 @@ import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
@@ -31,7 +32,7 @@ const val WISH_PAGE_ROUTE = "wish_page"
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun WishGraph(navController : NavHostController, wishList : List<WishDTO>) {
+fun WishGraph(navController : NavHostController, wishList : List<WishDTO>, displayType: DisplayType) {
 
     NavHost(
         navController = navController,
@@ -41,12 +42,10 @@ fun WishGraph(navController : NavHostController, wishList : List<WishDTO>) {
     ){
 
         composable(route = "$WISH_LIST_PAGE"){
-            WishList(navController = navController, wishEntities = wishList)
+            WishList(navController = navController, wishEntities = wishList, displayType = displayType)
         }
 
         composable(route = "$WISH_PAGE_ROUTE"){
-
-
 
         }
 
