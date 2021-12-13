@@ -184,6 +184,9 @@ fun CustomWishTile(
             confirmButton = {
                 Button(
                     onClick = {
+                        navController.navigate("wish_update/"+ wishEntity?.wish_id){
+
+                        } // requried arguments
                         openDialog.value = false
                     }
                 ) {

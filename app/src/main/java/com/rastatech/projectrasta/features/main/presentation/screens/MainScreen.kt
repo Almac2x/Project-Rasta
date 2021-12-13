@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.RowScope
@@ -18,6 +20,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.BottomNavGraph
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
