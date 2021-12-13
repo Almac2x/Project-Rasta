@@ -111,7 +111,7 @@ fun GemPageScreen(
             ) {
                 // Add Gems Button
                 CustomIconButton(
-                    id = R.drawable.gift,
+                    id = R.drawable.add_gem,
                     title = "Add Gems",
                     onClick = {
                         viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Open))
@@ -119,13 +119,13 @@ fun GemPageScreen(
                 )
                 // Send Gems Button
                 CustomIconButton(
-                    id = R.drawable.gift,
+                    id = R.drawable.send_gem,
                     title = "Send Gems",
                     onClick = {
                         viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Open))
                     }
                 )
-                CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {})
+                CustomIconButton(id = R.drawable.transactions, title = "Transactions", onClick = {})
             }
         }
     }
