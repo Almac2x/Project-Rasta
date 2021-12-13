@@ -51,7 +51,7 @@ class MainViewModel @Inject constructor(
             val request6 = async { RetrofitInstance.wishApi.voteWish(
                 token = userToken?:"",
                 wishID = 2,
-                voteType = mapOf("vote_type" to "DownVote")
+                voteType = mapOf("vote_type" to "DOWNVOTE")
 
             ) }
             val request7 = async { RetrofitInstance.mainApi.GetUserBalance(

@@ -4,13 +4,13 @@ sealed class VoteType(
     val value:String
 ){
 
-    object UpVote: VoteType(
-        value = "UpVote"
+    object UPVOTE: VoteType(
+        value = "UPVOTE"
     )
-    object DownVote: VoteType(
-        value = "DownVote"
+    object DOWNVOTE: VoteType(
+        value = "DOWNVOTE"
     )
-    object None: VoteType(
-        value =""
+    object NONE: VoteType(
+        value ="NONE"
     )
 }

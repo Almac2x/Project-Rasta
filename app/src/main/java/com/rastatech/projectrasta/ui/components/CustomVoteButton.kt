@@ -36,21 +36,21 @@ fun CustomVoteButton(
     val vote = remember { mutableStateOf(voteType) }
 
     Row {
-        // UpVote
+        // UPVOTE
         IconButton(
             onClick = {
                 when (vote.value) {
-                    VoteType.None -> {
-                        vote.value = VoteType.UpVote
+                    VoteType.NONE -> {
+                        vote.value = VoteType.UPVOTE
                         upVote.value = upVote.value + 1
                     }
-                    VoteType.UpVote -> {
+                    VoteType.UPVOTE -> {
                         // remove count from upvote if you click upvote button again
-                        vote.value = VoteType.None
+                        vote.value = VoteType.NONE
                         upVote.value = upVote.value - 1
                     }
-                    VoteType.DownVote -> {
-                        vote.value = VoteType.UpVote
+                    VoteType.DOWNVOTE -> {
+                        vote.value = VoteType.UPVOTE
                         upVote.value = upVote.value + 1
                         downVote.value = downVote.value - 1
                     }
@@ -58,7 +58,7 @@ fun CustomVoteButton(
             }
         ) {
             Icon(
-                tint = if (vote.value == VoteType.UpVote) Color.Blue else Color.Black,
+                tint = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
                 modifier = Modifier.fillMaxSize(fraction = 0.8f),
                 painter = painterResource(
                     id = R.drawable.upvote
@@ -67,27 +67,27 @@ fun CustomVoteButton(
             )
         }
         Text(
-            color = if (vote.value == VoteType.UpVote) Color.Blue else Color.Black,
+            color = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
             fontSize = 20.sp,
             text = "${upVote.value}",
             modifier = Modifier.align(Alignment.CenterVertically)
         )
 
-        // DownVote
+        // DOWNVOTE
         IconButton(
             onClick = {
                 when (vote.value) {
-                    VoteType.None -> {
-                        vote.value = VoteType.DownVote
+                    VoteType.NONE -> {
+                        vote.value = VoteType.DOWNVOTE
                         downVote.value = downVote.value + 1
                     }
-                    VoteType.DownVote -> {
+                    VoteType.DOWNVOTE -> {
                         // remove count from upvote if you click upvote button again
-                        vote.value = VoteType.None
+                        vote.value = VoteType.NONE
                         downVote.value = downVote.value - 1
                     }
-                    VoteType.UpVote -> {
-                        vote.value = VoteType.DownVote
+                    VoteType.UPVOTE -> {
+                        vote.value = VoteType.DOWNVOTE
                         downVote.value = downVote.value + 1
                         upVote.value = upVote.value - 1
                     }
@@ -95,7 +95,7 @@ fun CustomVoteButton(
             }
         ) {
             Icon(
-                tint = if (vote.value == VoteType.DownVote) Color.Blue else Color.Black,
+                tint = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
                 modifier = Modifier.fillMaxSize(fraction = 0.8f),
                 painter = painterResource(
                     id = R.drawable.downvote
@@ -104,7 +104,7 @@ fun CustomVoteButton(
             )
         }
         Text(
-            color = if (vote.value == VoteType.DownVote) Color.Blue else Color.Black,
+            color = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
             fontSize = 20.sp,
             text = "${downVote.value}",
             modifier = Modifier.align(Alignment.CenterVertically)
@@ -118,6 +118,6 @@ private fun Preview() {
     CustomVoteButton(
         upvoteCount = 200,
         downVoteCount = 100,
-        voteType = VoteType.None
+        voteType = VoteType.NONE
     )
 }

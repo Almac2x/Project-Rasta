@@ -30,3 +30,4 @@ class WishItemPageViewModel@Inject constructor(
 
     }
 }
+

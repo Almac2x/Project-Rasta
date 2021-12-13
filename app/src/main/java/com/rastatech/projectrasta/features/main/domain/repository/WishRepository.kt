@@ -26,7 +26,7 @@ interface WishRepository {
     suspend fun voteAWish(token: String,wishID: Int, voteType: VoteType)
 
     //Delete
-    suspend fun deleteAWish(token: String, wishID: Int)
+    suspend fun deleteAWish(token: String, wishID: Int): Response<Unit>
 
 
     //Di ko alam kung saan gagamitin

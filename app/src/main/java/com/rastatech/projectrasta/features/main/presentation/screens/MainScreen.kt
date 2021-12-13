@@ -9,7 +9,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
@@ -25,16 +24,17 @@ import com.rastatech.projectrasta.nav_graph.BottomNavGraph
 @Composable
 fun MainScreen(
 
+    mainNavController: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ){
 
-    val navController = rememberNavController()
+    val bottomBarNavController = rememberNavController()
 
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = { BottomBar(navController = bottomBarNavController) }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())){
-            BottomNavGraph(navController = navController, token = viewModel.userToken)
+            BottomNavGraph(navController = bottomBarNavController, token = viewModel.userToken)
         }
     }
 

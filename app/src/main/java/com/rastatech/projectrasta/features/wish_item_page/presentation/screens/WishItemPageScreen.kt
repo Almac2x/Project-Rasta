@@ -21,6 +21,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
@@ -53,12 +57,13 @@ import com.rastatech.projectrasta.utils.ValidateInput
  * @param reason reason for wishing
  * @param donors list of donors
  */
-
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @Composable
 fun WishItemPageScreen(
+    navController: NavController,
+    viewModel : WishItemPageViewModel = hiltViewModel(),
     wishName: String,
     wisherName: String,
     userRastaGems: Int,
@@ -68,8 +73,7 @@ fun WishItemPageScreen(
     downVote: Int,
     voteState: VoteType,
     reason: String,
-    donors: List<Int>,
-    viewModel: WishItemPageViewModel = hiltViewModel()
+    donors: List<Int> // TODO change data type later
 ) {
     val gems = remember { mutableStateOf(minRastaGems) }
     val openDialog = remember { mutableStateOf(false)  }
@@ -242,7 +246,7 @@ fun WishItemPageScreen(
                 Text(text = wishName, fontSize = 25.sp, fontWeight = FontWeight.Bold)
                 Text(text = wisherName, fontSize = 15.sp)
             }
-            // UpVote DownVote Button
+            // UPVOTE DOWNVOTE Button
             CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote, voteType = voteState)
         }
 
@@ -276,8 +280,9 @@ private fun Preview() {
         maxRastaGems = 200,
         upVote = 0,
         downVote = 200,
-        voteState = VoteType.None,
+        voteState = VoteType.NONE,
         reason = "IDK",
-        donors = listOf(1, 2, 3)
+        donors = listOf(1, 2, 3),
+        navController = rememberNavController()
     )
 }

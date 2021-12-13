@@ -183,10 +183,7 @@ fun UserProfileScreen(
         Box(modifier = Modifier
             .fillMaxSize()
         ) {
-            UserProfileTabScreen(
-                wishList = listOf(),
-                wishFulfilled = listOf()
-            )
+            UserProfileTabScreen(viewModel = viewModel)
         }
     }
 }

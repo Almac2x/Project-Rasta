@@ -15,9 +15,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.nav_graph.WISH_LIST_PAGE
+import com.rastatech.projectrasta.nav_graph.WISH_PAGE_ROUTE
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
@@ -31,15 +39,18 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 @ExperimentalFoundationApi
 @Composable
 fun CustomWishTile(
-    wishEntity: WishEntity? = null,
-    isHeart: Boolean = false
+    wishEntity: WishDTO? = null,
+    navController: NavController,
+    viewModel : WishViewModel,
+    displayType : DisplayType
+
 ) {
     val tileHeight = 300.dp
     val tileElevation = 5.dp
     val heartButtonSize = 35.dp
 
     val openDialog = remember { mutableStateOf(false)  }
-    val heart = remember { mutableStateOf(isHeart) }
+    val heart = remember { mutableStateOf(wishEntity?.liked ?: false) }
 
     Card(
         modifier = Modifier
@@ -47,11 +58,20 @@ fun CustomWishTile(
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
             .combinedClickable(
                 onClick = {
+                    navController.navigate(WISH_PAGE_ROUTE) {
+                        popUpTo(WISH_LIST_PAGE) {
+                            inclusive = true
+                        }
+                    }
                     // go to Wish Item Page
                 },
                 onLongClick = {
-                    // update or delete alert dialog
-                    openDialog.value = true
+
+                    if(displayType == DisplayType.Editable){
+                        // update or delete alert dialog
+                        openDialog.value = true
+                    }
+
                 },
             ),
         shape = CardCornerRadius.small,
@@ -66,11 +86,13 @@ fun CustomWishTile(
                     .fillMaxSize(),
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
+
+                //Add Here Coil Image
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp),
-                    painter = painterResource(
+                    painter = painterResource( // Ilagay Dito Coil
                         id = R.drawable.gift
                     ),
                     contentDescription = "",
@@ -85,12 +107,12 @@ fun CustomWishTile(
                             verticalArrangement = Arrangement.SpaceEvenly
                         ) {
                             Text(
-                                text = "Wish Name Hello World",
+                                text = wishEntity?.wish_name.toString(),
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
                             )
                             Text(
-                                text = "Wisher",
+                                text = wishEntity?.wish_owner_username.toString(), // dapat name ng wisher
                                 fontSize = 13.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
@@ -98,13 +120,14 @@ fun CustomWishTile(
                         }
                     }
 
-                    Box(
+                    Box(// Heart
                         modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.CenterEnd
                     ) {
                         IconButton(
                             modifier = Modifier.size(heartButtonSize),
                             onClick = {
+
                                 heart.value = !heart.value
                             }
                         ) {
@@ -119,17 +142,17 @@ fun CustomWishTile(
                 }
                 
                 CustomGemProgressBar(
-                    progress = 30,
-                    maxProgress = 200,
+                    progress = wishEntity?.rastagems_donated?:0,
+                    maxProgress = wishEntity?.rastagems_required?:0,
                     progressColor = Color.Green,
                     backgroundColor = Color.LightGray,
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = 0, downVoteCount = 200, voteType = VoteType.None)
+                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0, voteType = VoteType.NONE)
             }
         }
-    }
+    }//////// End of Card
 
     if (openDialog.value) {
         AlertDialog(
@@ -175,6 +198,8 @@ fun CustomWishTile(
                             contentColor = AppColorPalette.onError
                         ),
                     onClick = {
+
+                        viewModel.onEvent(WishPageEvents.DeleteWish(wishID = wishEntity?.wish_id!!)) // dapat wag gamitin ito ->!!
                         openDialog.value = false
                     }
                 ) {
@@ -190,6 +215,12 @@ fun CustomWishTile(
 @Composable
 private fun Preview() {
     Scaffold(modifier = Modifier.fillMaxSize()) {
-        CustomWishTile()
+        CustomWishTile(wishEntity = WishDTO(
+            wish_name = "Nani", description = "nani", image_url = "url", rastagems_required = 2,
+            rastagems_donated = 1, wish_id = 1, liked = false, upvotes = 1, downvotes = 1,
+            wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = VoteType.DOWNVOTE.value
+            ),
+            navController = rememberNavController(), viewModel = viewModel(), displayType = DisplayType.ReadOnly
+        )
     }
 }

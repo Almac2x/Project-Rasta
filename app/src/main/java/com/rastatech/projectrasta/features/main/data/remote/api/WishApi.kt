@@ -130,7 +130,7 @@ interface WishApi {
      */
 
     //Vote on a certain Wish
-    //A Map must be pass on: Ex params = mapOf("vote_type" to "UpVote") or DownVote
+    //A Map must be pass on: Ex params = mapOf("vote_type" to "UPVOTE") or DOWNVOTE
     @POST("/api/wishes/{${ApiKey.WishID.value}}/vote")
     suspend fun voteAWish (@Header(ApiKey.Authorization.value) token: String,
                            @Path("${ApiKey.WishID.value}") wishID: Int,
@@ -160,6 +160,6 @@ interface WishApi {
     @DELETE("/api/wishes/{${ApiKey.WishID.value}}")
     suspend fun deleteAWish(@Header(ApiKey.Authorization.value) token: String,
                             @Path(ApiKey.WishID.value)wishID : Int
-    )
+    ):Response<Unit>
 
 }

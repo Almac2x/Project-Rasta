@@ -53,7 +53,7 @@ class WishRepositoryImp(
                              voteType = mapOf("${ApiKey.VoteType.value}" to voteType.value)) // get the Vote Type from sealed Class
     }
 
-    override suspend fun deleteAWish(token: String, wishID: Int) {
+    override suspend fun deleteAWish(token: String, wishID: Int): Response<Unit> {
         return api.deleteAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID)
     }
 

@@ -3,6 +3,7 @@ package com.rastatech.projectrasta.nav_graph
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -14,6 +15,7 @@ import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
+import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.WishItemPageScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import com.rastatech.projectrasta.screens.HomeScreen
@@ -34,7 +36,7 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
         composable (route = "${BottomBarScreens.Home.route}",
         arguments = tokenNavArgument
         ){
-            HomeScreen(navController = navController)
+            HomeScreen()
         }
         composable(route = "${BottomBarScreens.Profile.route}",
             arguments = tokenNavArgument){
@@ -50,5 +52,8 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
             arguments = tokenNavArgument){
             GemPageScreen(navController = navController)
         }
+
+
+
     }
 }

@@ -6,9 +6,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.data.local.WishEntity
-import com.rastatech.projectrasta.screens.HomeScreen
+import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
+import com.rastatech.projectrasta.nav_graph.WishGraph
 import com.rastatech.projectrasta.ui.components.WishList
 
 /**
@@ -18,21 +20,17 @@ import com.rastatech.projectrasta.ui.components.WishList
  * @since 12/10/2021
  */
 
+@ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun WishListScreen(list: List<String>) {
+fun WishListScreen(wishList: List<WishDTO>) {
 
-    var wishEntities: List<WishEntity> = listOf(
-        WishEntity(wish_id = "id", wish_name = "Nani", description = "Description", rastagems_donated = 15, rastagems_required = 15,
-            user_id = "121", image = R.drawable.gift),
-        WishEntity(wish_id = "id", wish_name = "Nani", description = "Description", rastagems_donated = 15, rastagems_required = 15,
-            user_id = "121", image = R.drawable.gift)
-    )
-    wishEntities = wishEntities+wishEntities
-    wishEntities = wishEntities+wishEntities
+    val navController = rememberNavController()
+
 
     Box(modifier = Modifier.fillMaxSize()) {
-        WishList(wishEntities =wishEntities )
+
+        WishGraph(navController = navController, wishList = wishList, displayType = DisplayType.Editable)
     }
 }
