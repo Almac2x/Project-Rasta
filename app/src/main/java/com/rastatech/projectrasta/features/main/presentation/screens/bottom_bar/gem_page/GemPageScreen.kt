@@ -125,7 +125,12 @@ fun GemPageScreen(
                         viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Open))
                     }
                 )
-                CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {})
+                CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {
+                    navController.navigate("user_transactions"){
+
+                    }
+
+                })
             }
         }
     }

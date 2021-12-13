@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.nav_graph
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -14,12 +16,14 @@ import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.transactions.TransactionScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.WishItemPageScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import com.rastatech.projectrasta.screens.HomeScreen
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
@@ -51,6 +55,20 @@ fun BottomNavGraph(navController : NavHostController,  token : String) {
         composable(route ="${BottomBarScreens.GemsPage.route}",
             arguments = tokenNavArgument){
             GemPageScreen(navController = navController)
+        }
+
+        composable( route ="user_transactions"){
+
+            TransactionScreen()
+        }
+
+        composable( route ="wish_update/{${NavigationKey.WishID.value}}",
+        arguments = listOf(navArgument(NavigationKey.WishID.value){
+            type = NavType.IntType
+            
+        })){
+            AddUpdateWishScreen(processType = WishProcess.Update)
+            
         }
 
 

@@ -2,6 +2,7 @@ package com.rastatech.projectrasta.features.main.data.remote.api
 
 import retrofit2.Response
 import com.rastatech.projectrasta.features.main.data.remote.dto.CurrentUserDTO
+import com.rastatech.projectrasta.features.main.data.remote.dto.TransactionDTO
 import com.rastatech.projectrasta.features.main.data.util.ApiKey
 import retrofit2.http.*
 
@@ -35,7 +36,7 @@ interface MainApi {
     @GET("/api/rastagem/history")
     suspend fun getTransactionHistory(@Header(ApiKey.Authorization.value) token: String
 
-    ) :Response<Unit>// ADD HERE THE DTO FOR TRANSACTION
+    ) :Response<TransactionDTO>// ADD HERE THE DTO FOR TRANSACTION
 
     /**
      * Tested? = No

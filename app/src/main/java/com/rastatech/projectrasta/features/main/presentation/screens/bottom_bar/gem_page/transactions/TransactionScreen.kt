@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.rastatech.projectrasta.ui.components.CustomDonatorsItem
 
 /**
@@ -16,12 +17,17 @@ import com.rastatech.projectrasta.ui.components.CustomDonatorsItem
  */
 
 @Composable
-fun TransactionScreen() {
+fun TransactionScreen(
+    viewModel: TransactionViewModel = hiltViewModel()
+) {
     val list = listOf("A", "B", "C", "D")
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(list.size) { index ->
-            Row(Modifier.fillMaxWidth().padding(10.dp)) {
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)) {
                 CustomDonatorsItem(name = list[index], username = "christian", gems = 300)
             }
         }
