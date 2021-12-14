@@ -124,7 +124,7 @@ fun AddUpdateWishScreen(
 
             CustomTextField(
                 value = viewModel.imageURL.value,
-                onValueChange = {viewModel.imageURL.value = if (ValidateInput.isNumber(it.text)) it else viewModel.gemsRequired.value},
+                onValueChange = {viewModel.imageURL.value = it},
                 modifier = Modifier.fillMaxWidth(),
                 label = "Image Url",
                 labelFontSize = 15.sp
