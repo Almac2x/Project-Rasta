@@ -22,12 +22,14 @@ import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
-import com.rastatech.projectrasta.nav_graph.WISH_LIST_PAGE
-import com.rastatech.projectrasta.nav_graph.WISH_PAGE_ROUTE
+import com.rastatech.projectrasta.nav_graph.MAIN_GRAPH_ROUTE
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -41,10 +43,11 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 fun CustomWishTile(
     wishEntity: WishDTO? = null,
     navController: NavController,
-    viewModel : WishViewModel,
-    displayType : DisplayType
+    viewModel: WishViewModel,
+    displayType: DisplayType,
+    updateList: (() -> Unit)? = null,
 
-) {
+    ) {
     val tileHeight = 300.dp
     val tileElevation = 5.dp
     val heartButtonSize = 35.dp
@@ -58,11 +61,12 @@ fun CustomWishTile(
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
             .combinedClickable(
                 onClick = {
-                    navController.navigate(WISH_PAGE_ROUTE) {
-                        popUpTo(WISH_LIST_PAGE) {
-                            inclusive = true
+                    /*  Insert here to navigate to Detailed view of Wish
+                    navController.navigate(BottomBarScreens.UpdateWish.navigate(wishID = wishEntity?.wish_id!!)) {
+                        popUpTo(MAIN_GRAPH_ROUTE) {
+
                         }
-                    }
+                    }*/
                     // go to Wish Item Page
                 },
                 onLongClick = {
@@ -194,7 +198,7 @@ fun CustomWishTile(
                 }
             },
             dismissButton = {
-                Button(
+                Button(    //  <- Delete Button
                     colors = ButtonDefaults
                         .buttonColors(
                             backgroundColor = AppColorPalette.error,
@@ -202,7 +206,11 @@ fun CustomWishTile(
                         ),
                     onClick = {
 
-                        viewModel.onEvent(WishPageEvents.DeleteWish(wishID = wishEntity?.wish_id!!)) // dapat wag gamitin ito ->!!
+
+                            viewModel.onEvent(WishPageEvents.DeleteWish(wishID = wishEntity?.wish_id!!))
+
+                            updateList?.invoke()
+
                         openDialog.value = false
                     }
                 ) {
@@ -218,7 +226,8 @@ fun CustomWishTile(
 @Composable
 private fun Preview() {
     Scaffold(modifier = Modifier.fillMaxSize()) {
-        CustomWishTile(wishEntity = WishDTO(
+        CustomWishTile(
+            wishEntity = WishDTO(
             wish_name = "Nani", description = "nani", image_url = "url", rastagems_required = 2,
             rastagems_donated = 1, wish_id = 1, liked = false, upvotes = 1, downvotes = 1,
             wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = VoteType.DOWNVOTE.value

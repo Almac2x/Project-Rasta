@@ -33,6 +33,11 @@ class WishViewModel@Inject constructor(
         get() = _showToast
 
 
+    init {
+
+
+    }
+
     fun onEvent (event : WishPageEvents ){
 
         when (event){
@@ -51,7 +56,7 @@ class WishViewModel@Inject constructor(
 
                         200 ->{
                             _showToast.value = true
-                            _toastMessage.value = "Add Successful"
+                            _toastMessage.value = "Delete Successful"
                         }
                         else ->{
                             _showToast.value = true

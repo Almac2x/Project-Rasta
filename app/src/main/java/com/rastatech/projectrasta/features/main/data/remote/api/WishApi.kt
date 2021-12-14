@@ -152,7 +152,7 @@ interface WishApi {
     suspend fun updateAWish(@Header(ApiKey.Authorization.value) token: String,
                             @Path("${ApiKey.WishID.value}") wishID: Int,
                             @Body createWish: CreateWishRequestDTO
-    )
+    ):Response<Unit>
 
     //DELETE///////////////////
 

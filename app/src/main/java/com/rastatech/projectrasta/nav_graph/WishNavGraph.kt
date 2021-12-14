@@ -7,11 +7,9 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
@@ -25,30 +23,14 @@ import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import com.rastatech.projectrasta.ui.components.WishList
 
-const val WISH_GRAPH_ROUTE = "wish_graph_route"
-const val WISH_LIST_PAGE = "wish_list"
-const val WISH_PAGE_ROUTE = "wish_page"
+
+
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun WishGraph(navController : NavHostController, wishList : List<WishDTO>, displayType: DisplayType) {
+fun NavGraphBuilder.wishGraph(navController : NavHostController) {
 
-    NavHost(
-        navController = navController,
-        startDestination = WISH_LIST_PAGE,
-        route = WISH_GRAPH_ROUTE
 
-    ){
-
-        composable(route = "$WISH_LIST_PAGE"){
-            WishList(navController = navController, wishEntities = wishList, displayType = displayType)
-        }
-
-        composable(route = "$WISH_PAGE_ROUTE"){
-
-        }
-
-    }
 
 }

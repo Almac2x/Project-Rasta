@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rastatech.projectrasta.SecretRastaApp.Companion.prefs
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
@@ -34,25 +33,32 @@ class HomeViewModel @Inject constructor(
     val allWishes : List<WishDTO>
         get() = _allWishes.value
 
-    val token = "Bearer " + prefs?.accessToken
+    val retrofitToken = "Bearer " + prefs?.accessToken
 
     init {
 
-        Log.i(TAG, "PrefToken: ${prefs?.accessToken}")
+        Log.i(TAG, "Initializing")
 
-        viewModelScope.launch (Dispatchers.IO){
-            Log.i(TAG, "UserToken: $userToken")
-            val nani = useCases.getHomeScreenWishes(token = userToken)
+             updateList()
+        }
 
-           val requestAllWishes = async{RetrofitInstance.wishApi.getHomeScreenWishes(token = token)}
-            requestAllWishes.join()
+         fun updateList(){
 
-            _allWishes.value = requestAllWishes.await().body()!!
+             Log.i(TAG," List Updating")
+            viewModelScope.launch (Dispatchers.Main){
+                Log.i(TAG, "UserToken: $userToken")
+                val nani = useCases.getHomeScreenWishes(token = userToken)
 
+                val requestAllWishes = async{RetrofitInstance.wishApi.getHomeScreenWishes(token = retrofitToken)}
+                requestAllWishes.join()
+
+                _allWishes.value = requestAllWishes.await().body()!!
+
+            }
+             Log.i(TAG," List Updated")
         }
 
 
-    }
 
     fun onEvent(event : HomeEvents){
 

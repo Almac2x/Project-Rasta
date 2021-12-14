@@ -33,11 +33,28 @@ fun MainScreen(
 
     val bottomBarNavController = rememberNavController()
 
+
+    val screens = listOf(
+        BottomBarScreens.Home, BottomBarScreens.MakeWish,BottomBarScreens.GemsPage,BottomBarScreens.Profile,
+    )
+
+    val showBottomBar = bottomBarNavController
+        .currentBackStackEntryAsState().value?.destination?.route in screens.map { it.route }
+
+
     Scaffold(
-        bottomBar = { BottomBar(navController = bottomBarNavController) }
+
+        bottomBar = {
+
+            if(showBottomBar){
+                BottomBar(navController = bottomBarNavController)
+            }
+
+        }
     ) { innerPadding ->
         Box(modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())){
-            BottomNavGraph(navController = bottomBarNavController, token = viewModel.userToken)
+
+            BottomNavGraph(bottomBarNavController = bottomBarNavController, token = viewModel.userToken, mainNavController = mainNavController)
         }
     }
 

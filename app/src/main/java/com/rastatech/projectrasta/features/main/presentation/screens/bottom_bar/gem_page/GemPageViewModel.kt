@@ -59,6 +59,7 @@ class GemPageViewModel@Inject constructor(
             getBalance()
     }
 
+
     private fun getBalance (){
 
         viewModelScope.launch(Dispatchers.Main) {

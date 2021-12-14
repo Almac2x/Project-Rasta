@@ -1,74 +1,95 @@
 package com.rastatech.projectrasta.nav_graph
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
+import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
+import com.rastatech.projectrasta.features.main.domain.util.ListType
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.transactions.TransactionScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
-import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.WishItemPageScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import com.rastatech.projectrasta.screens.HomeScreen
+import com.rastatech.projectrasta.ui.components.WishList
 
+
+private const val  BOTTOM_TAG = "BottomGraph"
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun BottomNavGraph(navController : NavHostController,  token : String) {
+fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, mainNavController: NavController) {
+
 
     val tokenNavArgument = listOf(navArgument(NavigationKey.AccessToken.value){
                                                                     type = NavType.StringType
                                                                     defaultValue = token
     })
 
-    NavHost(navController = navController, startDestination = "${BottomBarScreens.Home.route}"
+    NavHost(navController = bottomBarNavController, startDestination = "${BottomBarScreens.Home.route}"
     ){
         composable (route = "${BottomBarScreens.Home.route}",
         arguments = tokenNavArgument
         ){
-            HomeScreen()
+            HomeScreen( bottomBarNavController = bottomBarNavController)
         }
         composable(route = "${BottomBarScreens.Profile.route}",
             arguments = tokenNavArgument){
 
-            UserProfileScreen(navController = navController, userType = UserType.Current)
+            UserProfileScreen(bottomBarNavController = bottomBarNavController, userType = UserType.Current, mainNavController = mainNavController)
         }
         composable(route = "${BottomBarScreens.MakeWish.route}",
-            arguments = tokenNavArgument){
+          ){
 
-            AddUpdateWishScreen(processType = WishProcess.Add)
+            AddUpdateWishScreen(processType = WishProcess.Add, navController = bottomBarNavController )
         }
         composable(route ="${BottomBarScreens.GemsPage.route}",
             arguments = tokenNavArgument){
-            GemPageScreen(navController = navController)
+            GemPageScreen(navController = bottomBarNavController)
         }
 
         composable( route ="user_transactions"){
-
             TransactionScreen()
         }
 
-        composable( route ="wish_update/{${NavigationKey.WishID.value}}",
+
+        composable(route = "${BottomBarScreens.WishListPage.route}",
+        arguments = listOf(navArgument(NavigationKey.ListType.value){
+                        type = NavType.StringType
+                    },
+            navArgument(NavigationKey.DisplayType.value){
+                type = NavType.StringType
+            }
+                )
+            ){
+            
+        }
+
+        composable( route = BottomBarScreens.UpdateWish.route,
+
         arguments = listOf(navArgument(NavigationKey.WishID.value){
             type = NavType.IntType
+            defaultValue = -1
             
         })){
-            AddUpdateWishScreen(processType = WishProcess.Update)
-            
+
+            val id = it.arguments?.getInt(NavigationKey.WishID.value)
+
+            Log.i(BOTTOM_TAG, "$id")
+
+            AddUpdateWishScreen(processType = WishProcess.Update, navController = bottomBarNavController)
         }
 
 

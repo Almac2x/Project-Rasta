@@ -22,6 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.UserType
+import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
 import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 
@@ -37,51 +38,61 @@ import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 @ExperimentalPagerApi
 @Composable
 fun UserProfileScreen(
-    navController: NavController,
+    bottomBarNavController: NavController,
+    mainNavController: NavController,
     userType: UserType,
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
+
+    if (viewModel.logoutAlertDialog.value) {
+        AlertDialog(
+            title = {
+                Text(
+                    text = "Log out",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            },
+            text = {
+                Text(text = "Are you sure you want to logout?")
+            },
+            onDismissRequest = { viewModel.logoutAlertDialog.value = false },
+            confirmButton = {
+                Button(  //  <- Logout Button
+                    onClick = {
+                        viewModel.logoutAlertDialog.value = false
+
+                            mainNavController.navigate(AUTH_GRAPH_ROUTE){
+
+                                mainNavController.popBackStack()
+                                bottomBarNavController.popBackStack()
+                            }
+
+                    }
+                ) {
+                    Text(text = "OK")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = {
+                        viewModel.logoutAlertDialog.value = false
+                        viewModel.logout.value = false
+                    }
+                ) {
+                    Text(text = "Cancel")
+                }
+            }
+        )
+    }
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (viewModel.logoutAlertDialog.value) {
-            AlertDialog(
-                title = {
-                    Text(
-                        text = "Log out",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                },
-                text = {
-                    Text(text = "Are you sure you want to logout?")
-                },
-                onDismissRequest = { viewModel.logoutAlertDialog.value = false },
-                confirmButton = {
-                    Button(
-                        onClick = {
-                            viewModel.logoutAlertDialog.value = false
-                            viewModel.logout.value = true
-                        }
-                    ) {
-                        Text(text = "OK")
-                    }
-                },
-                dismissButton = {
-                    Button(
-                        onClick = {
-                            viewModel.logoutAlertDialog.value = false
-                            viewModel.logout.value = false
-                        }
-                    ) {
-                        Text(text = "Cancel")
-                    }
-                }
-            )
-        }
 
         //Hard Coded Please adapt this to Make A Wish Screen
         Surface(
@@ -183,7 +194,7 @@ fun UserProfileScreen(
         Box(modifier = Modifier
             .fillMaxSize()
         ) {
-            UserProfileTabScreen(viewModel = viewModel)
+            UserProfileTabScreen(viewModel = viewModel, bottomNavController = bottomBarNavController)
         }
     }
 }
@@ -194,5 +205,7 @@ fun UserProfileScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    UserProfileScreen(navController = rememberNavController(), userType = UserType.Current)
+    UserProfileScreen(bottomBarNavController = rememberNavController(), userType = UserType.Current, mainNavController = rememberNavController(
+
+    ))
 }

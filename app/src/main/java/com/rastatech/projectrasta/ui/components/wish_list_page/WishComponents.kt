@@ -32,9 +32,11 @@ import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @Composable
-fun WishList(wishEntities : List<WishDTO>,navController : NavController, displayType: DisplayType,
+fun WishList(navController : NavController, displayType: DisplayType,
+             wishEntities : List<WishDTO>,
+             viewModel: WishViewModel = hiltViewModel(),
+             updateList: ()-> Unit
 
-viewModel: WishViewModel = hiltViewModel()
 ){
 
     LazyVerticalGrid(cells = GridCells.Fixed(2),
@@ -43,9 +45,12 @@ viewModel: WishViewModel = hiltViewModel()
             top = 10.dp, bottom = 10.dp),
         content = {
 
+
             items(items = wishEntities){ wish ->
 
-                CustomWishTile(wishEntity = wish, navController = navController, viewModel = viewModel, displayType = displayType)
+                CustomWishTile(
+                    wishEntity = wish, navController = navController,
+                    viewModel = viewModel, displayType = displayType, updateList = updateList )
             }
         } )
 }

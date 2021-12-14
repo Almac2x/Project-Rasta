@@ -1,6 +1,8 @@
 package com.rastatech.projectrasta.nav_graph
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
@@ -22,6 +24,7 @@ const val MAIN_GRAPH_ROUTE = "main_screen"
 const val TAG = "HomeNavGraph"
 
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi

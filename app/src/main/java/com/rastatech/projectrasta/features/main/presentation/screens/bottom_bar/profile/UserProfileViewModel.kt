@@ -64,41 +64,94 @@ class UserProfileViewModel @Inject constructor(
     val numberOfFulfiledWishes : Int
         get() = _numberOfFulfiledWishes.value
 
+    private val _userID = mutableStateOf(0)
+    val userID : Int
+        get() = _userID.value
+
 
     init {
-
+        Log.i(TAG, "Initializing")
         viewModelScope.launch(Dispatchers.Main) {
-            Log.i(TAG, "UserToken: $_userToken")
              val requestUserProfile = async{mainUseCases.getOwnProfile(token = _userToken.toString())}
 
-            val userID = requestUserProfile.await().body()?.user_id
             requestUserProfile.join()
 
-            // Double Check with other account
-            val requestUserActiveWishList = async { RetrofitInstance.wishApi.getAUserActiveWishList(token = retroFitToken.toString(), userID =userID?:2 )} // dapat hindi 2 default
-            val requestUserWishListFulfilled = async { RetrofitInstance.wishApi.getAUserWishListFulfilled(token = retroFitToken, userID =userID?:2 ) }
-            val requestUserWishStatus = async { RetrofitInstance.wishApi.getWishStatus(token = retroFitToken, userID = userID?:2) }
+            _userID.value = requestUserProfile.await().body()?.user_id?:0 // default value of 0 userID
+
+            updateFulfilledWishes()
+            updateActiveList()
 
            /* requestUserActiveWishList.join()
             requestUserWishListFulfilled.join()
             requestUserWishStatus.join()*/
-
-            _activeWishes.value = requestUserActiveWishList.await().body()!!
-            _wishesFulfilled.value = requestUserWishListFulfilled.await().body()!!
-
-            _numberOfActiveWishes.value = requestUserWishStatus.await().body()?.get("active_wishes")!!
-            _numberOfFulfiledWishes.value = requestUserWishStatus.await().body()?.get("fulfilled_wishes")!!
 
 
             _firstName.value = requestUserProfile.await().body()?.first_name.toString() // kung null to string ko lang
             _lastName.value = requestUserProfile.await().body()?.last_name.toString()
             _userName.value = requestUserProfile.await().body()?.username.toString()
 
-
-
         }
     }
 
+    fun updateFulfilledWishes(){
+
+        Log.i(TAG, "Updating Fulfiled Wishes -> Start")
+        viewModelScope.launch(Dispatchers.Main) {
+            val requestUserWishListFulfilled = async {
+                RetrofitInstance.wishApi.getAUserWishListFulfilled(
+                    token = retroFitToken,
+                    userID = userID ?: 2
+                )
+            }
+
+            requestUserWishListFulfilled.join()
+            _wishesFulfilled.value = requestUserWishListFulfilled.await().body()!!
+
+            updateNumberStatus()
+
+            Log.i(TAG, "Updating Fulfiled Wishes -> End")
+        }
+
+    }
+
+    fun updateNumberStatus(){
+
+        viewModelScope.launch(Dispatchers.Main) {
+
+            val requestUserWishStatus = async {
+                RetrofitInstance.wishApi.getWishStatus(
+                    token = retroFitToken,
+                    userID = userID ?: 2
+                )
+            }
+
+            _numberOfActiveWishes.value = requestUserWishStatus.await().body()?.get("active_wishes")!!
+
+            _numberOfFulfiledWishes.value = requestUserWishStatus.await().body()?.get("fulfilled_wishes")!!
+        }
+
+    }
+
+    fun updateActiveList(){
+
+        Log.i(TAG, "Updating Active Wishes -> Start")
+        viewModelScope.launch(Dispatchers.Main) {
+            // Double Check with other account
+            val requestUserActiveWishList = async {
+                RetrofitInstance.wishApi.getAUserActiveWishList(
+                    token = retroFitToken.toString(),
+                    userID = userID ?: 2
+                )
+            } // dapat hindi 2 default
+
+            requestUserActiveWishList.join()
+            _activeWishes.value = requestUserActiveWishList.await().body()!!
+
+            updateNumberStatus()
+
+            Log.i(TAG, "Updating Active Wishes -> End")
+        }
+    }
 
     fun onEvents(event : UserProfileEvents){
 

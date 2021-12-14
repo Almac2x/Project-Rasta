@@ -9,4 +9,14 @@ sealed class NavigationKey{
         const val value = "wish_id"
     }
 
+    object ListType: NavigationKey(){
+        const val value = "list_type"
+    }
+
+    object DisplayType: NavigationKey(){
+        const val value = "display_type"
+    }
+
+
+
 }

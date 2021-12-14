@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.nav_graph
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -22,6 +24,7 @@ const val ROOT_GRAPH_ROUTE = "root_graph"
 const val AUTH_GRAPH_ROUTE = "root_auth"
 const val HOME_GRAPH_ROUTE = "root_home"
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
