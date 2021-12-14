@@ -3,4 +3,5 @@ package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar
 sealed class UserProfileEvents{
 
     object GetProfile: UserProfileEvents()
+    object Logout: UserProfileEvents()
 }

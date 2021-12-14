@@ -186,7 +186,7 @@ fun CustomWishTile(
                     onClick = {
                         navController.navigate("wish_update/"+ wishEntity?.wish_id){
 
-                        } // requried arguments
+                        } // required arguments
                         openDialog.value = false
                     }
                 ) {
