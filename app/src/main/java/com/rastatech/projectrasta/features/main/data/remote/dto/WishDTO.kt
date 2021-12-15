@@ -16,5 +16,5 @@ data class WishDTO(
     val wish_owner_full_name: String,
     val wish_owner_username: String,
     val vote_status: String,
-
+    val wish_owner_id: Int
 )

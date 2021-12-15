@@ -31,6 +31,7 @@ import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
@@ -72,7 +73,7 @@ fun WishItemPageScreen(
     val nGems = remember { mutableStateOf(0) }
 
     val dividerHeight = 5.dp
-    val dividerColor = Color.Black
+    val dividerColor = MaterialTheme.colors.onPrimary
     val space = 10.dp
 
     Scaffold(
@@ -269,7 +270,18 @@ fun WishItemPageScreen(
                 // Wish Name and Name of Wisher
                 Column (modifier = Modifier.width(200.dp)){
                     Text(text = viewModel.wishName, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 25.sp, fontWeight = FontWeight.Bold)
-                    Text(text = viewModel.wisherFullName, maxLines = 1, overflow = TextOverflow.Ellipsis,fontSize = 15.sp)
+
+                    TextButton(onClick = {
+
+                        navController.navigate(BottomBarScreens.OthersProfile.navigate(viewModel.userID)){
+
+                        }
+                    }) {
+                        Text(text = viewModel.wisherFullName, maxLines = 1, overflow = TextOverflow.Ellipsis,fontSize = 15.sp
+                        )
+                    }
+
+
                 }
 
                 Column( horizontalAlignment = Alignment.End

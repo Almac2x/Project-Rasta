@@ -22,6 +22,18 @@ sealed class BottomBarScreens(
         title = "Profile",
         icon = Icons.Outlined.Person
     )
+
+    object OthersProfile: BottomBarScreens(
+        route = "profile_other/{${NavigationKey.UserID.value}}",
+        title = "Others Profile",
+        icon = Icons.Outlined.Person
+    ){
+        fun navigate(userID : Int): String{
+            return "profile_other/$userID"
+        }
+    }
+
+
     object Settings: BottomBarScreens(
         route = "settings",
         title = "Settings",

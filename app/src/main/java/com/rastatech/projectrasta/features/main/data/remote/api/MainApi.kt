@@ -20,6 +20,12 @@ interface MainApi {
     suspend fun getOwnProfile(@Header(ApiKey.Authorization.value) token: String
     ): Response<CurrentUserDTO>
 
+    // Gets the CurrentUsers Profile Details
+    @GET("api/users/{${ApiKey.UserID.value}}")
+    suspend fun getOthersProfile(@Header(ApiKey.Authorization.value) token: String,
+                                 @Path(ApiKey.UserID.value)userID : Int,
+    ): Response<CurrentUserDTO>
+
 
     /**
      * Wishes Api Calls

@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         applicationId "com.rastatech.projectrasta"
-        minSdk 21
+        minSdk 23
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -93,6 +93,11 @@ android {
 }
 
 dependencies {
+
+    //Shimmer
+    implementation 'com.valentinilk.shimmer:compose-shimmer:1.0.0'
+
+
     //Resolve jdk8+ Generation Annotations - javax annotation does not exist
     compileOnly 'com.github.pengrad:jdk9-deps:1.0'
 

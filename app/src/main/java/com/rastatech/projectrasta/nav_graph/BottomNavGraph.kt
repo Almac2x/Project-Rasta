@@ -51,6 +51,21 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
             UserProfileScreen(bottomBarNavController = bottomBarNavController,
                 userType = UserType.Current, mainNavController = mainNavController)
         }
+
+        composable(route = BottomBarScreens.OthersProfile.route,
+            arguments = listOf(navArgument(NavigationKey.UserID.value){
+            type = NavType.IntType
+
+
+        })){
+
+            UserProfileScreen(bottomBarNavController = bottomBarNavController,
+                userType = UserType.Other)
+
+        }
+
+
+
         composable(route = "${BottomBarScreens.MakeWish.route}", // Add Wish Route
           ){
 

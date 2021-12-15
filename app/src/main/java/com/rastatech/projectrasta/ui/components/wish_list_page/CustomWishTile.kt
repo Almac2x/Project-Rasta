@@ -235,8 +235,8 @@ private fun Preview() {
             wishEntity = WishDTO(
             wish_name = "Nani", description = "nani", image_url = "url", rastagems_required = 2,
             rastagems_donated = 1, wish_id = 1, liked = false, upvotes = 1, downvotes = 1,
-            wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = VoteType.DOWNVOTE.value
-            ),
+            wish_owner_full_name = "rasta", wish_owner_username = "12", vote_status = VoteType.DOWNVOTE.value,
+            wish_owner_id = 1),
             navController = rememberNavController(), viewModel = viewModel(), displayType = DisplayType.ReadOnly
         )
     }

@@ -98,6 +98,7 @@ class AddUpdateWishViewModel @Inject constructor(
                         200 ->{
                             _showToast.value = true
                             _toastMessage.value = "Add Wish Successful"
+                            _navigateUp.value = true
                         }
                         else ->{
                             _showToast.value = true

@@ -31,6 +31,7 @@ import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 import com.rastatech.projectrasta.utils.animations.Pulsating
+import com.valentinilk.shimmer.shimmer
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -110,7 +111,7 @@ fun GemPageScreen(
                     Image(
                         painter = painterResource(id = R.drawable.rastagems),
                         contentDescription = "Image",
-                        Modifier.size(boxSize)
+                        Modifier.size(boxSize).shimmer()
                     )
                 }
             }

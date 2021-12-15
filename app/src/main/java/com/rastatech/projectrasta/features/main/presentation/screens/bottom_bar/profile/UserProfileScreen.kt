@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -22,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.SecretRastaApp.Companion.prefs
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
@@ -36,13 +39,14 @@ import com.rastatech.projectrasta.ui.theme.AppColorPalette
  * @since 12/07/2021
  */
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
 @ExperimentalPagerApi
 @Composable
 fun UserProfileScreen(
     bottomBarNavController: NavController,
-    mainNavController: NavController,
+    mainNavController: NavController? = null,
     userType: UserType,
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
@@ -64,11 +68,17 @@ fun UserProfileScreen(
                     onClick = {
                         viewModel.logoutAlertDialog.value = false
                         viewModel.logout.value = true
-                        mainNavController.navigate(AUTH_GRAPH_ROUTE){
+
+                            prefs?.accessToken = null
+                            prefs?.rememberMe = false
+
+                        mainNavController?.navigate(AUTH_GRAPH_ROUTE){
 
                             mainNavController.popBackStack()
                             bottomBarNavController.popBackStack()
                         }
+
+
                     }
                 ) {
                     Text(text = "OK")
@@ -90,7 +100,7 @@ fun UserProfileScreen(
     //Hard Coded Please adapt this to Make A Wish Screen
     Scaffold(
         topBar = {
-            UserTopBar(viewModel = viewModel, userType = userType)
+            UserTopBar(viewModel = viewModel, userType = userType, bottomBarNavController = bottomBarNavController)
         }
     ) {
         Column(
@@ -135,6 +145,7 @@ fun UserProfileScreen(
                 .fillMaxSize()
             ) {
                 UserProfileTabScreen(
+                    userType = userType,
                     viewModel = viewModel,
                     bottomNavController = bottomBarNavController
                 )
@@ -144,7 +155,7 @@ fun UserProfileScreen(
 }
 
 @Composable
-private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType) {
+private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType, bottomBarNavController: NavController) {
     TopAppBar(
         backgroundColor = AppColorPalette.background,
         elevation = 0.dp
@@ -162,27 +173,32 @@ private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType) {
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // Logout
-            IconButton(
-                onClick = {
-                    viewModel.logoutAlertDialog.value = true
+            if (userType == UserType.Current) {
+                // Logout
+                IconButton(
+                    onClick = {
+                        viewModel.logoutAlertDialog.value = true
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Logout,
+                        contentDescription = "Logout"
+                    )
                 }
-            ) {
-                Icon(
-                    imageVector = Icons.Filled.Logout,
-                    contentDescription = "Logout"
-                )
             }
 
             Box(
                 modifier = Modifier.fillMaxWidth(),
-                contentAlignment = Alignment.CenterStart
+                contentAlignment = Alignment.BottomStart,
+
             ) {
-                Row {
+                Row(horizontalArrangement = Arrangement.Start) {
                     if (userType == UserType.Other) {
                         // Back Button
                         IconButton(
-                            onClick = { }
+                            onClick = {
+                                bottomBarNavController.navigateUp()
+                            }
                         ) {
                             Icon(
                                 imageVector = Icons.Filled.ArrowBack,
@@ -201,6 +217,7 @@ private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi

@@ -37,6 +37,10 @@ class WishItemPageViewModel@Inject constructor(
     val wishID : Int
         get() = _wishID
 
+    private var _userID = mutableStateOf(0)
+    val userID : Int
+        get() = _userID.value
+
     private var _userRastaGems = mutableStateOf(52)
     val userRastaGems : Int
         get() = _userRastaGems.value
@@ -87,6 +91,8 @@ class WishItemPageViewModel@Inject constructor(
         get() = _numberOfDownVotes.value
 
 
+
+
     init {
 
         Log.i(TAG, " wishID = $_wishID")
@@ -120,6 +126,7 @@ class WishItemPageViewModel@Inject constructor(
             _rastaGemsRequired.value = wish?.rastagems_required ?:0
             _liked.value = wish?.liked ?:false
             _imageURL.value = wish?.image_url.toString()
+            _userID.value = wish?.wish_id?:0
         }
 
     }

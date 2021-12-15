@@ -8,6 +8,9 @@ sealed class NavigationKey{
     object WishID: NavigationKey(){
         const val value = "wish_id"
     }
+    object UserID: NavigationKey(){
+        const val value = "user_id"
+    }
 
     object ListType: NavigationKey(){
         const val value = "list_type"

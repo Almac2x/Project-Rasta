@@ -11,6 +11,7 @@ import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.use_case.MainUseCases
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
+import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -66,15 +67,49 @@ class UserProfileViewModel @Inject constructor(
     val numberOfFulfiledWishes : Int
         get() = _numberOfFulfiledWishes.value
 
-    private val _userID = mutableStateOf(0)
-    val userID : Int
+    private val _userID = mutableStateOf( state.get<Int?>(NavigationKey.UserID.value) )
+    val userID : Int?
         get() = _userID.value
 
 
     init {
         Log.i(TAG, "Initializing")
+
         viewModelScope.launch(Dispatchers.Main) {
-             val requestUserProfile = async{mainUseCases.getOwnProfile(token = _userToken.toString())}
+
+            if(_userID.value  == null){
+                async { getOwnProfile()  }
+            }else{
+                async { getOtherProfile() }
+            }
+
+        }
+
+    }
+
+    private fun getOtherProfile(){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val requestProfile = async { RetrofitInstance.mainApi.getOthersProfile(token = retroFitToken , userID = _userID.value?:0) }
+            requestProfile.join()
+
+            _userID.value = requestProfile.await().body()?.user_id?:0
+
+            updateFulfilledWishes()
+            updateActiveList()
+
+            _firstName.value = requestProfile.await().body()?.first_name.toString() // kung null to string ko lang
+            _lastName.value = requestProfile.await().body()?.last_name.toString()
+            _userName.value = requestProfile.await().body()?.username.toString()
+
+        }
+
+    }
+
+    private fun getOwnProfile (){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val requestUserProfile = async{mainUseCases.getOwnProfile(token = _userToken.toString())}
 
             requestUserProfile.join()
 
@@ -83,9 +118,9 @@ class UserProfileViewModel @Inject constructor(
             updateFulfilledWishes()
             updateActiveList()
 
-           /* requestUserActiveWishList.join()
-            requestUserWishListFulfilled.join()
-            requestUserWishStatus.join()*/
+            /* requestUserActiveWishList.join()
+             requestUserWishListFulfilled.join()
+             requestUserWishStatus.join()*/
 
 
             _firstName.value = requestUserProfile.await().body()?.first_name.toString() // kung null to string ko lang
@@ -93,6 +128,7 @@ class UserProfileViewModel @Inject constructor(
             _userName.value = requestUserProfile.await().body()?.username.toString()
 
         }
+
     }
 
     fun updateFulfilledWishes(){

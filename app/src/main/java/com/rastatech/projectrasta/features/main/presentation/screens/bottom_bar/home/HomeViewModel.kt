@@ -38,6 +38,7 @@ class HomeViewModel @Inject constructor(
     init {
 
         Log.i(TAG, "Initializing")
+        Log.i(TAG, "Remember Me: ${prefs?.rememberMe}")
 
              updateList()
         }
