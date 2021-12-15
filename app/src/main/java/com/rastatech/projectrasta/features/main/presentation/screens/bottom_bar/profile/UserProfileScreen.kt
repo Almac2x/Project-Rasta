@@ -116,10 +116,6 @@ fun UserProfileScreen(
                 }
             }
 
-            Box(modifier = Modifier.padding(10.dp)) {
-
-            }
-
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceEvenly
