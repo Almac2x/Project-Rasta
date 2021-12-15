@@ -47,6 +47,7 @@ fun CustomWishTile(
     displayType: DisplayType,
     updateList: (() -> Unit)? = null,
 
+
     ) {
     val tileHeight = 300.dp
     val tileElevation = 5.dp
@@ -131,8 +132,8 @@ fun CustomWishTile(
                         IconButton(
                             modifier = Modifier.size(heartButtonSize),
                             onClick = {
-
                                 heart.value = !heart.value
+                                viewModel.onEvent(WishPageEvents.LikeAWish(wishID = wishEntity?.wish_id!!))
                             }
                         ) {
                             Icon(
@@ -153,7 +154,9 @@ fun CustomWishTile(
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0, voteType = VoteType.NONE)
+                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0,
+                    voteType = VoteType.toConvert().convert(wishEntity?.vote_status.toString())?:VoteType.NONE,
+                     wishID = wishEntity?.wish_id?:0 )
             }
         }
     }//////// End of Card

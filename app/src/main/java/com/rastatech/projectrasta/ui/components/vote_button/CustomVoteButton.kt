@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.ui.components
 
+import android.view.View
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Icon
@@ -14,8 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.ui.components.vote_button.VoteButtonViewModel
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
+import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -29,7 +36,9 @@ import com.rastatech.projectrasta.features.main.domain.util.VoteType
 fun CustomVoteButton(
     upvoteCount: Int,
     downVoteCount: Int,
-    voteType: VoteType
+    voteType: VoteType,
+    wishID : Int,
+    viewModel : VoteButtonViewModel = hiltViewModel()
 ) {
     val upVote = remember { mutableStateOf(upvoteCount) }
     val downVote = remember { mutableStateOf(downVoteCount) }
@@ -48,14 +57,19 @@ fun CustomVoteButton(
                         // remove count from upvote if you click upvote button again
                         vote.value = VoteType.NONE
                         upVote.value = upVote.value - 1
+
                     }
                     VoteType.DOWNVOTE -> {
-                        vote.value = VoteType.UPVOTE
+                        vote.value = VoteType.DOWNVOTE
                         upVote.value = upVote.value + 1
                         downVote.value = downVote.value - 1
                     }
                 }
+
+                viewModel.vote(wishID = wishID, voteType = vote.value)
             }
+
+
         ) {
             Icon(
                 tint = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
@@ -118,6 +132,8 @@ private fun Preview() {
     CustomVoteButton(
         upvoteCount = 200,
         downVoteCount = 100,
-        voteType = VoteType.NONE
+        voteType = VoteType.NONE,
+        viewModel = viewModel(),
+        wishID = 9
     )
 }

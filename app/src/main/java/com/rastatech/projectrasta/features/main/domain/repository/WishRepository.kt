@@ -23,7 +23,7 @@ interface WishRepository {
     suspend fun likeAWish(token: String, wishID : Int): Response<Unit>
     suspend fun donateToAWish(token:String, wishID: Int, amount : Int)
 
-    suspend fun voteAWish(token: String,wishID: Int, voteType: VoteType)
+    suspend fun voteAWish(token: String,wishID: Int, voteType: VoteType):Response<Unit>
 
     //Delete
     suspend fun deleteAWish(token: String, wishID: Int): Response<Unit>

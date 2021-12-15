@@ -51,7 +51,7 @@ interface WishApi {
      * Tested? = Yes
      */
     //Gets the WishList of a User that is Fulfilled
-    @GET("/api/wishes/fulfilled/{${ApiKey.UserID.value}}")
+    @GET("/api/wishes/fulfilled/{${ApiKey.UserID.value}}/?limit=888")
     suspend fun getAUserWishListFulfilled(@Header(ApiKey.Authorization.value) token: String,
                                           @Path(ApiKey.UserID.value) userID: Int
 
@@ -62,7 +62,7 @@ interface WishApi {
      * Used? = Yes
      * Tested? = Yes
      */
-    @GET("/api/wishes/active/{${ApiKey.UserID.value}}")
+    @GET("/api/wishes/active/{${ApiKey.UserID.value}}/?limit=888")
     suspend fun getAUserActiveWishList(@Header(ApiKey.Authorization.value) token: String,
                                        @Path(ApiKey.UserID.value) userID: Int
     ):Response<List<WishDTO>>
@@ -141,7 +141,7 @@ interface WishApi {
     suspend fun voteAWish (@Header(ApiKey.Authorization.value) token: String,
                            @Path("${ApiKey.WishID.value}") wishID: Int,
                            @Body voteType: Map<String, String>
-    )
+    ):Response<Unit>
 
     /**
      * Tested? = No

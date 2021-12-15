@@ -247,7 +247,8 @@ fun WishItemPageScreen(
                 Text(text = wisherName, fontSize = 15.sp)
             }
             // UPVOTE DOWNVOTE Button
-            CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote, voteType = voteState)
+            CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote,
+                voteType = voteState, wishID =  0) // <- Check ---------------------------------------------
         }
 
         Spacer(modifier = Modifier.height(space))

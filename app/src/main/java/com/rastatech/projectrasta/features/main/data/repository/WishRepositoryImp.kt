@@ -48,7 +48,7 @@ class WishRepositoryImp(
                                  amount = mapOf("${ApiKey.Amount.value}" to amount))  //get amount key from sealed class
     }
 
-    override suspend fun voteAWish(token: String, wishID: Int, voteType: VoteType) {
+    override suspend fun voteAWish(token: String, wishID: Int, voteType: VoteType):Response<Unit>  {
         return api.voteAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID,
                              voteType = mapOf("${ApiKey.VoteType.value}" to voteType.value)) // get the Vote Type from sealed Class
     }
