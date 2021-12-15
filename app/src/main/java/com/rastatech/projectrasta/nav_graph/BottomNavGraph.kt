@@ -14,6 +14,7 @@ import androidx.navigation.compose.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
 import com.rastatech.projectrasta.features.main.domain.util.UserType
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.about.AboutScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.transactions.TransactionScreen
@@ -61,6 +62,7 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
 
         composable( route ="${BottomBarScreens.About.route}"){
             // Call About Screen
+            AboutScreen()
         }
 
         composable( route ="user_transactions"){

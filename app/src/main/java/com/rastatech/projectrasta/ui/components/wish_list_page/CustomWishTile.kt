@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -55,6 +56,13 @@ fun CustomWishTile(
 
     val openDialog = remember { mutableStateOf(false)  }
     val heart = remember { mutableStateOf(wishEntity?.liked ?: false) }
+
+    val linearGradient = Brush.linearGradient(
+        colors = listOf(
+            Color(0xFF7BD5f5),
+            Color(0xFF787FF6)
+        )
+    )
 
     Card(
         modifier = Modifier

@@ -82,34 +82,36 @@ fun AddUpdateWishScreen(
             elevation = 0.dp,
             backgroundColor = AppColorPalette.background
         ) {
-            if (processType == WishProcess.Update) {
-                IconButton(
-                    onClick = {
-                        navController.navigateUp()
-                        // Return to previous screen
-                    }
-                ) {
-                    Icon(
-                        imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back"
-                    )
-                }
-            }
-
-            Text(
-                buildAnnotatedString {
-                    withStyle(
-                        style = SpanStyle(
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
-                        )
+            Box {
+                if (processType == WishProcess.Update) {
+                    IconButton(
+                        onClick = {
+                            navController.navigateUp()
+                            // Return to previous screen
+                        }
                     ) {
-                        append(if (processType == WishProcess.Add) "Add" else "Update")
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
+                        )
                     }
-                },
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
+                }
+
+                Text(
+                    buildAnnotatedString {
+                        withStyle(
+                            style = SpanStyle(
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        ) {
+                            append(if (processType == WishProcess.Add) "Add" else "Update")
+                        }
+                    },
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth().align(Alignment.Center)
+                )
+            }
         }
 
 
