@@ -10,7 +10,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -19,7 +24,9 @@ import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishViewModel
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.ui.components.CustomTextField
+import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
+import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 
 /**
@@ -58,28 +65,36 @@ fun AddUpdateWishScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        if(processType == WishProcess.Update){// Will only show if it is an Update
-
-            TopAppBar(
-                title = {
-                    Text(text = processType.toString)
-
-                },
-                elevation = 0.dp,
-                backgroundColor = Color.Black.copy(alpha = 0f),
-                navigationIcon = {
-                    IconButton(
-                        onClick = {
-                            // Return to previous screen
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Back"
+        TopAppBar(
+            elevation = 0.dp,
+            backgroundColor = AppColorPalette.background
+        ) {
+            Text(
+                buildAnnotatedString {
+                    withStyle(
+                        style = SpanStyle(
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold
                         )
+                    ) {
+                        append(if (processType == WishProcess.Add) "Add" else "Update")
                     }
-                }
+                },
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth()
             )
+            if (processType == WishProcess.Update) {
+                IconButton(
+                    onClick = {
+                        // Return to previous screen
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
+            }
         }
 
 

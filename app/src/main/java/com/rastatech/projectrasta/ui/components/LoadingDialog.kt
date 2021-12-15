@@ -1,21 +1,14 @@
 package com.rastatech.projectrasta.ui.components
 
-import android.app.AlertDialog
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.screens.HomeScreen
-import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
 
 @Composable
 fun LoadingDialog(

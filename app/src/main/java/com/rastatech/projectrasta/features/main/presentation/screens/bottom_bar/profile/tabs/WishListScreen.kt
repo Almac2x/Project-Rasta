@@ -11,7 +11,6 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.nav_graph.WishGraph
-import com.rastatech.projectrasta.ui.components.WishList
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.

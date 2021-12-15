@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.ui.components
+package com.rastatech.projectrasta.ui.components.wish_list_page
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -7,10 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,7 +23,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
-import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
+import com.rastatech.projectrasta.ui.components.CustomWishTile
 
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
@@ -36,18 +33,22 @@ fun WishList(wishEntities : List<WishDTO>,navController : NavController, display
 
 viewModel: WishViewModel = hiltViewModel()
 ){
-
     LazyVerticalGrid(cells = GridCells.Fixed(2),
-
-        contentPadding = PaddingValues( start = 10.dp, end = 10.dp,
-            top = 10.dp, bottom = 10.dp),
+        contentPadding = PaddingValues(
+            start = 10.dp, end = 10.dp,
+            top = 10.dp, bottom = 10.dp
+        ),
         content = {
-
-            items(items = wishEntities){ wish ->
-
-                CustomWishTile(wishEntity = wish, navController = navController, viewModel = viewModel, displayType = displayType)
+            items(items = wishEntities) { wish ->
+                CustomWishTile(
+                    wishEntity = wish,
+                    navController = navController,
+                    viewModel = viewModel,
+                    displayType = displayType
+                )
             }
-        } )
+        }
+    )
 }
 
 @ExperimentalMaterialApi

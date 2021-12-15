@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,10 +17,9 @@ import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.transactions.TransactionScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
-import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.WishItemPageScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
-import com.rastatech.projectrasta.screens.HomeScreen
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.HomeScreen
 
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi

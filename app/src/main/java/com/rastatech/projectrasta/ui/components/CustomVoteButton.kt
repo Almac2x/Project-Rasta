@@ -1,10 +1,16 @@
 package com.rastatech.projectrasta.ui.components
 
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
+import android.os.Build
+import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ThumbDown
+import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.outlined.ThumbDown
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -16,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.utils.Convert
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -25,6 +32,7 @@ import com.rastatech.projectrasta.features.main.domain.util.VoteType
  */
 
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CustomVoteButton(
     upvoteCount: Int,
@@ -35,89 +43,99 @@ fun CustomVoteButton(
     val downVote = remember { mutableStateOf(downVoteCount) }
     val vote = remember { mutableStateOf(voteType) }
 
-    Row {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
         // UPVOTE
-        IconButton(
-            onClick = {
-                when (vote.value) {
-                    VoteType.NONE -> {
-                        vote.value = VoteType.UPVOTE
-                        upVote.value = upVote.value + 1
+        Box {
+            Row {
+                IconButton(
+                    onClick = {
+                        when (vote.value) {
+                            VoteType.NONE -> {
+                                vote.value = VoteType.UPVOTE
+                                upVote.value = upVote.value + 1
+                            }
+                            VoteType.UPVOTE -> {
+                                // remove count from upvote if you click upvote button again
+                                vote.value = VoteType.NONE
+                                upVote.value = upVote.value - 1
+                            }
+                            VoteType.DOWNVOTE -> {
+                                vote.value = VoteType.UPVOTE
+                                upVote.value = upVote.value + 1
+                                downVote.value = downVote.value - 1
+                            }
+                        }
                     }
-                    VoteType.UPVOTE -> {
-                        // remove count from upvote if you click upvote button again
-                        vote.value = VoteType.NONE
-                        upVote.value = upVote.value - 1
-                    }
-                    VoteType.DOWNVOTE -> {
-                        vote.value = VoteType.UPVOTE
-                        upVote.value = upVote.value + 1
-                        downVote.value = downVote.value - 1
-                    }
+                ) {
+                    Icon(
+                        tint = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
+                        modifier = Modifier.fillMaxSize(fraction = 0.8f),
+                        imageVector = if (vote.value == VoteType.UPVOTE)
+                            Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
+                        contentDescription = ""
+                    )
                 }
+                Text(
+                    color = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
+                    fontSize = 20.sp,
+                    text = Convert.toCompactNumber(upVote.value),
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
             }
-        ) {
-            Icon(
-                tint = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
-                modifier = Modifier.fillMaxSize(fraction = 0.8f),
-                painter = painterResource(
-                    id = R.drawable.upvote
-                ),
-                contentDescription = ""
-            )
         }
-        Text(
-            color = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
-            fontSize = 20.sp,
-            text = "${upVote.value}",
-            modifier = Modifier.align(Alignment.CenterVertically)
-        )
 
         // DOWNVOTE
-        IconButton(
-            onClick = {
-                when (vote.value) {
-                    VoteType.NONE -> {
-                        vote.value = VoteType.DOWNVOTE
-                        downVote.value = downVote.value + 1
+        Box {
+            Row {
+                IconButton(
+                    onClick = {
+                        when (vote.value) {
+                            VoteType.NONE -> {
+                                vote.value = VoteType.DOWNVOTE
+                                downVote.value = downVote.value + 1
+                            }
+                            VoteType.DOWNVOTE -> {
+                                // remove count from upvote if you click upvote button again
+                                vote.value = VoteType.NONE
+                                downVote.value = downVote.value - 1
+                            }
+                            VoteType.UPVOTE -> {
+                                vote.value = VoteType.DOWNVOTE
+                                downVote.value = downVote.value + 1
+                                upVote.value = upVote.value - 1
+                            }
+                        }
                     }
-                    VoteType.DOWNVOTE -> {
-                        // remove count from upvote if you click upvote button again
-                        vote.value = VoteType.NONE
-                        downVote.value = downVote.value - 1
-                    }
-                    VoteType.UPVOTE -> {
-                        vote.value = VoteType.DOWNVOTE
-                        downVote.value = downVote.value + 1
-                        upVote.value = upVote.value - 1
-                    }
+                ) {
+                    Icon(
+                        tint = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
+                        modifier = Modifier.fillMaxSize(fraction = 0.8f),
+                        imageVector = if (vote.value == VoteType.DOWNVOTE)
+                            Icons.Filled.ThumbDown else Icons.Outlined.ThumbDown,
+                        contentDescription = ""
+                    )
                 }
+                Text(
+                    color = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
+                    fontSize = 20.sp,
+                    text = Convert.toCompactNumber(downVote.value),
+                    modifier = Modifier.align(Alignment.CenterVertically)
+                )
             }
-        ) {
-            Icon(
-                tint = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
-                modifier = Modifier.fillMaxSize(fraction = 0.8f),
-                painter = painterResource(
-                    id = R.drawable.downvote
-                ),
-                contentDescription = ""
-            )
         }
-        Text(
-            color = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
-            fontSize = 20.sp,
-            text = "${downVote.value}",
-            modifier = Modifier.align(Alignment.CenterVertically)
-        )
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
     CustomVoteButton(
-        upvoteCount = 200,
-        downVoteCount = 100,
+        upvoteCount = 2000,
+        downVoteCount = 1600,
         voteType = VoteType.NONE
     )
 }

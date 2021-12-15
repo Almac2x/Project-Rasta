@@ -13,4 +13,8 @@ sealed class VoteType(
     object NONE: VoteType(
         value ="NONE"
     )
+
+    fun toObject(): VoteType {
+        return VoteType.UPVOTE
+    }
 }

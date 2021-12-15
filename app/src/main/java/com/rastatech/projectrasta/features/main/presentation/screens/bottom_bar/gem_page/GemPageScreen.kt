@@ -25,7 +25,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.ShowType
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomIconButton
+import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 import com.rastatech.projectrasta.utils.animations.Pulsating
@@ -70,7 +72,22 @@ fun GemPageScreen(
     }
 
     // UI
-    Scaffold {
+    Scaffold(
+        topBar = {
+            TopAppBar(backgroundColor = AppColorPalette.background, elevation = 0.dp) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = BottomBarScreens.GemsPage.title,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                }
+            }
+        }
+    ) {
         Column(
             Modifier
                 .fillMaxWidth()

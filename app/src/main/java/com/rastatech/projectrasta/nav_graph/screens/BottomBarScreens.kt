@@ -1,7 +1,7 @@
 package com.rastatech.projectrasta.nav_graph.screens
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 
@@ -14,27 +14,27 @@ sealed class BottomBarScreens(
     object Home: BottomBarScreens(
         route = "home/{${NavigationKey.AccessToken.value}}",
         title = "Home",
-        icon = Icons.Default.Home
+        icon = Icons.Outlined.Home
     )
     object Profile: BottomBarScreens(
         route = "profile/{${NavigationKey.AccessToken.value}}",
         title = "Profile",
-        icon = Icons.Default.Person
+        icon = Icons.Outlined.Person
     )
     object Settings: BottomBarScreens(
         route = "settings",
         title = "Settings",
-        icon = Icons.Default.Settings
+        icon = Icons.Outlined.Settings
     )
     object GemsPage: BottomBarScreens(
         route = "mygems/{${NavigationKey.AccessToken.value}}",
         title = "My Gems",
-        icon = Icons.Default.Money
+        icon = Icons.Outlined.Money
     )
     object MakeWish: BottomBarScreens(
         route = "make_wish/{${NavigationKey.AccessToken.value}}",
         title = "Make A Wish",
-        icon = Icons.Default.Star
+        icon = Icons.Outlined.Star
     )
 
 
