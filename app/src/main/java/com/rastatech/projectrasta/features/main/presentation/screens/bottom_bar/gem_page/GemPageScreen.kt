@@ -25,7 +25,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.ShowType
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomIconButton
+import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 import com.rastatech.projectrasta.utils.animations.Pulsating
@@ -70,7 +72,22 @@ fun GemPageScreen(
     }
 
     // UI
-    Scaffold {
+    Scaffold(
+        topBar = {
+            TopAppBar(backgroundColor = AppColorPalette.background, elevation = 0.dp) {
+                Box(
+                    modifier = Modifier.fillMaxWidth(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = BottomBarScreens.GemsPage.title,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+                }
+            }
+        }
+    ) {
         Column(
             Modifier
                 .fillMaxWidth()
@@ -111,7 +128,7 @@ fun GemPageScreen(
             ) {
                 // Add Gems Button
                 CustomIconButton(
-                    id = R.drawable.gift,
+                    id = R.drawable.add_gem,
                     title = "Add Gems",
                     onClick = {
                         viewModel.events(GemPageEvents.AddGemDialog(showType = ShowType.Open))
@@ -119,17 +136,15 @@ fun GemPageScreen(
                 )
                 // Send Gems Button
                 CustomIconButton(
-                    id = R.drawable.gift,
+                    id = R.drawable.send_gem,
                     title = "Send Gems",
                     onClick = {
                         viewModel.events(GemPageEvents.SendGemDialog(showType = ShowType.Open))
                     }
                 )
-                CustomIconButton(id = R.drawable.gift, title = "Transactions", onClick = {
+                CustomIconButton(id = R.drawable.transactions, title = "Transactions", onClick = {
                     navController.navigate("user_transactions"){
-
                     }
-
                 })
             }
         }

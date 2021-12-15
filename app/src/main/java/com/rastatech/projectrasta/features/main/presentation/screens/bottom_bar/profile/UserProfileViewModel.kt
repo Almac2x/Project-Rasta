@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile
 
 import android.util.Log
+import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 private const val TAG = "UserProfileViewModel"
@@ -154,17 +156,10 @@ class UserProfileViewModel @Inject constructor(
     }
 
     fun onEvents(event : UserProfileEvents){
-
         when(event){
 
             UserProfileEvents.GetProfile -> TODO()
         }
 
     }
-
-
-
-
-
-
 }

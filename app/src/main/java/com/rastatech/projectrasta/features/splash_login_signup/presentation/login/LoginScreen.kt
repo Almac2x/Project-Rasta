@@ -150,6 +150,19 @@ fun LoginScreen(
 
                             Spacer(modifier = Modifier.height(8.dp))
 
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.Center
+                            ) {
+                                Checkbox(
+                                    checked = viewModel.rememberMe.value,
+                                    onCheckedChange = {viewModel.rememberMe.value = it}
+                                )
+                                Text(text = "Remember me")
+                            }
+
+                            Spacer(modifier = Modifier.height(8.dp))
+
                             // Don't have an account? Sign up
                             Row (
                                 modifier = Modifier.fillMaxWidth(),
@@ -167,9 +180,7 @@ fun LoginScreen(
                                         }
                                     }
                                 }) {
-                                    Text(text = "Sign Up", fontWeight = FontWeight.Bold,
-
-                                        )
+                                    Text(text = "Sign Up", fontWeight = FontWeight.Bold)
                                 }
                             } // Row
                         }

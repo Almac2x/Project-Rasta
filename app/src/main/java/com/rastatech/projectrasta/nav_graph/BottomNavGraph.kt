@@ -7,12 +7,12 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
-import com.rastatech.projectrasta.features.main.domain.util.DisplayType
-import com.rastatech.projectrasta.features.main.domain.util.ListType
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page.GemPageScreen
@@ -20,8 +20,7 @@ import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile.UserProfileScreen
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
-import com.rastatech.projectrasta.screens.HomeScreen
-import com.rastatech.projectrasta.ui.components.WishList
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.HomeScreen
 
 
 private const val  BOTTOM_TAG = "BottomGraph"
@@ -60,10 +59,13 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
             GemPageScreen(navController = bottomBarNavController)
         }
 
+        composable( route ="${BottomBarScreens.About.route}"){
+            // Call About Screen
+        }
+
         composable( route ="user_transactions"){
             TransactionScreen()
         }
-
 
         composable(route = "${BottomBarScreens.WishListPage.route}",
         arguments = listOf(navArgument(NavigationKey.ListType.value){
@@ -74,7 +76,7 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
             }
                 )
             ){
-            
+
         }
 
         composable( route = BottomBarScreens.UpdateWish.route,
@@ -82,7 +84,7 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
         arguments = listOf(navArgument(NavigationKey.WishID.value){
             type = NavType.IntType
             defaultValue = -1
-            
+
         })){
 
             val id = it.arguments?.getInt(NavigationKey.WishID.value)

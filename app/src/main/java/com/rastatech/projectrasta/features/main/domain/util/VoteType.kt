@@ -8,22 +8,15 @@ sealed class VoteType(
 ){
     object UPVOTE: VoteType(
         value = "UPVOTE"
-    ){
+    )
 
-    }
     object DOWNVOTE: VoteType(
         value = "DOWNVOTE"
-    ){
+    )
 
-
-
-    }
     object NONE: VoteType(
         value ="NONE"
-    ){
-
-
-    }
+    )
 
     class toConvert(): VoteType(
         value = ""

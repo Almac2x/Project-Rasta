@@ -36,7 +36,7 @@ interface MainApi {
     @GET("/api/rastagem/history")
     suspend fun getTransactionHistory(@Header(ApiKey.Authorization.value) token: String
 
-    ) :Response<TransactionDTO>// ADD HERE THE DTO FOR TRANSACTION
+    ) :Response<List<TransactionDTO>>// ADD HERE THE DTO FOR TRANSACTION
 
     /**
      * Tested? = No

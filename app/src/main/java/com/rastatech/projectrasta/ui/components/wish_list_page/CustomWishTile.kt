@@ -1,5 +1,7 @@
 package com.rastatech.projectrasta.ui.components
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -22,14 +24,11 @@ import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
-import com.rastatech.projectrasta.nav_graph.MAIN_GRAPH_ROUTE
-import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
+import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.runBlocking
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -38,6 +37,7 @@ import kotlinx.coroutines.runBlocking
  * @since 12/09/2021
  */
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalFoundationApi
 @Composable
 fun CustomWishTile(
@@ -193,7 +193,7 @@ fun CustomWishTile(
                     onClick = {
                         navController.navigate("wish_update/"+ wishEntity?.wish_id){
 
-                        } // requried arguments
+                        } // required arguments
                         openDialog.value = false
                     }
                 ) {
@@ -224,6 +224,7 @@ fun CustomWishTile(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalFoundationApi
 @Preview(showBackground = false)
 @Composable

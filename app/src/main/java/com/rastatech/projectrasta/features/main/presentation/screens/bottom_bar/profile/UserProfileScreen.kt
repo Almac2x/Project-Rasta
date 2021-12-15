@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,8 +24,10 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
 import com.rastatech.projectrasta.ui.components.CustomTextWithCount
+import com.rastatech.projectrasta.ui.theme.AppColorPalette
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -43,14 +46,13 @@ fun UserProfileScreen(
     userType: UserType,
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
-
     if (viewModel.logoutAlertDialog.value) {
         AlertDialog(
             title = {
                 Text(
                     text = "Log out",
                     fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
+                    style = MaterialTheme.typography.body1
                 )
             },
             text = {
@@ -58,16 +60,15 @@ fun UserProfileScreen(
             },
             onDismissRequest = { viewModel.logoutAlertDialog.value = false },
             confirmButton = {
-                Button(  //  <- Logout Button
+                Button(
                     onClick = {
                         viewModel.logoutAlertDialog.value = false
+                        viewModel.logout.value = true
+                        mainNavController.navigate(AUTH_GRAPH_ROUTE){
 
-                            mainNavController.navigate(AUTH_GRAPH_ROUTE){
-
-                                mainNavController.popBackStack()
-                                bottomBarNavController.popBackStack()
-                            }
-
+                            mainNavController.popBackStack()
+                            bottomBarNavController.popBackStack()
+                        }
                     }
                 ) {
                     Text(text = "OK")
@@ -86,61 +87,104 @@ fun UserProfileScreen(
         )
     }
 
-
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+    //Hard Coded Please adapt this to Make A Wish Screen
+    Scaffold(
+        topBar = {
+            UserTopBar(viewModel = viewModel, userType = userType)
+        }
     ) {
-
-        //Hard Coded Please adapt this to Make A Wish Screen
-        Surface(
-            modifier = Modifier.fillMaxWidth(),color = Color.Black.copy(alpha = 0f)
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Surface(modifier = Modifier.fillMaxWidth(),color =  Color.Black.copy(alpha = 0f)) {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.CenterEnd
-                    ) {
-                        // Profile Text
-                        Text(
-                            text = "Profile",
-                            textAlign = TextAlign.Center,
-                            fontSize = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            modifier = Modifier.fillMaxWidth()
-                        )
-
-                        // Logout
-                        IconButton(
-                            onClick = {
-                                viewModel.logoutAlertDialog.value = true
-                            }
-                        ) {
-                            Icon(
-                                modifier = Modifier.fillMaxSize(0.8f),
-                                imageVector = Icons.Filled.Logout,
-                                contentDescription = "Logout"
-                            )
-                        }
-                    }
+            Box(modifier = Modifier.padding(10.dp)) {
+                CustomProfileImage(
+                    painter = painterResource(id = R.drawable.profile),
+                    diameter = 150.dp,
+                    borderThickness = 5.dp
+                )
             }
 
-            if(userType == UserType.Other) {
-                Surface(modifier = Modifier.fillMaxWidth(), color = Color.Black.copy(alpha = 0f)) {
-                    Row(
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
+            Box(modifier = Modifier.padding(10.dp)) {
+                Column {
+                    Text(
+                        text = "${viewModel.firstName} ${viewModel.lastName}",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 32.sp
+                    )
+
+                    Text(
+                        text = viewModel.userName,
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
+                        fontSize = 15.sp
+                    )
+                }
+            }
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
+                CustomTextWithCount(title = "Active Wishes", count = viewModel.numberOfActiveWishes)
+                CustomTextWithCount(title = "Wishes Fulfilled", count = viewModel.numberOfFulfiledWishes)
+            }
+
+            Box(modifier = Modifier
+                .fillMaxSize()
+            ) {
+                UserProfileTabScreen(
+                    viewModel = viewModel,
+                    bottomNavController = bottomBarNavController
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType) {
+    TopAppBar(
+        backgroundColor = AppColorPalette.background,
+        elevation = 0.dp
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            // Profile Text
+            Text(
+                text = "Profile",
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Logout
+            IconButton(
+                onClick = {
+                    viewModel.logoutAlertDialog.value = true
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Logout,
+                    contentDescription = "Logout"
+                )
+            }
+
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Row {
+                    if (userType == UserType.Other) {
                         // Back Button
                         IconButton(
                             onClick = { }
                         ) {
                             Icon(
-                                modifier = Modifier
-                                    .width(25.dp)
-                                    .height(25.dp),
                                 imageVector = Icons.Filled.ArrowBack,
                                 contentDescription = "Back"
                             )
@@ -153,48 +197,6 @@ fun UserProfileScreen(
                     }
                 }
             }
-        }
-
-        Box(modifier = Modifier.padding(10.dp)) {
-            CustomProfileImage(
-                painter = painterResource(id = R.drawable.profile),
-                diameter = 150.dp,
-                borderThickness = 5.dp
-            )
-        }
-
-        Box(modifier = Modifier.padding(10.dp)) {
-            Column {
-                Text(
-                    text = "${viewModel.firstName} ${viewModel.lastName}",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 32.sp
-                )
-
-                Text(
-                    text = viewModel.userName,
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    fontSize = 15.sp
-                )
-            }
-        }
-
-        Box(modifier = Modifier.padding(10.dp)) {
-
-        }
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
-        ) {
-            CustomTextWithCount(title = "Active Wishes", count = viewModel.numberOfActiveWishes)
-            CustomTextWithCount(title = "Wishes Fulfilled", count = viewModel.numberOfFulfiledWishes)
-        }
-
-        Box(modifier = Modifier
-            .fillMaxSize()
-        ) {
-            UserProfileTabScreen(viewModel = viewModel, bottomNavController = bottomBarNavController)
         }
     }
 }

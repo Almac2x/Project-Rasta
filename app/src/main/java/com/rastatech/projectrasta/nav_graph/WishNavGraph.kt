@@ -21,7 +21,6 @@ import com.rastatech.projectrasta.features.splash.presentation.screens.SplashScr
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
-import com.rastatech.projectrasta.ui.components.WishList
 
 
 

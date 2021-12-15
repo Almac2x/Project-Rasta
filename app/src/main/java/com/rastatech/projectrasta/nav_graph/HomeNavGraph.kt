@@ -12,8 +12,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
-import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.MainScreen
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 
@@ -29,7 +27,6 @@ const val TAG = "HomeNavGraph"
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
-
     navigation(
        startDestination = MAIN_GRAPH_ROUTE,
         route = "$HOME_GRAPH_ROUTE/{${NavigationKey.AccessToken.value}}",
@@ -48,11 +45,5 @@ fun NavGraphBuilder.homeNavGraph(navController: NavHostController) {
 
             MainScreen(mainNavController = navController)
         }
-
-
-
-
-
     }
-
 }

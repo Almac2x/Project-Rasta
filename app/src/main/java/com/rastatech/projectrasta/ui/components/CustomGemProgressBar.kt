@@ -1,29 +1,25 @@
 package com.rastatech.projectrasta.ui.components
 
-import android.util.Log
-import androidx.compose.foundation.Image
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerBasedShape
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.*
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.screens.HomeScreen
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
+import com.rastatech.projectrasta.utils.Convert
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -43,6 +39,7 @@ import com.rastatech.projectrasta.ui.theme.ProjectRastaTheme
  * @param height height of the progress bar, default is 15 dp
  * @param cornerShape corner radius shape
  */
+@RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CustomGemProgressBar(
     progress: Int = 0,
@@ -81,10 +78,11 @@ fun CustomGemProgressBar(
             horizontalArrangement = Arrangement.Center,
         ) {
             // Gem Icon
-            Image(
-                painter = painterResource(id = R.drawable.diamond),
+            Icon(
+                tint = Color.Blue,
+                painter = painterResource(id = R.drawable.outlined_diamond),
                 contentDescription = "",
-                Modifier
+                modifier = Modifier
                     .size(gemIconSize)
                     .align(Alignment.CenterVertically)
             )
@@ -93,7 +91,7 @@ fun CustomGemProgressBar(
 
             // Progress Text
             Text(
-                text = "$tempProgress/$maxProgress",
+                text = "${Convert.toCompactNumber(tempProgress)}/${Convert.toCompactNumber(maxProgress)}",
                 fontSize = fontHeight,
                 color = textColor,
                 fontWeight = FontWeight.Bold
@@ -102,13 +100,14 @@ fun CustomGemProgressBar(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.N)
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ProjectRastaTheme {
         CustomGemProgressBar(
             progress = 60,
-            maxProgress = 100,
+            maxProgress = 1000,
             height = 30.dp,
             progressColor = Color.Green
         )
