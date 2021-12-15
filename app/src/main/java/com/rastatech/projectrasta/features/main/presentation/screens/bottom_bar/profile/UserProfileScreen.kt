@@ -83,60 +83,7 @@ fun UserProfileScreen(
     //Hard Coded Please adapt this to Make A Wish Screen
     Scaffold(
         topBar = {
-            TopAppBar(
-                backgroundColor = AppColorPalette.background,
-                elevation = 0.dp
-            ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.CenterEnd
-                ) {
-                    // Profile Text
-                    Text(
-                        text = "Profile",
-                        textAlign = TextAlign.Center,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.fillMaxWidth()
-                    )
-
-                    // Logout
-                    IconButton(
-                        onClick = {
-                            viewModel.logoutAlertDialog.value = true
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Filled.Logout,
-                            contentDescription = "Logout"
-                        )
-                    }
-
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.CenterStart
-                    ) {
-                        Row {
-                            if (userType == UserType.Other) {
-                                // Back Button
-                                IconButton(
-                                    onClick = { }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.ArrowBack,
-                                        contentDescription = "Back"
-                                    )
-                                }
-                                Text(
-                                    text = "Back",
-                                    fontWeight = FontWeight.Bold,
-                                    fontSize = 20.sp,
-                                )
-                            }
-                        }
-                    }
-                }
-            }
+            UserTopBar(viewModel = viewModel, userType = userType)
         }
     ) {
         Column(
@@ -185,6 +132,64 @@ fun UserProfileScreen(
                 .fillMaxSize()
             ) {
                 UserProfileTabScreen(viewModel = viewModel)
+            }
+        }
+    }
+}
+
+@Composable
+private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType) {
+    TopAppBar(
+        backgroundColor = AppColorPalette.background,
+        elevation = 0.dp
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            // Profile Text
+            Text(
+                text = "Profile",
+                textAlign = TextAlign.Center,
+                fontSize = 20.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            // Logout
+            IconButton(
+                onClick = {
+                    viewModel.logoutAlertDialog.value = true
+                }
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Logout,
+                    contentDescription = "Logout"
+                )
+            }
+
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.CenterStart
+            ) {
+                Row {
+                    if (userType == UserType.Other) {
+                        // Back Button
+                        IconButton(
+                            onClick = { }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.ArrowBack,
+                                contentDescription = "Back"
+                            )
+                        }
+                        Text(
+                            text = "Back",
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 20.sp,
+                        )
+                    }
+                }
             }
         }
     }
