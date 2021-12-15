@@ -91,8 +91,6 @@ class WishItemPageViewModel@Inject constructor(
         get() = _numberOfDownVotes.value
 
 
-
-
     init {
 
         Log.i(TAG, " wishID = $_wishID")
@@ -126,7 +124,7 @@ class WishItemPageViewModel@Inject constructor(
             _rastaGemsRequired.value = wish?.rastagems_required ?:0
             _liked.value = wish?.liked ?:false
             _imageURL.value = wish?.image_url.toString()
-            _userID.value = wish?.wish_id?:0
+            _userID.value = wish?.wish_owner_id?:0
         }
 
     }
