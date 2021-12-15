@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.ui.components.vote_button
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import android.os.Build
@@ -14,6 +15,7 @@ import androidx.compose.material.icons.filled.ThumbUp
 import androidx.compose.material.icons.outlined.ThumbDown
 import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -34,22 +36,24 @@ import com.rastatech.projectrasta.utils.Convert
  */
 
 
+@SuppressLint("UnrememberedMutableState")
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CustomVoteButton(
-    upvoteCount: Int,
-    downVoteCount: Int,
+    upvoteCount: MutableState<Int>,
+    downVoteCount: MutableState<Int>,
     voteType: VoteType,
     wishID : Int,
-    viewModel : VoteButtonViewModel = hiltViewModel()
+    viewModel : VoteButtonViewModel = hiltViewModel(),
+    horizontalArrangement : Arrangement.Horizontal = Arrangement.SpaceBetween
 ) {
-    val upVote = remember { mutableStateOf(upvoteCount) }
-    val downVote = remember { mutableStateOf(downVoteCount) }
-    val vote = remember { mutableStateOf(voteType) }
+    val upVote = upvoteCount
+    val downVote =  downVoteCount
+    val vote =   mutableStateOf(voteType)
 
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = horizontalArrangement
     ) {
         // UPVOTE
         Box {
@@ -139,11 +143,5 @@ fun CustomVoteButton(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    CustomVoteButton(
-        upvoteCount = 200,
-        downVoteCount = 100,
-        voteType = VoteType.NONE,
-        viewModel = viewModel(),
-        wishID = 9
-    )
+
 }

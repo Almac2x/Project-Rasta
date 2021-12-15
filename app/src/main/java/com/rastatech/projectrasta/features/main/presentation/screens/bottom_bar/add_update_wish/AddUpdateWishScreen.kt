@@ -82,7 +82,7 @@ fun AddUpdateWishScreen(
             elevation = 0.dp,
             backgroundColor = AppColorPalette.background
         ) {
-            if (processType == WishProcess.Update) {
+
                 IconButton(
                     onClick = {
                         navController.navigateUp()
@@ -94,7 +94,7 @@ fun AddUpdateWishScreen(
                         contentDescription = "Back"
                     )
                 }
-            }
+
 
             Text(
                 buildAnnotatedString {

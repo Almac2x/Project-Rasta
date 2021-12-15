@@ -24,6 +24,7 @@ import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
@@ -62,17 +63,15 @@ fun CustomWishTile(
             .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
             .combinedClickable(
                 onClick = {
-                    /*  Insert here to navigate to Detailed view of Wish
-                    navController.navigate(BottomBarScreens.UpdateWish.navigate(wishID = wishEntity?.wish_id!!)) {
-                        popUpTo(MAIN_GRAPH_ROUTE) {
 
-                        }
-                    }*/
+                    navController.navigate(BottomBarScreens.WishItem.navigate(wishID = wishEntity?.wish_id!!)) {
+
+                    }
                     // go to Wish Item Page
                 },
                 onLongClick = {
 
-                    if(displayType == DisplayType.Editable){
+                    if (displayType == DisplayType.Editable) {
                         // update or delete alert dialog
                         openDialog.value = true
                     }
@@ -154,7 +153,9 @@ fun CustomWishTile(
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = wishEntity?.upvotes?:0, downVoteCount = wishEntity?.downvotes?:0,
+                CustomVoteButton(upvoteCount = remember{ mutableStateOf(wishEntity?.upvotes?:0)},
+
+                    downVoteCount = remember { mutableStateOf( wishEntity?.downvotes?:0)},
                     voteType = VoteType.toConvert().convert(wishEntity?.vote_status.toString())?:VoteType.NONE,
                      wishID = wishEntity?.wish_id?:0 )
             }
@@ -191,7 +192,7 @@ fun CustomWishTile(
             confirmButton = {
                 Button(
                     onClick = {
-                        navController.navigate("wish_update/"+ wishEntity?.wish_id){
+                        navController.navigate(BottomBarScreens.UpdateWish.navigate(wishEntity?.wish_id?:0)){
 
                         } // required arguments
                         openDialog.value = false

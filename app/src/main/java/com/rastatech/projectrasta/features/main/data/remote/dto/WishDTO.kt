@@ -7,7 +7,7 @@ data class WishDTO(
     val description: String,
     val image_url: String?,
     val rastagems_donated: Int,
-    val rastagems_required: Int,
+    val rastagems_required: Int = 0,
     val wish_id: Int,
     val wish_name: String,
     val liked : Boolean,

@@ -50,8 +50,19 @@ sealed class BottomBarScreens(
         icon = Icons.Outlined.Star
     ){
         fun navigate(wishID: Int):String{
-            return "wish_update/$wishID}"
+            return "wish_update/$wishID"
         }
+    }
+
+    object WishItem: BottomBarScreens(
+        route = "wish_item/{${NavigationKey.WishID.value}}",
+        title = "Wish",
+        icon = Icons.Outlined.Star
+    ){
+        fun navigate(wishID: Int):String{
+            return "wish_item/$wishID"
+        }
+
     }
     object WishListPage: BottomBarScreens(
         route = "wish_list/{${NavigationKey.ListType.value}}/{${NavigationKey.DisplayType.value}}",

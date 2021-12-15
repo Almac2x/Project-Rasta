@@ -39,7 +39,6 @@ fun MainScreen(
 ){
     val bottomBarNavController = rememberNavController()
 
-
     val screens = listOf(
         BottomBarScreens.Home,
         BottomBarScreens.GemsPage,
@@ -75,7 +74,9 @@ fun MainScreen(
                     ),
                     backgroundColor = MaterialTheme.colors.background,
                     onClick = {
-                        // do something
+                        bottomBarNavController.navigate(BottomBarScreens.MakeWish.route){
+
+                        }
                     }
                 ) {
                     Icon(Icons.Filled.Add, "")
