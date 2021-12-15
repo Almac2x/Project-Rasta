@@ -61,6 +61,7 @@ class LoginViewModel@Inject constructor(
     val argument: String?
     get() = _argument
 
+    val rememberMe = mutableStateOf(false) // initialize this
     val username = mutableStateOf(TextFieldValue()) // username textfield
     val password =  mutableStateOf(TextFieldValue()) // password textfield
 
