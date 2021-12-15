@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +28,8 @@ import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
 import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
@@ -61,206 +64,268 @@ import com.rastatech.projectrasta.utils.ValidateInput
 fun WishItemPageScreen(
     navController: NavController,
     viewModel : WishItemPageViewModel = hiltViewModel(),
-    wishName: String,
-    wisherName: String,
-    userRastaGems: Int,
-    minRastaGems: Int,
-    maxRastaGems: Int,
-    upVote: Int,
-    downVote: Int,
-    voteState: VoteType,
-    reason: String,
-    donors: List<Int> // TODO change data type later
+
 ) {
-    val gems = remember { mutableStateOf(minRastaGems) }
     val openDialog = remember { mutableStateOf(false)  }
     val nGems = remember { mutableStateOf(0) }
 
     val dividerHeight = 5.dp
-    val dividerColor = Color.Black
-    val space = 15.dp
+    val dividerColor = MaterialTheme.colors.onPrimary
+    val space = 10.dp
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            // Back Button
-            IconButton(
-                modifier = Modifier.align(Alignment.CenterVertically),
-                onClick = {  }
-            ) {
-                Icon(
-                    modifier = Modifier.fillMaxSize(),
-                    imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Back"
-                )
-            }
+    Scaffold(
+        topBar = {
+            TopAppBar(backgroundColor = AppColorPalette.background, elevation = 0.dp) {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
 
-            // App Name
-            Image(
-                modifier = Modifier
-                    .width(200.dp)
-                    .align(Alignment.CenterVertically),
-                painter = painterResource(id = R.drawable.title),
-                contentDescription = "title"
-            )
-
-            // Rasta Gem Logo and Rasta Gem Count
-            Row {
-                // Rasta Gem Logo
-                Image(
-                    painter = painterResource(id = R.drawable.rastagems),
-                    contentDescription = ""
-                )
-                Text(text = "$userRastaGems", Modifier.align(Alignment.CenterVertically))
-            }
-        }
-
-        Spacer(modifier = Modifier.height(space))
-
-        CustomImageWithHeart(
-            painter = if (viewModel.imageURL.value.text.isBlank())
-                painterResource(id = R.drawable.gift)
-            else
-                rememberImagePainter(data = viewModel.imageURL.value)
-        )
-
-        Spacer(modifier = Modifier.height(space))
-
-        // Donate Button
-        Button(
-            onClick = {
-                openDialog.value = true
-            }
-        ) {
-            Text(text = "Donate")
-        }
-
-        if (openDialog.value) {
-            AlertDialog(
-                onDismissRequest = {
-                    // Dismiss the dialog when the user clicks outside the dialog or on the back
-                    // button. If you want to disable that functionality, simply use an empty
-                    // onCloseRequest.
-                    openDialog.value = false
-                },
-                title = {
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
+                    IconButton(
+                        onClick = {
+                            navController.navigateUp()
+                            // Return to previous screen
+                        }
                     ) {
                         Icon(
-                            tint = Color.Green,
-                            painter = painterResource(id = R.drawable.diamond),
-                            contentDescription = null
-                        )
-                        Text(
-                            text = "Donate Gems",
-                            modifier = Modifier.align(Alignment.CenterVertically),
-                            color = Color.Black,
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.Bold
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Back"
                         )
                     }
-                },
-                text = {
-                    Column(modifier = Modifier
-                        .fillMaxWidth()
-                    ) {
-                        Text(
-                            text = "Enter amount:",
-                            color = Color.Black,
-                            fontSize = 16.sp
+
+                    Text(
+                        text = BottomBarScreens.GemsPage.title,   // Add Title of wish here
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    )
+
+                    Row(){
+                        // Rasta Gem Logo
+                        Image(
+                            painter = painterResource(id = R.drawable.rastagems),
+                            contentDescription = "",
                         )
+                        Text(
+                            text = "${viewModel.userRastaGems}",
+                            fontSize = 20.sp
+                        )
+                    }
 
-                        Spacer(modifier = Modifier.height(10.dp))
+                }
 
-                        OutlinedTextField(
+
+
+            }
+        }
+    ) {
+
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            /*
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                // Back Button
+                IconButton(
+                    modifier = Modifier.align(Alignment.CenterVertically),
+                    onClick = { }
+                ) {
+                    Icon(
+                        modifier = Modifier.fillMaxSize(),
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
+                }
+
+                // App Name
+                Image(
+                    modifier = Modifier
+                        .width(200.dp)
+                        .align(Alignment.CenterVertically),
+                    painter = painterResource(id = R.drawable.title),
+                    contentDescription = "title"
+                )
+
+
+            }
+            */
+                    //Between Top Bar and Image WITH HEART
+            //Spacer(modifier = Modifier.height(space))
+
+            CustomImageWithHeart(isHeart = viewModel.liked, //
+                painter = if (viewModel.imageURL.isBlank())
+                    painterResource(id = R.drawable.gift)
+                else
+                    rememberImagePainter(data = viewModel.imageURL)
+            )
+
+            Spacer(modifier = Modifier.height(space))
+
+
+            if (openDialog.value) {
+                AlertDialog(
+                    onDismissRequest = {
+                        // Dismiss the dialog when the user clicks outside the dialog or on the back
+                        // button. If you want to disable that functionality, simply use an empty
+                        // onCloseRequest.
+                        openDialog.value = false
+                    },
+                    title = {
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .border(2.dp, Color.Black),
-                            value = if (nGems.value == 0) "" else nGems.value.toString(),
-                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                            onValueChange = {
-                                nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
-                                else nGems.value
-                            }
-                        )
-                    }
-                },
-                confirmButton = {
+                        ) {
+                            Icon(
+                                tint = Color.Green,
+                                painter = painterResource(id = R.drawable.diamond),
+                                contentDescription = null
+                            )
+                            Text(
+                                text = "Donate Gems",
+                                modifier = Modifier.align(Alignment.CenterVertically),
+                                color = Color.Black,
+                                fontSize = 20.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    },
+                    text = {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Enter amount:",
+                                color = Color.Black,
+                                fontSize = 16.sp
+                            )
+
+                            Spacer(modifier = Modifier.height(10.dp))
+
+                            OutlinedTextField(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .border(2.dp, Color.Black),
+                                value = if (nGems.value == 0) "" else nGems.value.toString(),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                                onValueChange = {
+                                    nGems.value = if (ValidateInput.isNumber(it)) it.toInt()
+                                    else nGems.value
+                                }
+                            )
+                        }
+                    },
+                    confirmButton = {
                     Button(
                         onClick = {
+
+                            viewModel.onEvent(WishItemPageEvents.Donate(amount = nGems.value))
+                            openDialog.value = false
+
+                            /*
                             openDialog.value = false
                             gems.value += nGems.value
-                            nGems.value = 0
-                        }) {
+                            nGems.value = 0*/
+                        }
+                    ) {
                         Text("Donate")
                     }
-                },
-                dismissButton = {
-                    Button(
-                        colors = ButtonDefaults
-                            .buttonColors(
-                                backgroundColor = AppColorPalette.error,
-                                contentColor = AppColorPalette.onError
-                            ),
-                        onClick = {
-                            openDialog.value = false
-                            nGems.value = 0
-                        }) {
-                        Text("Cancel")
+                    },
+                    dismissButton = {
+                        Button(
+                            colors = ButtonDefaults
+                                .buttonColors(
+                                    backgroundColor = AppColorPalette.error,
+                                    contentColor = AppColorPalette.onError
+                                ),
+                            onClick = {
+                                openDialog.value = false
+                                nGems.value = 0
+                            }) {
+                            Text("Cancel")
+                        }
                     }
+                )
+            }
+            // Between Image and Progress Bar
+            Spacer(modifier = Modifier.height(space))
+
+            // Progress Bar
+            CustomGemProgressBar(
+                progressColor = Color.Green,
+                backgroundColor = Color.LightGray,
+                progress = viewModel.rastaGemsDonated,
+                maxProgress = viewModel.rastaGemsRequired,
+                height = 25.dp
+            )
+
+            Spacer(modifier = Modifier.height(space))
+
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // Wish Name and Name of Wisher
+                Column (modifier = Modifier.width(200.dp)){
+                    Text(text = viewModel.wishName, maxLines = 1, overflow = TextOverflow.Ellipsis, fontSize = 25.sp, fontWeight = FontWeight.Bold)
+
+                    TextButton(onClick = {
+
+                        navController.navigate(BottomBarScreens.OthersProfile.navigate(viewModel.userID)){
+
+                        }
+                    }) {
+                        Text(text = viewModel.wisherFullName, maxLines = 1, overflow = TextOverflow.Ellipsis,fontSize = 15.sp
+                        )
+                    }
+
+
                 }
+
+                Column( horizontalAlignment = Alignment.End
+
+                ) {
+
+                    // Donate Button
+                    Button(
+                        onClick = {
+                            openDialog.value = true
+                        }
+                    ) {
+                        Text(text = "Donate")
+                    }
+                    // UPVOTE DOWNVOTE Button
+                    CustomVoteButton(
+                        upvoteCount = mutableStateOf(viewModel.numberOfUpVotes),
+                        downVoteCount = mutableStateOf(viewModel.numberOfDownVotes),
+                        voteType = viewModel.voteStatus,
+                        wishID = viewModel.wishID,
+                        horizontalArrangement = Arrangement.End// <- Check ---------------------------------------------
+                    )
+                }
+
+            }
+
+            Spacer(modifier = Modifier.height(space))
+
+            // Divider
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(dividerHeight)
+                    .background(dividerColor)
+            )
+
+            WishItemPageTabScreen(
+                reason = viewModel.reason,
+                donators = listOf()
             )
         }
 
-        Spacer(modifier = Modifier.height(space))
-
-        // Progress Bar
-        CustomGemProgressBar(
-            progressColor = Color.Green,
-            backgroundColor = Color.LightGray,
-            progress = gems.value,
-            maxProgress = maxRastaGems,
-            height = 25.dp
-        )
-
-        Spacer(modifier = Modifier.height(space))
-
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            // Wish Name and Name of Wisher
-            Column {
-                Text(text = wishName, fontSize = 25.sp, fontWeight = FontWeight.Bold)
-                Text(text = wisherName, fontSize = 15.sp)
-            }
-            // UPVOTE DOWNVOTE Button
-            CustomVoteButton(upvoteCount = upVote, downVoteCount = downVote,
-                voteType = voteState, wishID =  0) // <- Check ---------------------------------------------
-        }
-
-        Spacer(modifier = Modifier.height(space))
-
-        // Divider
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(dividerHeight)
-            .background(dividerColor)
-        )
-
-        WishItemPageTabScreen(
-            reason = "Hello World",
-            donators = listOf()
-        )
     }
 }
 
@@ -272,16 +337,7 @@ fun WishItemPageScreen(
 @Composable
 private fun Preview() {
     WishItemPageScreen(
-        wishName = "Wish",
-        wisherName = "Hello",
-        userRastaGems = 200,
-        minRastaGems = 50,
-        maxRastaGems = 200,
-        upVote = 0,
-        downVote = 200,
-        voteState = VoteType.NONE,
-        reason = "IDK",
-        donors = listOf(1, 2, 3),
+
         navController = rememberNavController()
     )
 }

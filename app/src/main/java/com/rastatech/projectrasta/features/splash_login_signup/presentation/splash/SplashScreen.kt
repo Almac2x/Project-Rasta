@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.features.splash.presentation.screens
 
+import android.util.Log
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
@@ -18,13 +19,19 @@ import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import kotlinx.coroutines.delay
+import com.rastatech.projectrasta.SecretRastaApp.Companion.prefs
+import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
 
+
+
+private const val TAG = "SplashScreen"
 @Composable
 fun SplashScreen(navController: NavController) {
     val scale = remember{
         Animatable(0f)
 
     }
+
     LaunchedEffect(key1 = true){
         scale.animateTo(
             targetValue = 2f,
@@ -38,13 +45,31 @@ fun SplashScreen(navController: NavController) {
         )
 
         delay(3000L)
-        navController.navigate(AUTH_GRAPH_ROUTE){
 
-            popUpTo(route = AuthScreens.Splash.route){
-                inclusive = true
+        Log.i(TAG, "access_token: ${prefs?.accessToken} \n ${prefs?.rememberMe}" )
+
+
+            if(prefs?.rememberMe == true && prefs?.rememberMe != null){
+                navController.navigate(HOME_GRAPH_ROUTE + "/token"){
+
+                    popUpTo(route = AuthScreens.Splash.route){
+                        inclusive = true
+                    }
+
+                }
+            }else {
+                navController.navigate(AUTH_GRAPH_ROUTE){
+
+                    popUpTo(route = AuthScreens.Splash.route){
+                        inclusive = true
+                    }
+
+                }
+
             }
 
-        }
+
+
     }
 
 

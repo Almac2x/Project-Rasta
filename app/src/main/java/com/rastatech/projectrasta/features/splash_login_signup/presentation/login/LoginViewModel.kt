@@ -61,7 +61,7 @@ class LoginViewModel@Inject constructor(
     val argument: String?
     get() = _argument
 
-    val rememberMe = mutableStateOf(false) // initialize this
+    var rememberMe = mutableStateOf(false) // initialize this
     val username = mutableStateOf(TextFieldValue()) // username textfield
     val password =  mutableStateOf(TextFieldValue()) // password textfield
 
@@ -109,6 +109,9 @@ class LoginViewModel@Inject constructor(
 
                                prefs?.accessToken = response?.body()?.access_token // saves the token locally
 
+                               Log.i(TAG, "Remember Me: ${rememberMe.value}")
+                               prefs?.rememberMe = rememberMe.value
+
                                Log.i(TAG, response?.code().toString())
                                if (response?.code() == 200) {
 
@@ -123,7 +126,9 @@ class LoginViewModel@Inject constructor(
                                _isLoading.value = false
                            }
 
+
                        }
+                       _isLoading.value = false
 
                       //job?.join()
                        } // End Coroutine

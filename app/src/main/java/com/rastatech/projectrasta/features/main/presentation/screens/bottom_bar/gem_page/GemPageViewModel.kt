@@ -56,17 +56,22 @@ class GemPageViewModel@Inject constructor(
 
 
     init {
+
+        viewModelScope.launch(Dispatchers.Main) {
+
             getBalance()
+
+        }
+
+
     }
 
 
     private fun getBalance (){
 
-        viewModelScope.launch(Dispatchers.Main) {
+        viewModelScope.launch(Dispatchers.IO) {
 
             val requestUserBalance = async{RetrofitInstance.mainApi.getUserBalance(token = retroFitToken)}
-
-            requestUserBalance.join()
 
             _gemBalance.value = requestUserBalance.await().body()?.get("rasta_gems_balance") ?: 0
 

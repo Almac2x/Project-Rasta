@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
+import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishList
 
 /**
@@ -26,11 +27,12 @@ import com.rastatech.projectrasta.ui.components.wish_list_page.WishList
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun WishesFulfilled(wishList : List<WishDTO>, navController: NavController,updateList: ()-> Unit) {
+fun WishesFulfilled(wishList : List<WishDTO>, navController: NavController,updateList: ()-> Unit,userType: UserType) {
+
     Box(modifier = Modifier.fillMaxSize()) {
         WishList(
             navController = navController,
-            displayType = DisplayType.Editable,
+            displayType = if(userType == UserType.Current) DisplayType.Editable else DisplayType.ReadOnly,
             wishEntities = wishList,
             updateList = updateList
         )

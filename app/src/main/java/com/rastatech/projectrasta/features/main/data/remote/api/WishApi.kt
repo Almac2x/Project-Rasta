@@ -128,7 +128,7 @@ interface WishApi {
     suspend fun donateToAWish(@Header(ApiKey.Authorization.value) token: String,
                               @Path(ApiKey.WishID.value)wishID : Int,
                               @Body amount: Map<String,Int>
-    )
+    ):Response<Unit>
 
     /**
      * Tested? = Yes

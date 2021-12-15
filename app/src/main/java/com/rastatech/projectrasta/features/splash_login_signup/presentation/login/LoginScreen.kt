@@ -51,6 +51,7 @@ fun LoginScreen(
         LoadingDialog(isVisible = viewModel.isLoading)
     }
 
+
     //Toast
     if(viewModel.hasError.value){
 
@@ -132,7 +133,18 @@ fun LoginScreen(
                                 isPassword = true
                             )
 
-                            Spacer(modifier = Modifier.height(50.dp))
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(top = 15.dp, bottom = 25.dp),
+                                horizontalArrangement = Arrangement.Start
+                            ) {
+                                Checkbox( modifier = Modifier.padding(end = 10.dp),
+                                    checked = viewModel.rememberMe.value,
+                                    onCheckedChange = {viewModel.rememberMe.value = it}
+                                )
+                                Text(text = "Remember me")
+                            }
+
+                            //Spacer(modifier = Modifier.height(50.dp))
 
                             // Login Button
                             Button(
@@ -150,16 +162,7 @@ fun LoginScreen(
 
                             Spacer(modifier = Modifier.height(8.dp))
 
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.Center
-                            ) {
-                                Checkbox(
-                                    checked = viewModel.rememberMe.value,
-                                    onCheckedChange = {viewModel.rememberMe.value = it}
-                                )
-                                Text(text = "Remember me")
-                            }
+
 
                             Spacer(modifier = Modifier.height(8.dp))
 

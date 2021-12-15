@@ -39,7 +39,6 @@ fun MainScreen(
 ){
     val bottomBarNavController = rememberNavController()
 
-
     val screens = listOf(
         BottomBarScreens.Home,
         BottomBarScreens.GemsPage,
@@ -57,7 +56,8 @@ fun MainScreen(
             if(showBottomBar) {
                 BottomAppBar(
                     cutoutShape = CircleShape,
-                    backgroundColor = MaterialTheme.colors.background
+                    backgroundColor = MaterialTheme.colors.background,
+                    elevation = 5.dp, //modifier = Modifier.border(color = MaterialTheme.colors.secondary, width = 3.dp, shape = Shapes.)
                 ) {
                     BottomBar(navController = bottomBarNavController)
                 }
@@ -75,7 +75,9 @@ fun MainScreen(
                     ),
                     backgroundColor = MaterialTheme.colors.background,
                     onClick = {
-                        // do something
+                        bottomBarNavController.navigate(BottomBarScreens.MakeWish.route){
+
+                        }
                     }
                 ) {
                     Icon(Icons.Filled.Add, "")

@@ -7,6 +7,6 @@ data class WishUseCases(
     val createAWish: CreateAWish,
     val getHomeScreenWishes: GetHomeScreenWishes,
     val likeAWish: LikeAWish,
-    val getUserWishList: GetUserWishList
+    val getUserWishList: GetUserWishList,
 ){
 }
