@@ -63,7 +63,7 @@ fun CustomVoteButton(
                                 upVote.value = upVote.value - 1
                             }
                             VoteType.DOWNVOTE -> {
-                                vote.value = VoteType.UPVOTE
+                                vote.value = VoteType.DOWNVOTE
                                 upVote.value = upVote.value + 1
                                 downVote.value = downVote.value - 1
                             }
