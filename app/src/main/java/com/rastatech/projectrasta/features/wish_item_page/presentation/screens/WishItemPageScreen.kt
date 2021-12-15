@@ -221,16 +221,21 @@ fun WishItemPageScreen(
                             )
                         }
                     },
-                    confirmButton = {/*  <- Balikan
+                    confirmButton = {
                     Button(
                         onClick = {
 
+                            viewModel.onEvent(WishItemPageEvents.Donate(amount = nGems.value))
+                            openDialog.value = false
+
+                            /*
                             openDialog.value = false
                             gems.value += nGems.value
-                            nGems.value = 0
-                        }) {
+                            nGems.value = 0*/
+                        }
+                    ) {
                         Text("Donate")
-                    }*/
+                    }
                     },
                     dismissButton = {
                         Button(

@@ -43,7 +43,7 @@ class WishRepositoryImp(
         return api.likeAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID)
     }
 
-    override suspend fun donateToAWish(token: String, wishID: Int, amount: Int) {
+    override suspend fun donateToAWish(token: String, wishID: Int, amount: Int): Response<Unit>{
         return api.donateToAWish(token = "${ApiKey.Bearer.value}$token", wishID = wishID,
                                  amount = mapOf("${ApiKey.Amount.value}" to amount))  //get amount key from sealed class
     }

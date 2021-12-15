@@ -6,6 +6,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.android.gms.common.api.internal.ApiKey
 import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
@@ -95,14 +97,44 @@ class WishItemPageViewModel@Inject constructor(
 
         Log.i(TAG, " wishID = $_wishID")
 
+        updateDetails()
+
+    }
+
+    private fun updateDetails(){
         viewModelScope.launch (Dispatchers.Main){
 
-           async {getBalance()}
+            async {getBalance()}
             async {getWishDetails()}
 
         }
+    }
+
+
+    fun onEvent (event: WishItemPageEvents){
+
+        when(event){
+            is WishItemPageEvents.Donate -> {
+
+                viewModelScope.launch(Dispatchers.IO) {
+                    val requesToDonate = async {RetrofitInstance.wishApi.donateToAWish(
+                        token = retroFitToken, wishID = wishID, amount = mapOf("amount" to event.amount)
+                    ) }
+                }
+
+                viewModelScope.launch (Dispatchers.Main){
+
+                    async {getBalance()}
+                    async {getWishDetails()}
+
+                }
+
+            }
+        }
+
 
     }
+
 
     private fun getWishDetails(){
 
