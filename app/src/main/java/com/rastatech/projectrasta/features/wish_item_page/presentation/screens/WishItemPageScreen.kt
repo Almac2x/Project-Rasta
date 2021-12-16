@@ -215,9 +215,17 @@ fun WishItemPageScreen(
                         },
                         failure = {
 
-                            Image(painter = painterResource(R.drawable.gift), contentDescription = "")
-                        }
+                            Box(
+                                modifier = Modifier.fillMaxSize(),
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Image(
+                                    painter = painterResource(R.drawable.gift),
+                                    contentDescription = ""
+                                )
 
+                            }
+                        }
                     )
 
 

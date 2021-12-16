@@ -31,6 +31,7 @@ import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
+import com.skydoves.landscapist.glide.GlideImage
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -97,15 +98,34 @@ fun CustomWishTile(
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
 
-                //Add Here Coil Image
-                Image(
+
+                //Wish Image
+                GlideImage(imageModel = wishEntity?.image_url,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .height(100.dp),
-                    painter = painterResource( // Ilagay Dito Coil
-                        id = R.drawable.gift
-                    ),
-                    contentDescription = "",
+                        .height(150.dp)
+                        .width(150.dp),
+                    loading = {
+                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                            CircularProgressIndicator()
+                        }
+                    },
+                    failure = {
+
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Image(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(100.dp),
+                                painter = painterResource( // Ilagay Dito Coil
+                                    id = R.drawable.gift
+                                ),
+                                contentDescription = "",
+                            )
+                        }
+                    }
                 )
 
                 Row(
