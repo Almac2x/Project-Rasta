@@ -81,6 +81,16 @@ fun HomeScreen(
             }
         )
 
+        Text(
+            modifier = Modifier.fillMaxWidth().
+            padding(start = 20.dp,top = 5.dp, bottom = 5.dp),
+            text = "Categories",
+            textAlign = TextAlign.Start,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold
+        )
+
+
         Categories(viewModel = viewModel)
 
         WishList(
