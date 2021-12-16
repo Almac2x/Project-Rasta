@@ -50,7 +50,7 @@ fun SplashScreen(navController: NavController) {
 
 
             if(prefs?.rememberMe == true && prefs?.rememberMe != null){
-                navController.navigate(HOME_GRAPH_ROUTE + "/token"){
+                navController.navigate(AuthScreens.Login.route+"anim"){
 
                     popUpTo(route = AuthScreens.Splash.route){
                         inclusive = true
@@ -58,7 +58,7 @@ fun SplashScreen(navController: NavController) {
 
                 }
             }else {
-                navController.navigate(AUTH_GRAPH_ROUTE){
+                navController.navigate(AuthScreens.Login.route+"anim"){
 
                     popUpTo(route = AuthScreens.Splash.route){
                         inclusive = true

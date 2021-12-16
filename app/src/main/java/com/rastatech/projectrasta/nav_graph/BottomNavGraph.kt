@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
 import com.rastatech.projectrasta.features.main.domain.util.UserType
@@ -40,7 +41,7 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
                                                                     defaultValue = token
     })
 
-    NavHost(navController = bottomBarNavController, startDestination = "${BottomBarScreens.Home.route}"
+    AnimatedNavHost(navController = bottomBarNavController, startDestination = "${BottomBarScreens.Home.route}"
     ){
         composable (route = "${BottomBarScreens.Home.route}",  //Home Tab
         arguments = tokenNavArgument
@@ -65,8 +66,6 @@ fun BottomNavGraph(bottomBarNavController : NavHostController, token : String, m
                 userType = UserType.Other)
 
         }
-
-
 
         composable(route = "${BottomBarScreens.MakeWish.route}", // Add Wish Route
           ){

@@ -22,7 +22,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.BottomNavGraph
@@ -39,7 +39,7 @@ fun MainScreen(
     mainNavController: NavHostController,
     viewModel: MainViewModel = hiltViewModel()
 ){
-    val bottomBarNavController = rememberNavController()
+    val bottomBarNavController = rememberAnimatedNavController()
 
     val screens = listOf(
         BottomBarScreens.Home,
