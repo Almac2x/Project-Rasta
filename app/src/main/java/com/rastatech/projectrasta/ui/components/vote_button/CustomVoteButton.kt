@@ -40,17 +40,13 @@ import com.rastatech.projectrasta.utils.Convert
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun CustomVoteButton(
-    upvoteCount: MutableState<Int>,
-    downVoteCount: MutableState<Int>,
-    voteType: VoteType,
+    upVote: MutableState<Int>,
+    downVote: MutableState<Int>,
+    vote: MutableState<VoteType>,
     wishID : Int,
     viewModel : VoteButtonViewModel = hiltViewModel(),
     horizontalArrangement : Arrangement.Horizontal = Arrangement.SpaceBetween
 ) {
-    val upVote = upvoteCount
-    val downVote =  downVoteCount
-    val vote =   mutableStateOf(voteType)
-
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = horizontalArrangement

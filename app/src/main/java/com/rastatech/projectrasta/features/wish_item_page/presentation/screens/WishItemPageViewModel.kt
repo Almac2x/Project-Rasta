@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.wish_item_page.presentation.screens
 
 import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
@@ -71,7 +72,7 @@ class WishItemPageViewModel@Inject constructor(
     val liked : Boolean
      get() = _liked.value
 
-    private var _voteStatus = mutableStateOf(VoteType.UPVOTE)
+    private var _voteStatus: MutableState<VoteType> = mutableStateOf(VoteType.NONE)
     val voteStatus : VoteType
         get()  = _voteStatus.value
 
@@ -157,6 +158,7 @@ class WishItemPageViewModel@Inject constructor(
             _liked.value = wish?.liked ?:false
             _imageURL.value = wish?.image_url.toString()
             _userID.value = wish?.wish_owner_id?:0
+            _voteStatus.value = VoteType.toConvert().convert(wish?.vote_status.toString()) ?: VoteType.NONE
         }
 
     }

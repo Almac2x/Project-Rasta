@@ -48,8 +48,6 @@ fun CustomWishTile(
     viewModel: WishViewModel,
     displayType: DisplayType,
     updateList: (() -> Unit)? = null,
-
-
     ) {
     val tileHeight = 300.dp
     val tileElevation = 5.dp
@@ -161,11 +159,12 @@ fun CustomWishTile(
                     height = 20.dp
                 )
 
-                CustomVoteButton(upvoteCount = remember{ mutableStateOf(wishEntity?.upvotes?:0)},
-
-                    downVoteCount = remember { mutableStateOf( wishEntity?.downvotes?:0)},
-                    voteType = VoteType.toConvert().convert(wishEntity?.vote_status.toString())?:VoteType.NONE,
-                     wishID = wishEntity?.wish_id?:0 )
+                CustomVoteButton(
+                    upVote = remember{ mutableStateOf(wishEntity?.upvotes?:0)},
+                    downVote = remember { mutableStateOf( wishEntity?.downvotes?:0)},
+                    vote = remember { mutableStateOf(VoteType.toConvert().convert(wishEntity?.vote_status.toString())?:VoteType.NONE) },
+                    wishID = wishEntity?.wish_id?:0
+                )
             }
         }
     }//////// End of Card

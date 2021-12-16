@@ -300,9 +300,9 @@ fun WishItemPageScreen(
                     }
                     // UPVOTE DOWNVOTE Button
                     CustomVoteButton(
-                        upvoteCount = mutableStateOf(viewModel.numberOfUpVotes),
-                        downVoteCount = mutableStateOf(viewModel.numberOfDownVotes),
-                        voteType = viewModel.voteStatus,
+                        upVote = remember { mutableStateOf(viewModel.numberOfUpVotes) },
+                        downVote = remember { mutableStateOf(viewModel.numberOfDownVotes) },
+                        vote = remember { mutableStateOf(viewModel.voteStatus) },
                         wishID = viewModel.wishID,
                         horizontalArrangement = Arrangement.End// <- Check ---------------------------------------------
                     )

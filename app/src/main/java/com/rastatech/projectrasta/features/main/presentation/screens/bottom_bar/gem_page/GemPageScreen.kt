@@ -31,6 +31,8 @@ import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 import com.rastatech.projectrasta.utils.animations.Pulsating
+import com.valentinilk.shimmer.Shimmer
+import com.valentinilk.shimmer.ShimmerTheme
 import com.valentinilk.shimmer.shimmer
 
 /**
