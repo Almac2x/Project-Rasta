@@ -1,4 +1,4 @@
-package com.rastatech.projectrasta.features.add_update_wish
+package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -7,10 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -24,13 +22,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishEvents
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishViewModel
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess
 import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
-import com.rastatech.projectrasta.utils.Convert
 import com.rastatech.projectrasta.utils.ValidateInput
 
 /**
@@ -83,7 +78,7 @@ fun AddUpdateWishScreen(
             backgroundColor = AppColorPalette.background
         ) {
             Box {
-                if (processType == WishProcess.Update) {
+
                     IconButton(
                         onClick = {
                             navController.navigateUp()
@@ -95,7 +90,7 @@ fun AddUpdateWishScreen(
                             contentDescription = "Back"
                         )
                     }
-                }
+
 
                 Text(
                     buildAnnotatedString {

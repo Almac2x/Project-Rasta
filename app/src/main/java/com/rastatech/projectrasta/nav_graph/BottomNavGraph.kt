@@ -13,7 +13,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.rastatech.projectrasta.features.add_update_wish.AddUpdateWishScreen
+import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.AddUpdateWishScreen
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.about.AboutScreen
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.add_update_wish.util.WishProcess

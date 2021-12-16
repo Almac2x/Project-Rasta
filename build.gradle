@@ -8,7 +8,6 @@ buildscript {
         //add here the rest of the versions for our gradle
     }
     repositories {
-
         google()
         mavenCentral()
         maven { url "https://jitpack.io" }
