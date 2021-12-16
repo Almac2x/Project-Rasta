@@ -1,0 +1,292 @@
+[33mcommit fd4eefd92ac908bf47ec4d693c4ad75fbbed3d85[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 72586a0 5ccba0a
+Author: = <=>
+Date:   Mon Dec 13 09:43:22 2021 +0800
+
+    [Merged main with deploy/fastlane branch]
+    
+    - Resolved merge conflicts
+
+[33mcommit 5ccba0a6bdd55bc832d3f9cd70c8a4f1b4cfab88[m[33m ([m[1;31morigin/deploy/fastlane[m[33m)[m
+Merge: 42629a6 2839455
+Author: = <=>
+Date:   Mon Dec 13 09:32:01 2021 +0800
+
+    [Merged deploy/fastlane with feature/changes branch]
+    
+    - Resolved jdk8+ Generation Annotations - javax annotation does not exist
+
+[33mcommit 72586a09bff044da9a58535111d2645bdf64e813[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Mon Dec 13 09:30:36 2021 +0800
+
+    [Changes for UserProfileScreen.kt]
+    
+    Profile
+    -Able to Get Active and Fulfilled Wishes
+    
+    GemsPage
+    - Able to Add Gems
+    - Able to Send Gems
+    - Balance Updates when Gem updates
+    - Issue with Toast when moving between BottombarsCREENS
+
+[33mcommit 283945508aabeeec0c01d2c2157093363113c3b6[m[33m ([m[1;31morigin/feature/changes[m[33m)[m
+Merge: 8875da2 c950b6b
+Author: = <=>
+Date:   Mon Dec 13 09:08:37 2021 +0800
+
+    Merged main to feature/changes branch and solved merge conflicts
+
+[33mcommit 42629a64b85682d47e0b1f580163217321d88b94[m
+Author: = <=>
+Date:   Mon Dec 13 08:34:29 2021 +0800
+
+    Added Testers in Fastlane
+
+[33mcommit c950b6bf04afc38da08fd03c7e9ce237e011f99c[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Mon Dec 13 08:33:01 2021 +0800
+
+    [Madami]
+    
+    Profile
+    -Able to Get Active and Fulfilled Wishes
+    
+    GemsPage
+    - Able to Add Gems
+    - Able to Send Gems
+    - Balance Updates when Gem updates
+    - Issue with Toast when moving between BottombarsCREENS
+
+[33mcommit b0e4d3876911e96a5f03706c9c6d39fce7553745[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sun Dec 12 23:47:16 2021 +0800
+
+    [Nakaka Delete ng Wish]
+    
+    Profile
+    -Able to Get Active and Fulffiled Wishes
+    
+    GemsPage
+    - Able to Add Gems
+    - Able to Send Gems
+    - Balance Updates when Gem updates
+    - Issue with Toast when moving between BottombarsCREENS
+
+[33mcommit 9ac3798b7afaf01a44363992076517c486d1d5ed[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sun Dec 12 23:24:45 2021 +0800
+
+    [Nakaka add ng Wish]
+    
+    Profile
+    -Able to Get Active and Fulffiled Wishes
+    
+    GemsPage
+    - Able to Add Gems
+    - Able to Send Gems
+    - Balance Updates when Gem updates
+    - Issue with Toast when moving between BottombarsCREENS
+
+[33mcommit b1b9925daace4a023475e0a949606b143e8d81df[m
+Merge: 4555444 e44c6bf
+Author: = <=>
+Date:   Sun Dec 12 22:22:42 2021 +0800
+
+    Merge remote-tracking branch 'origin/deploy/fastlane' into deploy/fastlane
+
+[33mcommit 455544470f03b247b200d840ce737b91a9b68160[m
+Author: = <=>
+Date:   Sun Dec 12 22:21:54 2021 +0800
+
+    modified:   fastlane/report.xml
+
+[33mcommit d8e5b2d69586209045e97ea2c84cbf3ea20b52cd[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sun Dec 12 22:04:00 2021 +0800
+
+    [Basta Commit na gumagana ang the following]
+    
+    Profile
+    -Able to Get Active and Fulffiled Wishes
+    
+    GemsPage
+    - Able to Add Gems
+    - Able to Send Gems
+    - Balance Updates when Gem updates
+    - Issue with Toast when moving between BottombarsCREENS
+
+[33mcommit e44c6bf08e7b57ccadedfe671ce7c8b30182bb3a[m
+Merge: 1fc3218 8875da2
+Author: = <=>
+Date:   Sun Dec 12 20:27:02 2021 +0800
+
+    Merged deploy/fastlane with feature/changes branch
+
+[33mcommit 8875da24eca6adb8132ab70ebd561ad8c4cec0c0[m
+Author: = <=>
+Date:   Sun Dec 12 20:22:16 2021 +0800
+
+    Added some changes in UI
+
+[33mcommit ee7413c804d4cb6fb65db4c6fd1361b50202a7ae[m
+Author: Alejandro Blando <alejandro.blando@whitecloak.com>
+Date:   Sun Dec 12 13:31:59 2021 +0800
+
+    [Change the Room Version from 2.3.0 to 2.4.-alpha]
+    
+    -This change to be used in Macbook
+
+[33mcommit 1fc32180924d38827898f1609299bac1031b76da[m
+Author: = <=>
+Date:   Sun Dec 12 09:51:17 2021 +0800
+
+    Added Fastlane for deployment
+
+[33mcommit f40c460ace94b04e2e44b1292280e4aba0f6f38e[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 23:15:06 2021 +0800
+
+    [Added More Api Calls for MainApi and WishApi]
+
+[33mcommit 4a2ba2ab2e6d87a0a2bf1432cf3136b17613002e[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 21:38:28 2021 +0800
+
+    [Nag ayus lang ng onteng UI pero si LLyod na tutuloy after this cOMMIT]
+    
+    Changes Happened
+    - Added Prefs to SecretRastaApp
+    
+    Need to do
+
+[33mcommit 1d42ef5c8093a4532812b5731ef3894ed93772ce[m
+Author: = <=>
+Date:   Sat Dec 11 20:28:23 2021 +0800
+
+    [Merged origin/main with feature/transactions branch and solved merged conflicts]
+
+[33mcommit 6bf176d4957704bfb3f9db93aae13d47a63272d7[m
+Merge: 7302cfb 8f5bba0
+Author: = <=>
+Date:   Sat Dec 11 18:36:11 2021 +0800
+
+    [Merged origin/main with feature/transactions branch and solved merged conflicts]
+
+[33mcommit 7302cfb69e91fdae8a1e037af65319b50dec9771[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 18:19:30 2021 +0800
+
+    [Commit to be used by sir llyod]
+    
+    Changes Happened
+    - Added Prefs to SecretRastaApp
+    
+    Need to do
+
+[33mcommit 8f5bba0fddd0a92f90ac9ce9dc00f20692a4a10f[m[33m ([m[1;31morigin/feature/transactions[m[33m)[m
+Author: = <=>
+Date:   Sat Dec 11 18:01:38 2021 +0800
+
+    Added TransactionType
+
+[33mcommit b71a4e3a5b361c7d000b113ec6dcab478e89a5a3[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 18:01:26 2021 +0800
+
+    [Commit to be used by sir llyod]
+    
+    Changes Happened
+    - Added Prefs to SecretRastaApp
+    
+    Need to do
+
+[33mcommit b1fa56de033fe0c9ac2e0a00c8345aa8debc4cf6[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 14:30:03 2021 +0800
+
+    [Stored Access token once login locally]
+    
+    Changes Happened
+    - Added Prefs to SecretRastaApp
+    
+    Need to do
+
+[33mcommit 5aceb5e7f1e9cf4fccf64a65476dc04061edb253[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 11:24:10 2021 +0800
+
+    [Added TransactionType.kt]
+    
+    Changes Happened
+    - Created Repository of Wish and Main
+    - All of the api calls return a Response
+    -Created VoteType'
+    -Created Api Key
+    
+    Need to do
+    -Create use case for Main and Wish Entities
+    - Need to create an interface for the response calls for code 200 to 403
+    
+    -Commit Before changing app name
+
+[33mcommit 92cb22374102a5e8c7f6e1cc3a9c4a0a95b15745[m
+Author: = <=>
+Date:   Sat Dec 11 10:57:33 2021 +0800
+
+    [Added and Modified Screens]
+    
+    - Added Transaction screen
+
+[33mcommit f3eafcd1056d600018958a8cc0102ebf679f7455[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 10:56:52 2021 +0800
+
+    [Please Migrate Add Edit Wish to Viewmodel]
+    
+    Changes Happened
+    - Created Repository of Wish and Main
+    - All of the api calls return a Response
+    -Created VoteType'
+    -Created Api Key
+    
+    Need to do
+    -Create use case for Main and Wish Entities
+    - Need to create an interface for the response calls for code 200 to 403
+    
+    -Commit Before changing app name
+
+[33mcommit 759c10311c902a2e8e7e1b3548b1ea8ed096453f[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Sat Dec 11 00:22:24 2021 +0800
+
+    [Able to pass UserToken from MainGraph to BottomNavGraph Screens]
+    
+    Changes Happened
+    - Created Repository of Wish and Main
+    - All of the api calls return a Response
+    -Created VoteType'
+    -Created Api Key
+    
+    Need to do
+    -Create use case for Main and Wish Entities
+    - Need to create an interface for the response calls for code 200 to 403
+    
+    -Commit Before changing app name
+
+[33mcommit 085ef49105fc5cfc54e9eabca7e42d3fe6951032[m
+Author: bland <blando_macmac@yahoo.com>
+Date:   Fri Dec 10 22:53:25 2021 +0800
+
+    [Added Use Cases for Main and Wish]
+    
+    Changes Happened
+    - Created Repository of Wish and Main
+    - All of the api calls return a Response
+    -Created VoteType'
+    -Created Api Key
+    
+    Need to do
+    -Create use case for Main and Wish Entities
+    - Need to create an interface for the r

@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -48,18 +49,24 @@ fun AboutScreen() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         // Secret Rasta Text
-        Image(
+        /*Image(
             painter = painterResource(id = R.drawable.title),
             contentDescription = "Logo",
             modifier = Modifier.scale(0.5f)
-        )
+        )*/
 
-        // Rasta Tech Image
-        Image(
-            modifier = Modifier.padding(30.dp),
-            painter = painterResource(id = R.drawable.rasta_tech),
-            contentDescription = "Company",
-        )
+        Surface(modifier = Modifier.fillMaxWidth().height(175.dp), color = Color.White) {
+            // Rasta Tech Image
+            Image(
+                modifier = Modifier
+                    .padding(bottom = 5.dp)
+                    .fillMaxWidth()
+                    .fillMaxHeight(),
+                painter = painterResource(id = R.drawable.rasta_tech),
+                contentDescription = "Company", contentScale = ContentScale.Crop
+            )
+        }
+
 
         // About
         Text(
@@ -166,7 +173,7 @@ fun AboutScreen() {
                                 "The Android dev and supreme leader of the team, with skills much " +
                                 "like Rastaman himself as he leads the Philippines as president.",
                         quotes = "Push Na yan sa Main, Warning lang naman",
-                        imageID = R.drawable.blando
+                        imageID = R.drawable.me
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -178,7 +185,7 @@ fun AboutScreen() {
                                 "Just like Rastaman, he has the skills of both halves: the great " +
                                 "coding skills of a human and the nonstop coding capability of a zombie.",
                         quotes = "Anong branch branch, sa main agad",
-                        imageID = R.drawable.lloyd
+                        imageID = R.drawable.boss
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -203,7 +210,7 @@ fun AboutScreen() {
                                 "he is still a trainee, he is also really pogi, more pogi than " +
                                 "the great Rastaman.",
                         quotes = "Anong review review?",
-                        imageID = R.drawable.neil
+                        imageID = R.drawable.cto
                     )
 
                     Spacer(modifier = Modifier.height(10.dp))
@@ -215,7 +222,7 @@ fun AboutScreen() {
                                 "He acquires a great buff in coding in java spring in the presence " +
                                 "of his master, much as he is enlightened by Rastaman himself.",
                         quotes = "\"While there's a code, there are bugs",
-                        imageID = R.drawable.philip
+                        imageID = R.drawable.calape
                     )
                 }
             }
