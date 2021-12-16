@@ -28,7 +28,7 @@ class GemPageViewModel@Inject constructor(
 
     private val retroFitToken = "Bearer $_userToken"
 
-    private val _gemBalance = mutableStateOf(0)
+    private val _gemBalance = mutableStateOf(-1)
     val gemBalance : Int
         get() = _gemBalance.value
 

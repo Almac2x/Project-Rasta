@@ -3,7 +3,11 @@ package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.*
+import androidx.compose.animation.core.MutableTransitionState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,6 +15,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +31,7 @@ import androidx.navigation.NavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.domain.util.ShowType
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
+import com.rastatech.projectrasta.ui.ShimmerAnimation
 import com.rastatech.projectrasta.ui.components.CustomIconButton
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.utils.Convert
@@ -46,6 +52,7 @@ import com.valentinilk.shimmer.shimmer
  * GemPage Screen
  *
  */
+@ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun GemPageScreen(
@@ -55,6 +62,9 @@ fun GemPageScreen(
 ) {
     val space = 30.dp
     val boxSize = 200.dp
+
+    val animVisibleState = remember { MutableTransitionState(true) }
+        .apply { false }
 
 
     //Toast
@@ -98,12 +108,59 @@ fun GemPageScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            // Number of Gems
-            Text(
-                text = Convert.toCompactNumber(viewModel.gemBalance),
-                fontSize = 60.sp,
-                fontWeight = FontWeight.Bold
-            )
+
+            Box( modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp), contentAlignment = Alignment.Center) {
+                // Number of Gems <- Start
+                val animationDuration = 2000
+
+                this@Column.AnimatedVisibility(
+                    //modifier = Modifier.align(Alignment.CenterHorizontally),
+                    visibleState = animVisibleState,
+                    enter = fadeIn(animationSpec = tween(durationMillis = 1000)),
+                    exit = fadeOut(animationSpec = tween(durationMillis = 1000))
+                ){
+
+                    Box(modifier = Modifier
+                        .height(90.dp)
+                        .fillMaxWidth()
+                        .padding(horizontal = 25.dp)){
+                        ShimmerAnimation()
+                    }
+                }
+
+                if(viewModel.gemBalance > -1){
+
+                    animVisibleState.targetState = false
+
+                    if(!animVisibleState.targetState && !animVisibleState.currentState){
+
+                        this@Column.AnimatedVisibility(
+                            //modifier = Modifier.align(Alignment.CenterHorizontally),
+                            visible = !animVisibleState.targetState && !animVisibleState.currentState,
+                            enter = fadeIn(animationSpec = tween(durationMillis = 1000)),
+
+                        ) {
+                            // Number of Gems
+                            Text(
+                                text = Convert.toCompactNumber(viewModel.gemBalance),
+                                fontSize = 60.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+
+                    }
+
+
+
+                }
+            }
+
+
+
+
+
 
             Spacer(modifier = Modifier.height(space))
 
@@ -113,7 +170,8 @@ fun GemPageScreen(
                     Image(
                         painter = painterResource(id = R.drawable.rastagems),
                         contentDescription = "Image",
-                        Modifier.size(boxSize).shimmer()
+                        Modifier
+                            .size(boxSize)
                     )
                 }
             }

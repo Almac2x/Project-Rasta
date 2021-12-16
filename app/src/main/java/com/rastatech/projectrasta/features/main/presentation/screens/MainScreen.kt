@@ -2,6 +2,7 @@ package com.rastatech.projectrasta.features.main.presentation.screens
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -27,6 +28,7 @@ import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.nav_graph.BottomNavGraph
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 
+@ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalMaterialApi

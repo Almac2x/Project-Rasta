@@ -31,3 +31,14 @@ val OnBackgroundBlack = Color.Black
 val OnBackgroundBlue = Color(0xFF0361EE)
 val OnSurface = Color(0xFFB00020)
 val OnError = Color(0xFFFFFFFF)
+
+//Shimmer Colors
+val ShimmerColorShades = listOf(
+
+    Color.LightGray.copy(0.9f),
+
+    Color.LightGray.copy(0.2f),
+
+    Color.LightGray.copy(0.9f)
+
+)

@@ -37,20 +37,35 @@ fun WishList(navController : NavController, displayType: DisplayType,
              viewModel: WishViewModel = hiltViewModel(),
              updateList: ()-> Unit
 ){
+
+    val shimmerTile = listOf<Int>(1,2,3,5,4)
     LazyVerticalGrid(cells = GridCells.Fixed(2),
         contentPadding = PaddingValues(
             start = 10.dp, end = 10.dp,
             top = 10.dp, bottom = 10.dp
         ),
         content = {
-            items(items = wishEntities) { wish ->
-                CustomWishTile(
-                    wishEntity = wish,
-                    navController = navController,
-                    viewModel = viewModel,
-                    displayType = displayType
-                )
+
+            if (wishEntities.isEmpty()){
+
+                items(items = shimmerTile) { item ->
+                    ShimmerTile()
+                }
+
+            }else
+             {
+                items(items = wishEntities) { wish ->
+                    CustomWishTile(
+                        wishEntity = wish,
+                        navController = navController,
+                        viewModel = viewModel,
+                        displayType = displayType
+                    )
+                }
+
             }
+
+
         }
     )
 }

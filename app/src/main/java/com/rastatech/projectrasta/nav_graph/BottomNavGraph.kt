@@ -3,6 +3,7 @@ package com.rastatech.projectrasta.nav_graph
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.W
 
 
 private const val  BOTTOM_TAG = "BottomGraph"
+@ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalFoundationApi
