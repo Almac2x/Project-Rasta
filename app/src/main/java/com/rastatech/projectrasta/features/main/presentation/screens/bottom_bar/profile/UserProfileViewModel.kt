@@ -71,6 +71,10 @@ class UserProfileViewModel @Inject constructor(
     val userID : Int?
         get() = _userID.value
 
+    private var _imageURL  = mutableStateOf("")
+    val imageURL: String
+        get() = _imageURL.value
+
 
     init {
         Log.i(TAG, "Initializing")
@@ -98,9 +102,13 @@ class UserProfileViewModel @Inject constructor(
             updateFulfilledWishes()
             updateActiveList()
 
-            _firstName.value = requestProfile.await().body()?.first_name.toString() // kung null to string ko lang
-            _lastName.value = requestProfile.await().body()?.last_name.toString()
-            _userName.value = requestProfile.await().body()?.username.toString()
+            val profile = requestProfile.await().body()
+
+            _firstName.value =profile?.first_name.toString() // kung null to string ko lang
+            _lastName.value = profile?.last_name.toString()
+            _userName.value = profile?.username.toString()
+            _imageURL.value = profile?.avatar.toString()
+
 
         }
 
@@ -123,10 +131,12 @@ class UserProfileViewModel @Inject constructor(
              requestUserWishStatus.join()*/
 
 
-            _firstName.value = requestUserProfile.await().body()?.first_name.toString() // kung null to string ko lang
-            _lastName.value = requestUserProfile.await().body()?.last_name.toString()
-            _userName.value = requestUserProfile.await().body()?.username.toString()
+            val profile = requestUserProfile.await().body()
 
+            _firstName.value =profile?.first_name.toString() // kung null to string ko lang
+            _lastName.value = profile?.last_name.toString()
+            _userName.value = profile?.username.toString()
+            _imageURL.value = profile?.avatar.toString()
         }
 
     }

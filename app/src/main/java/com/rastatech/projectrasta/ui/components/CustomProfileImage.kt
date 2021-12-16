@@ -1,10 +1,13 @@
 package com.rastatech.projectrasta.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,6 +21,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.rastatech.projectrasta.R
+import com.skydoves.landscapist.glide.GlideImage
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -36,7 +40,7 @@ import com.rastatech.projectrasta.R
  */
 @Composable
 fun CustomProfileImage(
-    painter: Painter,
+    url: String,
     diameter: Dp,
     borderThickness: Dp = 8.dp
 ) {
@@ -65,13 +69,20 @@ fun CustomProfileImage(
         contentAlignment = Alignment.Center
     ) {
         // Profile Picture
-        Image(
-            modifier = Modifier
-                .fillMaxSize(imageScale)
-                .clip(CircleShape),
-            painter = painter,
-            contentScale = ContentScale.FillBounds,
-            contentDescription = ""
+
+        GlideImage(imageModel = url,
+            modifier = Modifier.fillMaxSize(),
+            loading = {
+               Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                   CircularProgressIndicator()
+               }
+            },
+            failure = {
+                Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center){
+                    CircularProgressIndicator()
+                }
+            }
+
         )
     }
 }
@@ -80,7 +91,7 @@ fun CustomProfileImage(
 @Composable
 private fun Preview() {
     CustomProfileImage(
-        painter = painterResource(id = R.drawable.profile),
+        url = "",
         diameter = 190.dp,
         borderThickness = 5.dp
     )

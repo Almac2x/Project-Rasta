@@ -1,6 +1,7 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
@@ -33,6 +34,7 @@ import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
 import com.rastatech.projectrasta.ui.components.CustomTextWithCount
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
+import com.skydoves.landscapist.glide.GlideImage
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -41,6 +43,7 @@ import com.rastatech.projectrasta.ui.theme.AppColorPalette
  * @since 12/07/2021
  */
 
+private const val TAG = "UserProfileScreen"
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
@@ -52,6 +55,8 @@ fun UserProfileScreen(
     userType: UserType,
     viewModel: UserProfileViewModel = hiltViewModel()
 ) {
+
+
     if (viewModel.logoutAlertDialog.value) {
         AlertDialog(
             title = {
@@ -97,6 +102,8 @@ fun UserProfileScreen(
         )
     }
 
+
+
     //Hard Coded Please adapt this to Make A Wish Screen
     Scaffold(
         topBar = {
@@ -111,7 +118,7 @@ fun UserProfileScreen(
         ) {
             Box(modifier = Modifier.padding(10.dp)) {
                 CustomProfileImage(
-                    painter = painterResource(id = R.drawable.profile),
+                    url = viewModel.imageURL,
                     diameter = 150.dp,
                     borderThickness = 5.dp
                 )
