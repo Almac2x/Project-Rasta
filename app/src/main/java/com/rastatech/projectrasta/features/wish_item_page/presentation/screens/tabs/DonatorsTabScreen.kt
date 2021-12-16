@@ -2,11 +2,13 @@ package com.rastatech.projectrasta.features.wish_item_page.presentation.screens.
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
 import com.rastatech.projectrasta.ui.components.CustomDonatorsItem
 
 /**
@@ -17,16 +19,16 @@ import com.rastatech.projectrasta.ui.components.CustomDonatorsItem
  */
 
 @Composable
-fun DonatorsTabScreen(list: List<WishEntity>) {
-    val list = listOf("A", "B", "C", "D")
+fun DonatorsTabScreen(list: List<DonatorDTO>) {
 
     LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(list.size) { index ->
+        items(items = list){  donator ->
             Row(
                 Modifier
                     .fillMaxWidth()
                     .padding(10.dp)) {
-                CustomDonatorsItem(name = list[index], username = "christian", gems = 300)
+                CustomDonatorsItem(name =donator.donator_full_name , username = donator.donator_username,
+                    gems = donator.amount)
             }
         }
     }

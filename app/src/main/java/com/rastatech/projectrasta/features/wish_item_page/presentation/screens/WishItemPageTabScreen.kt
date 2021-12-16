@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
 import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.DonatorsTabScreen
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.ReasonTabScreen
 import kotlinx.coroutines.launch
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun WishItemPageTabScreen(reason: String, donators: List<WishEntity>) {
+fun WishItemPageTabScreen(reason: String, donators: List<DonatorDTO>) {
     val tabs = listOf(
         "Reason",
         "Donators"
@@ -93,7 +94,7 @@ fun Tabs(tabs: List<String>, pagerState: PagerState) {
 @ExperimentalFoundationApi
 @ExperimentalPagerApi
 @Composable
-fun TabsContent(reason: String, list: List<WishEntity>, pagerState: PagerState) {
+fun TabsContent(reason: String, list: List<DonatorDTO>, pagerState: PagerState) {
     Log.i(pagerState.currentPage.toString(), pagerState.currentPage.toString())
     HorizontalPager(state = pagerState) { page ->
         when(page) {

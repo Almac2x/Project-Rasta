@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.android.gms.common.api.internal.ApiKey
 import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
+import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
@@ -93,6 +94,10 @@ class WishItemPageViewModel@Inject constructor(
     val numberOfDownVotes : Int
         get() = _numberOfDownVotes.value
 
+    private var _listOfDonators = mutableStateOf(emptyList<DonatorDTO>())
+    val listOfDonators : List<DonatorDTO>
+        get() = _listOfDonators.value
+
 
     init {
 
@@ -107,6 +112,20 @@ class WishItemPageViewModel@Inject constructor(
 
             async {getBalance()}
             async {getWishDetails()}
+            async { getDonators() }
+
+        }
+    }
+
+    private fun getDonators(){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val requestDonators = async { RetrofitInstance.wishApi.getDonators(
+                                                                token = retroFitToken, wishID = wishID
+            ) }
+
+            _listOfDonators.value = requestDonators.await().body()?: emptyList<DonatorDTO>()
 
         }
     }

@@ -71,7 +71,8 @@ fun HomeScreen(
             backgroundColor = AppColorPalette.background,
             title = {
                 Text(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().
+                    padding(bottom = 10.dp),
                     text = BottomBarScreens.Home.title,
                     textAlign = TextAlign.Center,
                     fontSize = 20.sp,

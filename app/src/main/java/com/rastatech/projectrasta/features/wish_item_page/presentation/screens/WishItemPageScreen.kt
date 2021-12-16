@@ -322,7 +322,7 @@ fun WishItemPageScreen(
 
             WishItemPageTabScreen(
                 reason = viewModel.reason,
-                donators = listOf()
+                donators = viewModel.listOfDonators
             )
         }
 

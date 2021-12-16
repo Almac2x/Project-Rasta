@@ -27,6 +27,6 @@ fun ReasonTabScreen(content: String) {
             .fillMaxSize()
             .padding(10.dp)
     ) {
-        Text(text = content.repeat(1000), modifier = Modifier.verticalScroll(scroll))
+        Text(text = content, modifier = Modifier.verticalScroll(scroll))
     }
 }

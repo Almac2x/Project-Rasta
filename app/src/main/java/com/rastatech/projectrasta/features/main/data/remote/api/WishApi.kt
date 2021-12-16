@@ -2,6 +2,7 @@ package com.rastatech.projectrasta.features.main.data.remote.api
 
 import retrofit2.Response
 import com.rastatech.projectrasta.features.main.data.remote.dto.CreateWishRequestDTO
+import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.data.util.ApiKey
 import retrofit2.http.*
@@ -9,6 +10,12 @@ import retrofit2.http.*
 
 
 interface WishApi {
+
+
+    @GET("/api/wishes/{${ApiKey.WishID.value}}/donators")
+    suspend fun getDonators(@Header(ApiKey.Authorization.value) token: String,
+                        @Path(ApiKey.WishID.value)wishID : Int
+    ): Response<List<DonatorDTO>>
 
     /**
      * Swagger: fetchWish
