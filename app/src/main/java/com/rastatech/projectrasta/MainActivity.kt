@@ -1,8 +1,11 @@
 package com.rastatech.projectrasta
 
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.annotation.RequiresApi
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -20,6 +23,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     private lateinit var navController: NavHostController
 
+    @ExperimentalAnimationApi
+    @RequiresApi(Build.VERSION_CODES.N)
     @ExperimentalPagerApi
     @ExperimentalMaterialApi
     @ExperimentalFoundationApi

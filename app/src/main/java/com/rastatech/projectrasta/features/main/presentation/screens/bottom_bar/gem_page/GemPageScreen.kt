@@ -3,12 +3,9 @@ package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.*
 import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,6 +15,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -65,7 +63,6 @@ fun GemPageScreen(
 
     val animVisibleState = remember { MutableTransitionState(true) }
         .apply { false }
-    val showText = remember { mutableStateOf(false)}
 
 
     //Toast
@@ -110,13 +107,14 @@ fun GemPageScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            Box( modifier = Modifier.fillMaxWidth().height(100.dp), contentAlignment = Alignment.Center) {
+            Box( modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp), contentAlignment = Alignment.Center) {
                 // Number of Gems <- Start
                 val animationDuration = 2000
 
                 this@Column.AnimatedVisibility(
                     //modifier = Modifier.align(Alignment.CenterHorizontally),
-
                     visibleState = animVisibleState,
                     enter = fadeIn(animationSpec = tween(durationMillis = 1000)),
                     exit = fadeOut(animationSpec = tween(durationMillis = 1000))
@@ -131,6 +129,7 @@ fun GemPageScreen(
                 }
 
                 if(viewModel.gemBalance > -1){
+
                     animVisibleState.targetState = false
 
                     if(!animVisibleState.targetState && !animVisibleState.currentState){
@@ -138,8 +137,8 @@ fun GemPageScreen(
                         this@Column.AnimatedVisibility(
                             //modifier = Modifier.align(Alignment.CenterHorizontally),
                             visible = !animVisibleState.targetState && !animVisibleState.currentState,
-                            enter = fadeIn(animationSpec = tween(durationMillis = 5000)),
-                            exit = fadeOut(animationSpec = tween(durationMillis = animationDuration))
+                            enter = fadeIn(animationSpec = tween(durationMillis = 1000)),
+
                         ) {
                             // Number of Gems
                             Text(
