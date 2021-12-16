@@ -17,6 +17,7 @@ import com.rastatech.projectrasta.features.splash_login_signup.domain.use_case.U
 import com.rastatech.projectrasta.ui.theme.Surface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -55,6 +56,18 @@ class SignUpViewModel @Inject constructor(
     val navigateToLogin : State<Boolean>
         get() = _navigateToLogin
 
+    private val _toastMessage = mutableStateOf("")
+    val toastMessage: State<String>
+        get() = _toastMessage
+
+    private var _navigateUp = mutableStateOf(false)
+    val navigateUp: Boolean
+        get() = _navigateUp.value
+
+    private val _showToast = mutableStateOf(false)
+    val showToast: State<Boolean>
+        get() = _showToast
+
     //This will be move to SignUpViewModel
     val firstName = mutableStateOf(TextFieldValue())
 
@@ -79,7 +92,7 @@ class SignUpViewModel @Inject constructor(
 
                     try {
 
-                         val response = userUseCases.addUserApiRequest( // add user UseCase
+                         val response = async{userUseCases.addUserApiRequest( // add user UseCase
                             user = UserRequestDTO(
                                email = email.value.text,
                                first_name = firstName.value.text ,
@@ -88,7 +101,20 @@ class SignUpViewModel @Inject constructor(
                                phone_number = phoneNumber.value.text,
                                username = userName.value.text,
                            )
-                        )
+                        )}
+
+                        when (response.await().code()){
+
+                            200 ->{
+                                _showToast.value = true
+                                _toastMessage.value = "Add User Successful"
+                                _navigateUp.value = true
+                            }
+                            else ->{
+                                _showToast.value = true
+                                _toastMessage.value ="Something Went Wrong"
+                            }
+                        }
 
                         Log.i(TAG, "Added ${userName.value.text} to Database")
 

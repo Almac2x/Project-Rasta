@@ -21,7 +21,7 @@ interface UserRepository {
     //User Api calls Repository
 
     suspend fun getLoginTokenApiRequest(username: String, password: String) : Response<TokenDTO>
-    suspend fun createUserApiRequest(user: UserRequestDTO)
+    suspend fun createUserApiRequest(user: UserRequestDTO): Response<Unit>
 
 
 }

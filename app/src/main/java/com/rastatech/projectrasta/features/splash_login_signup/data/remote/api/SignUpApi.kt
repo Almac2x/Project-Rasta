@@ -16,6 +16,6 @@ interface SignUpApi {
     // This needs to read different Body types for ErrorDTO, For Now Unit muna //Update Pwede ko gamitin Map as return
     @POST("api/auth/signup") // API Call for Adding User to Remote
     suspend fun createUser(@Body user: UserRequestDTO
-    ): Response<Map<String,String>>
+    ): Response<Unit>
 
 }

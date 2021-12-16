@@ -1,13 +1,11 @@
 package com.rastatech.projectrasta.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Scaffold
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -20,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
+import com.skydoves.landscapist.glide.GlideImage
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -37,10 +36,12 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 
 @ExperimentalFoundationApi
 @Composable
-fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
-    val heart = remember {
+fun CustomImageWithHeart( isHeart: Boolean = false, imageURL :String) {
+    val isHeart = remember {
         mutableStateOf(isHeart)
     }
+
+    Log.i("this", imageURL)
 
     Card(
         modifier = Modifier
@@ -49,13 +50,13 @@ fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
             .combinedClickable(
                 onClick = {},
                 onLongClick = {
-                    heart.value = !heart.value
+                    isHeart.value = !isHeart.value
                 }
             ),
         shape = CardCornerRadius.medium,
         elevation = 5.dp
     ) {
-        Image(painter = painter, contentDescription = "")
+
         Column(
             Modifier
                 .fillMaxSize()
@@ -69,11 +70,28 @@ fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
                     .fillMaxWidth(0.20f)
                     .fillMaxHeight(0.35f),
                 onClick = {
-                    heart.value = !heart.value
+                    isHeart.value = !isHeart.value
                 }
             ) {
+
+                GlideImage(imageModel = imageURL,
+                    modifier =  Modifier.fillMaxSize(fraction = 0.7f),
+                    loading = {
+                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                            CircularProgressIndicator()
+                        }
+                    },
+                    failure = {
+                        Box(modifier = Modifier.fillMaxSize(),contentAlignment = Alignment.Center){
+                            CircularProgressIndicator()
+                        }
+                    }
+
+                )
+
+
                 Icon(
-                    tint = if (heart.value) Color.Red else Color.LightGray,
+                    tint = if (isHeart.value) Color.Red else Color.LightGray,
                     modifier = Modifier.fillMaxSize(fraction = 0.7f),
                     painter = painterResource(R.drawable.heart_grey),
                     contentDescription = "heart"
@@ -88,9 +106,6 @@ fun CustomImageWithHeart(painter: Painter, isHeart: Boolean = false) {
 @Composable
 private fun Preview() {
     Scaffold(modifier = Modifier.fillMaxSize()) {
-        CustomImageWithHeart(
-            painter = painterResource(id = R.drawable.gift),
-            isHeart = false
-        )
+
     }
 }

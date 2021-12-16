@@ -2,13 +2,10 @@ package com.rastatech.projectrasta.features.wish_item_page.presentation.screens
 
 import android.util.Log
 import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.gms.common.api.internal.ApiKey
 import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
@@ -69,9 +66,8 @@ class WishItemPageViewModel@Inject constructor(
     val rastaGemsRequired : Int
         get() = _rastaGemsRequired.value
 
-    private var  _liked  = mutableStateOf(true)
-    val liked : Boolean
-     get() = _liked.value
+     var  liked  = mutableStateOf(true)
+
 
     private var _voteStatus: MutableState<VoteType> = mutableStateOf(VoteType.NONE)
     val voteStatus : VoteType
@@ -174,7 +170,7 @@ class WishItemPageViewModel@Inject constructor(
             _reason.value = wish?.description.toString()
             _rastaGemsDonated.value= wish?.rastagems_donated ?:0
             _rastaGemsRequired.value = wish?.rastagems_required ?:0
-            _liked.value = wish?.liked ?:false
+            liked.value = wish?.liked ?:false
             _imageURL.value = wish?.image_url.toString()
             _userID.value = wish?.wish_owner_id?:0
             _voteStatus.value = VoteType.toConvert().convert(wish?.vote_status.toString()) ?: VoteType.NONE

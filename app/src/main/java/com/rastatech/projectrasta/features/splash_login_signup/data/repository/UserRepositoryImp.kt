@@ -59,7 +59,7 @@ class UserRepositoryImpl (
 
         return response
     }
-    override suspend fun createUserApiRequest(user: UserRequestDTO) {
+    override suspend fun createUserApiRequest(user: UserRequestDTO): Response<Unit> {
 
         Log.i(TAG, "Function: createUserApiRequest " +
                 "\nusername Sent: ${user.username}" +
@@ -78,5 +78,6 @@ class UserRepositoryImpl (
 
            Log.i(TAG, "Request Failed! Error Code = ${response.code()} ")
         }
+        return response
     }
 }

@@ -34,7 +34,9 @@ import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
 import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
 import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
+import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 import com.rastatech.projectrasta.utils.ValidateInput
+import com.skydoves.landscapist.glide.GlideImage
 
 /**
  * Copyright 2021, White Cloak Technologies, Inc., All rights reserved.
@@ -155,12 +157,79 @@ fun WishItemPageScreen(
                     //Between Top Bar and Image WITH HEART
             //Spacer(modifier = Modifier.height(space))
 
-            CustomImageWithHeart(isHeart = viewModel.liked, //
-                painter = if (viewModel.imageURL.isBlank())
-                    painterResource(id = R.drawable.gift)
-                else
-                    rememberImagePainter(data = viewModel.imageURL)
-            )
+
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.3f)
+                    .combinedClickable(
+                        onClick = {},
+                        onLongClick = {
+                            viewModel.liked.value = !viewModel.liked.value
+                        }
+                    ),
+                shape = CardCornerRadius.medium,
+                elevation = 5.dp
+            ) {
+                Surface(modifier = Modifier.fillMaxSize()) {
+
+                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.BottomEnd){
+                        // Icon Button with Heart Icon
+                        IconButton(
+                            modifier = Modifier
+                                .fillMaxWidth(0.20f)
+                                .fillMaxHeight(0.35f),
+                            onClick = {
+                                viewModel.liked.value = !viewModel.liked.value
+                            }
+                        ) {
+
+                            Icon(
+                                tint = if (viewModel.liked.value) Color.Red else Color.LightGray,
+                                modifier = Modifier.fillMaxSize(fraction = 0.7f),
+                                painter = painterResource(R.drawable.heart_grey),
+                                contentDescription = "heart"
+                            )
+                        }
+                    }
+
+                }
+
+                Column(
+                    Modifier
+                        .fillMaxSize()
+                        .padding(10.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
+
+                    //Wish Image
+                    GlideImage(imageModel = viewModel.imageURL,
+                        modifier = Modifier
+                            .height(150.dp)
+                            .width(150.dp),
+                        loading = {
+                            Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
+                                CircularProgressIndicator()
+                            }
+                        },
+                        failure = {
+
+                            Image(painter = painterResource(R.drawable.gift), contentDescription = "")
+                        }
+
+                    )
+
+
+                }
+            }
+
+
+
+
+
+
+
 
             Spacer(modifier = Modifier.height(space))
 
