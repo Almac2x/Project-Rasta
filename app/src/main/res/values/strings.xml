@@ -1,4 +1,9 @@
+
+
 <resources>
     <string name="app_name">Project Rasta</string>
     <string name="title_activity_login">Login</string>
+
+
+
 </resources>

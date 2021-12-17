@@ -5,6 +5,11 @@ import androidx.annotation.RequiresApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ThumbDown
+import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.outlined.ThumbDown
+import androidx.compose.material.icons.outlined.ThumbUp
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +36,7 @@ import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishViewModel
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
+import com.rastatech.projectrasta.utils.Convert
 import com.skydoves.landscapist.glide.GlideImage
 
 /**
@@ -178,6 +184,102 @@ fun CustomWishTile(
                     backgroundColor = Color.LightGray,
                     height = 20.dp
                 )
+
+
+                /*
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    // UPVOTE
+                    Box {
+                        Row {
+                            IconButton(
+                                onClick = {
+                                    when (vote.value) {
+                                        VoteType.NONE -> {
+                                            vote.value = VoteType.UPVOTE
+                                            upVote.value = upVote.value + 1
+                                        }
+                                        VoteType.UPVOTE -> {
+                                            // remove count from upvote if you click upvote button again
+                                            vote.value = VoteType.NONE
+                                            upVote.value = upVote.value - 1
+                                        }
+                                        VoteType.DOWNVOTE -> {
+                                            vote.value = VoteType.UPVOTE
+                                            upVote.value = upVote.value + 1
+                                            downVote.value = downVote.value - 1
+                                        }
+                                    }
+                                    viewModel.vote(wishID = wishID, voteType = vote.value)
+                                }
+                            ) {
+                                Icon(
+                                    tint = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
+                                    modifier = Modifier.fillMaxSize(fraction = 0.8f),
+                                    imageVector = if (vote.value == VoteType.UPVOTE)
+                                        Icons.Filled.ThumbUp else Icons.Outlined.ThumbUp,
+                                    contentDescription = ""
+                                )
+                            }
+                            Text(
+                                color = if (vote.value == VoteType.UPVOTE) Color.Blue else Color.Black,
+                                fontSize = 20.sp,
+                                text = "${upVote.value}",
+                                modifier = Modifier.align(Alignment.CenterVertically)
+                            )
+                        }
+                    }
+
+                    // DOWNVOTE
+                    Box {
+                        Row {
+                            IconButton(
+                                onClick = {
+                                    when (vote.value) {
+                                        VoteType.NONE -> {
+                                            vote.value = VoteType.DOWNVOTE
+                                            downVote.value = downVote.value + 1
+                                        }
+                                        VoteType.DOWNVOTE -> {
+                                            // remove count from upvote if you click upvote button again
+                                            vote.value = VoteType.NONE
+                                            downVote.value = downVote.value - 1
+                                        }
+                                        VoteType.UPVOTE -> {
+                                            vote.value = VoteType.DOWNVOTE
+                                            downVote.value = downVote.value + 1
+                                            upVote.value = upVote.value - 1
+                                        }
+                                    }
+                                    viewModel.vote(wishID = wishID, voteType = vote.value)
+                                }
+                            ) {
+                                Icon(
+                                    tint = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
+                                    modifier = Modifier.fillMaxSize(fraction = 0.8f),
+                                    imageVector = if (vote.value == VoteType.DOWNVOTE)
+                                        Icons.Filled.ThumbDown else Icons.Outlined.ThumbDown,
+                                    contentDescription = ""
+                                )
+                            }
+                            Text(
+                                color = if (vote.value == VoteType.DOWNVOTE) Color.Blue else Color.Black,
+                                fontSize = 20.sp,
+                                text = Convert.toCompactNumber(downVote.value),
+                                modifier = Modifier.align(Alignment.CenterVertically)
+                            )
+                        }
+                    }
+                }*/
+
+
+
+
+
+
+
 
                 CustomVoteButton(
                     upVote = remember{ mutableStateOf(wishEntity?.upvotes?:0)},

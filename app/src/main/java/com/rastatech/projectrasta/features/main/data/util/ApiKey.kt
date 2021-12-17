@@ -3,6 +3,19 @@ package com.rastatech.projectrasta.features.main.data.util
 
 sealed class ApiKey{
 
+    object Direction : ApiKey(){
+        const val value = "direction"
+    }
+
+    object Page : ApiKey(){
+        const val value = "page"
+    }
+
+    object Sort : ApiKey(){
+        const val value = "sort"
+    }
+
+
     object UserName: ApiKey(){
         const val value = "username"
     }

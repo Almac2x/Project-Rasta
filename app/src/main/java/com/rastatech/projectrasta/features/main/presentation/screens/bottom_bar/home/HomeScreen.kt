@@ -126,10 +126,10 @@ private fun Categories(viewModel: HomeViewModel) {
                 sortItem = sort,
                 onClick = {
                     when(sort) {
-                        Sort.Upvote -> {}
-                        Sort.Downvote -> {}
-                        Sort.Recent -> {}
-                        Sort.Donated -> {}
+                        Sort.Upvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Upvote.value, direction = "desc"))}
+                        Sort.Downvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Downvote.value, direction = "desc"))}
+                        Sort.Recent -> {viewModel.onEvent(HomeEvents.GetFilteredWishes( sort = "updatedAt", direction = "desc"))}
+                        Sort.Donated -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Donated.value, direction = "desc"))}
                     }
                 }
             )

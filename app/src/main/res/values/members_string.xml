@@ -1,0 +1,48 @@
+
+
+
+<resources>
+
+    <string name = "name_blando" >Alejandro Blando</string>
+    <string name = "name_lloyd" >Christian Lloyd Salon</string>
+    <string name = "name_calape" >Philip John Calape</string>
+    <string name = "name_lipa" > Neil Ryan Lipa-od</string>
+    <string name = "name_kin" >Christian Kin Lascuña</string>
+
+
+    <string name = "track_blando" >Android</string>
+    <string name = "track_lloyd" >Android</string>
+    <string name = "track_calape" >Father Rasta</string>
+    <string name = "track_lipa" >Junior dev for life</string>
+    <string name = "track_kin" >iOS</string>
+
+
+    <string name = "description_blando" >"Replica of the great Rastaman himself.
+                        The Android dev and supreme leader of the team, with skills much
+                        like Rastaman himself as he leads the Philippines as president"</string>
+
+    <string name = "description_lloyd" >"Codename Half-Human Half-Zombie of Android.
+                        Just like Rastaman, he has the skills of both halves: the great
+                        coding skills of a human and the nonstop coding capability of a zombie.
+                        Anong branch branch, sa main agad"</string>
+
+    <string name = "description_calape" >"Direct shadow apostle of Nil Pogi, the backend lord.
+                        He acquires a great buff in coding in java spring in the presence
+                        of his master, much as he is enlightened by Rastaman himself."</string>
+
+    <string name = "description_lipa" >"The backend lord, the java god, the spring guru.
+                        Not only is his skills already in senior dev level even if
+                        he is still a trainee, he is also really pogi, more pogi than
+                        the great Rastaman."</string>
+    <string name = "description_kin" >"The one man team IOS developer in Rasta Tech. He can get
+                        "things done with great perfection even if alone due to the
+                        "blessing of Rastamans's Dark Angel"</string>
+
+    <string name = "quotes_blando" >Push Na yan sa Main, Warning lang naman</string>
+    <string name = "quotes_lloyd" >Anong branch branch, sa main agad</string>
+    <string name = "quotes_calape" >While theres a code, there are bugs, Kaya madami akong Baygon sa bahay</string>
+    <string name = "quotes_lipa" >Anong review review?</string>
+    <string name = "quotes_kin" >Theres no I in team, only in Kin</string>
+
+
+</resources>

@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.ui.theme
 
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
@@ -18,9 +19,16 @@ val AppColorPalette = lightColors(
 )
 
 @Composable
-fun ProjectRastaTheme(
-    content: @Composable() () -> Unit
+fun ProjectRastaTheme( darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable() () -> Unit,
 ) {
+
+    val colors = if (darkTheme) {
+        AppColorPalette
+    } else {
+        AppColorPalette
+    }
+
     MaterialTheme(
         colors = AppColorPalette,
         typography = Typography,

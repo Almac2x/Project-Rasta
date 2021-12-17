@@ -40,6 +40,14 @@ interface WishApi {
     suspend fun  getHomeScreenWishes(@Header(ApiKey.Authorization.value) token: String
     ): Response<List<WishDTO>>
 
+
+    @GET("/api/wishes")
+    suspend fun  getFilteredWishes(@Header(ApiKey.Authorization.value) token: String,
+                                   @Query(ApiKey.Sort.value) sort: String,
+                                   @Query(ApiKey.Direction.value) desc: String
+    ): Response<List<WishDTO>>
+
+
     /**
      * Swagger:fetchWishesDonatedByUser
      * Used? =

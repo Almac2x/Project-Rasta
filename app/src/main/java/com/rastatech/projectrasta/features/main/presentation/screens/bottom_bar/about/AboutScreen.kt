@@ -45,54 +45,35 @@ import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 fun AboutScreen() {
     val scrollState = rememberScrollState()
 
-        // Secret Rasta Text
-        /*Image(
-            painter = painterResource(id = R.drawable.title),
-            contentDescription = "Logo",
-            modifier = Modifier.scale(0.5f)
-        )*/
-
-
         val membersList = listOf<Map<String,String>>(
-            mapOf("name" to "Alejandro Blando",
-                "track" to "Android",
-                "description" to "Replica of the great Rastaman himself. " +
-                        "The Android dev and supreme leader of the team, with skills much " +
-                        "like Rastaman himself as he leads the Philippines as president.",
-                "qoutes" to "Push Na yan sa Main, Warning lang naman",
+            mapOf("name" to stringResource(id = R.string.name_blando),
+                "track" to stringResource(id = R.string.track_blando),
+                "description" to stringResource(id = R.string.description_blando),
+                "qoutes" to stringResource(id = R.string.quotes_blando),
                 "imageID" to R.drawable.me.toString()
             ),
-            mapOf("name" to "Christian Lloyd Salon",
-                "track" to "Android",
-                "description" to "Codename Half-Human Half-Zombie of Android. " +
-                        "Just like Rastaman, he has the skills of both halves: the great " +
-                        "coding skills of a human and the nonstop coding capability of a zombie.",
-                "qoutes" to "Anong branch branch, sa main agad",
+            mapOf("name" to stringResource(id = R.string.name_lloyd),
+                "track" to stringResource(id = R.string.track_lloyd),
+                "description" to stringResource(id = R.string.description_lloyd),
+                "qoutes" to stringResource(id = R.string.quotes_lloyd),
                 "imageID" to R.drawable.boss.toString()
             ),
-            mapOf("name" to "Christian Kin Lascuña",
-                "track" to "iOS",
-                "description" to "The one man team IOS developer in Rasta Tech. He can get " +
-                        "things done with great perfection even if alone due to the " +
-                        "blessing of Rastamans's Dark Angel.",
-                "qoutes" to "There's no I in team, only in Kin",
+            mapOf("name" to stringResource(id = R.string.name_kin),
+                "track" to stringResource(id = R.string.track_kin),
+                "description" to stringResource(id = R.string.description_kin),
+                "qoutes" to stringResource(id = R.string.quotes_kin),
                 "imageID" to R.drawable.kin.toString()
             ),
-            mapOf("name" to "Neil Ryan Lipa-od",
-                "track" to "Backend (Java Spring)",
-                "description" to "The backend lord, the java god, the spring guru. " +
-                        "Not only is his skills already in senior dev level even if " +
-                        "he is still a trainee, he is also really pogi, more pogi than " +
-                        "the great Rastaman.",
-                "qoutes" to "Anong review review?",
+            mapOf("name" to stringResource(id = R.string.name_lipa),
+                "track" to stringResource(id = R.string.track_lipa),
+                "description" to stringResource(id = R.string.description_lipa),
+                "qoutes" to stringResource(id = R.string.quotes_lipa),
                 "imageID" to R.drawable.cto.toString()
             ),
-            mapOf("name" to "Philip John Calape",
-                "track" to "Backend (Java Spring)",
-                "description" to "Direct shadow apostle of Nil Pogi, the backend lord. " +
-                        "He acquires a great buff in coding in java spring in the presence " +
-                        "of his master, much as he is enlightened by Rastaman himself.",
-                "qoutes" to "While there's a code, there are bugs, Kaya madami akong Baygon sa bahay",
+            mapOf("name" to stringResource(id = R.string.name_calape),
+                "track" to stringResource(id = R.string.track_calape),
+                "description" to stringResource(id = R.string.description_calape),
+                "qoutes" to stringResource(id = R.string.quotes_calape),
                 "imageID" to R.drawable.calape.toString()
             ),
 
@@ -102,22 +83,9 @@ fun AboutScreen() {
 
 
         val aboutTile = mapOf<String,String>(
-            "Our Heritage" to
-                    "Our story begins in 2021 along the deep corners of Google Meet. " +
-                    "It was here where we found our intense admiration for the great Rastaman, " +
-                    "to whom our greatest works are dedicated. Guided by his awesome ways of making " +
-                    "us happy, we want to also share the happiness to you, and that's why the company " +
-                    "was born.",
-            "Company Description" to
-                    "Everything we do is about you. From apps to help you achieve your dreams to " +
-                    "the apps that put happiness to your life - we prioritize what you need in order " +
-                    "for you to have the enlightenment that Rastaman wants all of us to have. " +
-                    "We strive to keep you at your best, and we remain being the best for you. " +
-                    "That's what the great Rastaman wants for all of us.",
-            "Company Tagline" to
-                    "Wachu gonna give?"
-
-
+            "Our Heritage" to stringResource(id = R.string.our_heritage),
+            "Company Description" to stringResource(id = R.string.company_tagline),
+            "Company Tagline" to stringResource(id = R.string.company_tagline)
         )
 
         val name = aboutTile.keys.toList()
