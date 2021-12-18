@@ -14,7 +14,9 @@ import androidx.compose.material.Text
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
@@ -35,6 +37,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
+import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.data.remote.dto.WisherDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.HomeViewModel
 import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
@@ -43,6 +47,8 @@ import com.rastatech.projectrasta.nav_graph.MAIN_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomSortItem
+import com.rastatech.projectrasta.ui.components.NewWishTile
+import com.rastatech.projectrasta.ui.components.wish_list_page.ShimmerTile
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishList
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 
@@ -73,8 +79,9 @@ fun HomeScreen(
             backgroundColor = AppColorPalette.background,
             title = {
                 Text(
-                    modifier = Modifier.fillMaxWidth().
-                    padding(bottom = 10.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 10.dp),
                     text = BottomBarScreens.Home.title,
                     textAlign = TextAlign.Center,
                     fontSize = 20.sp,
@@ -83,23 +90,48 @@ fun HomeScreen(
             }
         )
         Text(
-            modifier = Modifier.fillMaxWidth().
-            padding(start = 20.dp,top = 5.dp, bottom = 5.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 20.dp, top = 5.dp, bottom = 5.dp),
             text = "Categories",
             textAlign = TextAlign.Start,
             fontSize = 15.sp,
             fontWeight = FontWeight.Bold
         )
 
-
         Categories(viewModel = viewModel)
 
+
+        LazyColumn(modifier = Modifier.fillMaxSize(),
+            contentPadding = PaddingValues(start = 5.dp, bottom = 50.dp),
+
+            content = {
+
+                if(viewModel.allWishes.isEmpty()){
+
+                    items(count = 5){
+                        ShimmerTile()
+                    }
+
+                }else {
+                    items(items = viewModel.allWishes,){ wish ->
+
+                        NewWishTile(bottomBarNavController = bottomBarNavController, wish = wish)
+
+                    }
+                }
+            }
+        )
+
+
+
+        /*
         WishList(
             navController = bottomBarNavController,
             displayType = DisplayType.ReadOnly,
             wishEntities = viewModel.allWishes,
-            updateList = {viewModel.updateList() }
-        )
+            updateList = {viewModel.updateList()}
+        )*/
     }
 }
 
@@ -114,11 +146,6 @@ private fun SearchAppBar(){
 
 
 }
-
-
-
-
-
 
 
 @ExperimentalFoundationApi

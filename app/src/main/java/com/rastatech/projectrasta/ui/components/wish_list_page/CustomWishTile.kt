@@ -148,7 +148,7 @@ fun CustomWishTile(
                                 overflow = TextOverflow.Ellipsis
                             )
                             Text(
-                                text = wishEntity?.wish_owner_username.toString(), // dapat name ng wisher
+                                text = wishEntity?.user?.username.toString(), // dapat name ng wisher
                                 fontSize = 13.sp,
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis
@@ -353,7 +353,7 @@ fun CustomWishTile(
 @Preview(showBackground = false)
 @Composable
 private fun Preview() {
-    Scaffold(modifier = Modifier.fillMaxSize()) {
+    /*Scaffold(modifier = Modifier.fillMaxSize()) {
         CustomWishTile(
             wishEntity = WishDTO(
             wish_name = "Nani", description = "nani", image_url = "url", rastagems_required = 2,
@@ -362,5 +362,5 @@ private fun Preview() {
             wish_owner_id = 1),
             navController = rememberNavController(), viewModel = viewModel(), displayType = DisplayType.ReadOnly
         )
-    }
+    }*/
 }

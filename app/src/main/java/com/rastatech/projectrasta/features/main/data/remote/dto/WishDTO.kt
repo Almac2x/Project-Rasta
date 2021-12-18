@@ -1,6 +1,10 @@
 package com.rastatech.projectrasta.features.main.data.remote.dto
 
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.util.*
+
 
 data class WishDTO(
 
@@ -14,9 +18,10 @@ data class WishDTO(
     val upvotes: Int,
     val downvotes: Int,
     val vote_status: String,
-    val wish_owner_full_name: String,
-    val wish_owner_username: String,
-    val wish_owner_id: Int
+    val user: WisherDTO,
+    val created_at: String,
+    val updated_at: String
+
 
 
 )

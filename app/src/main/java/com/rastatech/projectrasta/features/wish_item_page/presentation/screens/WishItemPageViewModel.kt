@@ -163,8 +163,8 @@ class WishItemPageViewModel@Inject constructor(
             requestWishDetails.join()
 
             _wishName.value = wish?.wish_name.toString() // to String even if null
-            _wisherFullName.value = wish?.wish_owner_full_name.toString()
-            _wisherUserName.value = wish?.wish_owner_username.toString()
+            _wisherFullName.value = wish?.user?.full_name.toString()
+            _wisherUserName.value = wish?.user?.username.toString()
             _numberOfDownVotes.value = wish?.downvotes ?:0
             _numberOfUpVotes.value = wish?.upvotes?:0
             _reason.value = wish?.description.toString()
@@ -172,7 +172,7 @@ class WishItemPageViewModel@Inject constructor(
             _rastaGemsRequired.value = wish?.rastagems_required ?:0
             liked.value = wish?.liked ?:false
             _imageURL.value = wish?.image_url.toString()
-            _userID.value = wish?.wish_owner_id?:0
+            _userID.value = wish?.user?.user_id?:0
             _voteStatus.value = VoteType.toConvert().convert(wish?.vote_status.toString()) ?: VoteType.NONE
         }
 
