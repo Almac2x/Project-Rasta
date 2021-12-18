@@ -65,6 +65,8 @@ fun HomeScreen(
      * rastagems_donated
      * rastagems_required
      */
+
+
     Column {
         TopAppBar(
             elevation = 0.dp,
@@ -80,7 +82,6 @@ fun HomeScreen(
                 )
             }
         )
-
         Text(
             modifier = Modifier.fillMaxWidth().
             padding(start = 20.dp,top = 5.dp, bottom = 5.dp),
@@ -97,11 +98,28 @@ fun HomeScreen(
             navController = bottomBarNavController,
             displayType = DisplayType.ReadOnly,
             wishEntities = viewModel.allWishes,
-            updateList = {viewModel.updateList()
-            }
+            updateList = {viewModel.updateList() }
         )
     }
 }
+
+
+@Composable
+private fun SearchAppBar(){
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
 
 @ExperimentalFoundationApi
 @Composable

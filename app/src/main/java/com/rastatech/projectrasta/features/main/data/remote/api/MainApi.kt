@@ -1,7 +1,7 @@
 package com.rastatech.projectrasta.features.main.data.remote.api
 
 import retrofit2.Response
-import com.rastatech.projectrasta.features.main.data.remote.dto.CurrentUserDTO
+import com.rastatech.projectrasta.features.main.data.remote.dto.UserDTO
 import com.rastatech.projectrasta.features.main.data.remote.dto.TransactionDTO
 import com.rastatech.projectrasta.features.main.data.util.ApiKey
 import retrofit2.http.*
@@ -18,13 +18,13 @@ interface MainApi {
     // Gets the CurrentUsers Profile Details
     @GET("api/users/own")
     suspend fun getOwnProfile(@Header(ApiKey.Authorization.value) token: String
-    ): Response<CurrentUserDTO>
+    ): Response<UserDTO>
 
     // Gets the CurrentUsers Profile Details
     @GET("api/users/{${ApiKey.UserID.value}}")
     suspend fun getOthersProfile(@Header(ApiKey.Authorization.value) token: String,
                                  @Path(ApiKey.UserID.value)userID : Int,
-    ): Response<CurrentUserDTO>
+    ): Response<UserDTO>
 
 
     /**

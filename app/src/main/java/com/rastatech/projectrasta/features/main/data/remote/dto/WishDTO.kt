@@ -13,8 +13,10 @@ data class WishDTO(
     val liked : Boolean,
     val upvotes: Int,
     val downvotes: Int,
+    val vote_status: String,
     val wish_owner_full_name: String,
     val wish_owner_username: String,
-    val vote_status: String,
     val wish_owner_id: Int
+
+
 )

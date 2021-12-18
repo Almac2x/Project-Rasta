@@ -275,12 +275,6 @@ fun CustomWishTile(
                 }*/
 
 
-
-
-
-
-
-
                 CustomVoteButton(
                     upVote = remember{ mutableStateOf(wishEntity?.upvotes?:0)},
                     downVote = remember { mutableStateOf( wishEntity?.downvotes?:0)},

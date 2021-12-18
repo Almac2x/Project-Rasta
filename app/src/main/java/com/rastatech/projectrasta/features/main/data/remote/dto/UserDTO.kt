@@ -1,6 +1,6 @@
 package com.rastatech.projectrasta.features.main.data.remote.dto
 
-data class CurrentUserDTO(
+data class UserDTO(
 
     val avatar: String?,
     val email : String,
