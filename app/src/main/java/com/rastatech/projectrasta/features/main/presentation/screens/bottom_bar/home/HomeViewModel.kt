@@ -2,6 +2,7 @@ package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar
 
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -28,6 +29,8 @@ class HomeViewModel @Inject constructor(
 
 
     private val userToken = state.get<String>(NavigationKey.AccessToken.value) ?: ""
+
+    val query =  mutableStateOf(TextFieldValue()) // password textfield
 
     private var _allWishes   = mutableStateOf(emptyList<WishDTO>())
     val allWishes : List<WishDTO>

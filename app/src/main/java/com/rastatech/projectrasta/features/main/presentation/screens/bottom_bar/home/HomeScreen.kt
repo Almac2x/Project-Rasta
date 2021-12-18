@@ -1,58 +1,57 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home
 
 import android.os.Build
-import android.util.Log
-import android.view.Display
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
-import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
-import com.rastatech.projectrasta.features.main.data.remote.dto.WisherDTO
-import com.rastatech.projectrasta.features.main.domain.util.DisplayType
-import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.HomeViewModel
-import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
-import com.rastatech.projectrasta.nav_graph.HOME_GRAPH_ROUTE
-import com.rastatech.projectrasta.nav_graph.MAIN_GRAPH_ROUTE
-import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
-import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomSortItem
 import com.rastatech.projectrasta.ui.components.NewWishTile
 import com.rastatech.projectrasta.ui.components.wish_list_page.ShimmerTile
-import com.rastatech.projectrasta.ui.components.wish_list_page.WishList
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
+import androidx.compose.material.Icon
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Yellow
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
+import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.ui.components.CustomTextField
+import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
 
 
+@ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
 @ExperimentalMaterialApi
@@ -72,37 +71,86 @@ fun HomeScreen(
      * rastagems_required
      */
 
+    val (snackbarVisibleState, setSnackBarState) = remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(false) }
+
 
     Column {
-        TopAppBar(
-            elevation = 0.dp,
-            backgroundColor = AppColorPalette.background,
-            title = {
-                Text(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(bottom = 10.dp),
-                    text = BottomBarScreens.Home.title,
-                    textAlign = TextAlign.Center,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        )
-        Text(
+        Surface(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 20.dp, top = 5.dp, bottom = 5.dp),
-            text = "Categories",
-            textAlign = TextAlign.Start,
-            fontSize = 15.sp,
-            fontWeight = FontWeight.Bold
-        )
+                .wrapContentHeight(),
+            elevation = 0.dp,
+            color = Color.White
+        ) {
 
-        Categories(viewModel = viewModel)
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    modifier = Modifier.fillMaxWidth(.9f)
+                    ,
+                    value = viewModel.query.value,
+                    onValueChange = { viewModel.query.value = it },
+                    label = { },
+                    keyboardOptions = KeyboardOptions(
+                        keyboardType = KeyboardType.Text,
+                        imeAction = ImeAction.Done,
+                    ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+
+                        },
+                    ),
+                    leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
+                    textStyle = TextStyle(color = MaterialTheme.colors.onSurface),
+
+                    colors = TextFieldDefaults.textFieldColors(backgroundColor = Color.White),
+                )
+
+                Box(contentAlignment = Alignment.Center,modifier = Modifier
+                    .fillMaxWidth()
+                    .graphicsLayer {
+                        rotationZ = 90f
+                    }){
 
 
-        LazyColumn(modifier = Modifier.fillMaxSize(),
+                    IconButton(onClick = {
+                        expanded = true
+
+                    }) {
+                        Icon(Icons.Filled.CompareArrows, contentDescription = "Search Icon")
+                    }
+
+                  DropdownMenu(modifier =Modifier.background(Color.White),
+                      expanded = expanded, onDismissRequest = { expanded = !expanded }) {
+
+                      DropdownMenuItem(onClick = { expanded = !expanded}) {
+                          Text(text = "Ascending")
+
+                      }
+                      DropdownMenuItem(onClick = { expanded = !expanded}) {
+                          Text(text = "Descending")
+
+                      }
+
+                  }
+
+                }
+
+            }
+
+        }
+
+
+        CategoriesDropDown("Categories","2132", viewModel = viewModel)
+
+       // Categories(viewModel = viewModel, 30.dp)
+
+
+        LazyColumn(modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(start = 5.dp, bottom = 50.dp),
 
             content = {
@@ -112,12 +160,9 @@ fun HomeScreen(
                     items(count = 5){
                         ShimmerTile()
                     }
-
                 }else {
                     items(items = viewModel.allWishes,){ wish ->
-
                         NewWishTile(bottomBarNavController = bottomBarNavController, wish = wish)
-
                     }
                 }
             }
@@ -136,21 +181,61 @@ fun HomeScreen(
 }
 
 
+@ExperimentalFoundationApi
 @Composable
-private fun SearchAppBar(){
+private fun CategoriesDropDown(name: String, content : String,viewModel: HomeViewModel) {
+    var expanded by remember { mutableStateOf(false) }
+
+    Row(
+        modifier = Modifier
+            .padding(5.dp)
+            .animateContentSize(
+                animationSpec = spring(
+                    dampingRatio = Spring.DampingRatioMediumBouncy,
+                    stiffness = Spring.StiffnessLow
+                )
+            )
+    ) {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+                .padding(12.dp)
+        ) {
+            Text(
+                text = name,
+                style = MaterialTheme.typography.h6.copy(
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center
+
+                )
+            )
+            if (expanded) {
+
+                Categories(viewModel = viewModel)
 
 
+            }
+        }
+        IconButton(onClick = { expanded = !expanded }) {
+            Icon(
+                imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                contentDescription = if (expanded) {
+                    "Show More"
+                } else {
+                    "Show Less"
+                }
 
-
-
-
-
+            )
+        }
+    }
 }
+
+
 
 
 @ExperimentalFoundationApi
 @Composable
-private fun Categories(viewModel: HomeViewModel) {
+private fun Categories(viewModel: HomeViewModel,) {
     val sortBy = listOf(
         Sort.Upvote,
         Sort.Downvote,
