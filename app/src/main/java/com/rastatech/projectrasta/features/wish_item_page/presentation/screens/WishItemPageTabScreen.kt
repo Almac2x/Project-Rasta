@@ -11,8 +11,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.pager.*
-import com.rastatech.projectrasta.features.main.data.local.WishEntity
+import com.rastatech.projectrasta.features.main.data.remote.dto.CommentsDTO
 import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
+import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.CommentsTabScreen
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.DonatorsTabScreen
 import com.rastatech.projectrasta.features.wish_item_page.presentation.screens.tabs.ReasonTabScreen
 import kotlinx.coroutines.launch
@@ -28,10 +29,12 @@ import kotlinx.coroutines.launch
 @ExperimentalMaterialApi
 @ExperimentalPagerApi
 @Composable
-fun WishItemPageTabScreen(reason: String, donators: List<DonatorDTO>) {
+fun WishItemPageTabScreen(reason: String, donators: List<DonatorDTO>, comments: List<CommentsDTO>,
+                          onComment: (String)->Unit) {
     val tabs = listOf(
         "Reason",
-        "Donators"
+        "Donators",
+        "Comments"
     )
 
     val pagerState = rememberPagerState(pageCount = tabs.size)
@@ -39,9 +42,11 @@ fun WishItemPageTabScreen(reason: String, donators: List<DonatorDTO>) {
     Column() {
         Tabs(tabs = tabs, pagerState = pagerState)
         TabsContent(
+            onComment = onComment,
             reason = reason,
             list = donators,
-            pagerState = pagerState
+            pagerState = pagerState,
+            comments = comments
         )
     }
 }
@@ -94,12 +99,15 @@ fun Tabs(tabs: List<String>, pagerState: PagerState) {
 @ExperimentalFoundationApi
 @ExperimentalPagerApi
 @Composable
-fun TabsContent(reason: String, list: List<DonatorDTO>, pagerState: PagerState) {
+fun TabsContent(reason: String, list: List<DonatorDTO>, comments: List<CommentsDTO>,
+                pagerState: PagerState,onComment: (String)->Unit) {
     Log.i(pagerState.currentPage.toString(), pagerState.currentPage.toString())
     HorizontalPager(state = pagerState) { page ->
         when(page) {
             0 -> ReasonTabScreen(content = reason)
             1 -> DonatorsTabScreen(list = list)
+            2 -> CommentsTabScreen(comments = comments, onComment = onComment)
+
         }
     }
 }
@@ -110,5 +118,5 @@ fun TabsContent(reason: String, list: List<DonatorDTO>, pagerState: PagerState) 
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    WishItemPageTabScreen(reason = "", donators = listOf())
+   // WishItemPageTabScreen(reason = "", donators = listOf())
 }

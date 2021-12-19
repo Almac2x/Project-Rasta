@@ -1,10 +1,12 @@
 package com.rastatech.projectrasta.core.remote.api
 
+import com.rastatech.projectrasta.features.main.data.remote.api.CommentApi
 import com.rastatech.projectrasta.features.main.data.remote.api.MainApi
 import com.rastatech.projectrasta.features.main.data.remote.api.WishApi
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.LoginApi
 import com.rastatech.projectrasta.features.splash_login_signup.data.remote.api.SignUpApi
 import okhttp3.OkHttpClient
+import org.w3c.dom.Comment
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
@@ -50,6 +52,10 @@ object RetrofitInstance {
 
     val wishApi: WishApi by lazy {
         retrofit.create(WishApi::class.java)
+    }
+
+    val commentApi : CommentApi by lazy {
+        retrofit.create(CommentApi::class.java)
     }
 
 

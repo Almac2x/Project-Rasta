@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
+import com.rastatech.projectrasta.features.main.data.remote.dto.CommentsDTO
 import com.rastatech.projectrasta.features.main.data.remote.dto.DonatorDTO
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
@@ -94,6 +95,10 @@ class WishItemPageViewModel@Inject constructor(
     val listOfDonators : List<DonatorDTO>
         get() = _listOfDonators.value
 
+    private var _listOfComments = mutableStateOf(emptyList<CommentsDTO>())
+    val lisOfComments: List<CommentsDTO>
+        get() = _listOfComments.value
+
 
     init {
 
@@ -109,6 +114,8 @@ class WishItemPageViewModel@Inject constructor(
             async {getBalance()}
             async {getWishDetails()}
             async { getDonators() }
+            async { getComments() }
+            // getComments
 
         }
     }
@@ -146,6 +153,34 @@ class WishItemPageViewModel@Inject constructor(
                 }
 
             }
+        }
+
+    }
+
+    fun getComments(){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val getComments = async { RetrofitInstance.commentApi.getComments(token = retroFitToken, wishID = wishID) }
+
+            _listOfComments.value = getComments.await().body()!!
+
+        }
+
+    }
+
+
+    fun onComment(comment : String){
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            val requestComment = async { RetrofitInstance.commentApi.comment(token = retroFitToken, wishID = wishID,
+                                                comment = mapOf("comment" to comment)
+            ) }
+
+            requestComment.join()
+            getComments()
+
         }
 
 

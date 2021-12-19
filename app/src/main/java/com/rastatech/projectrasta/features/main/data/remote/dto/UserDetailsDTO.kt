@@ -1,6 +1,6 @@
 package com.rastatech.projectrasta.features.main.data.remote.dto
 
-data class WisherDTO(
+data class UserDetailsDTO(
     val avatar: String?,
     val full_name: String,
     val user_id: Int,

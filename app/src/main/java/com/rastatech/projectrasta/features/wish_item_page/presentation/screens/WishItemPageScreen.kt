@@ -22,16 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.rememberImagePainter
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
-import com.rastatech.projectrasta.features.main.domain.util.VoteType
-import com.rastatech.projectrasta.nav_graph.screens.AuthScreens
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomGemProgressBar
-import com.rastatech.projectrasta.ui.components.CustomImageWithHeart
 import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
@@ -397,9 +392,14 @@ fun WishItemPageScreen(
                     .background(dividerColor)
             )
 
+
+
             WishItemPageTabScreen(
                 reason = viewModel.reason,
-                donators = viewModel.listOfDonators
+                donators = viewModel.listOfDonators,
+                onComment = viewModel::onComment,
+                comments = viewModel.lisOfComments
+
             )
         }
 
@@ -413,8 +413,8 @@ fun WishItemPageScreen(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    WishItemPageScreen(
+    /*WishItemPageScreen(
 
         navController = rememberNavController()
-    )
+    )*/
 }

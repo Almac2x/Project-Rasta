@@ -6,15 +6,12 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
-import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,7 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
-import com.rastatech.projectrasta.features.main.data.remote.dto.WisherDTO
+import com.rastatech.projectrasta.features.main.data.remote.dto.UserDetailsDTO
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
@@ -36,7 +33,6 @@ import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
-import com.rastatech.projectrasta.ui.theme.Shapes
 import com.skydoves.landscapist.glide.GlideImage
 
 
@@ -370,7 +366,7 @@ fun NewWishTilePreview() {
             vote_status = "UPVOTE",
             created_at = "2021",
             updated_at = "2021",
-            user = WisherDTO(
+            user = UserDetailsDTO(
                 avatar = "Nnai",
                 full_name = "Alejandro Blando",
                 user_id = 1,
