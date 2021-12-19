@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.rastatech.projectrasta.SecretRastaApp.Companion.prefs
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
+import com.rastatech.projectrasta.features.main.domain.use_case.MainUseCases
 import com.rastatech.projectrasta.features.main.domain.use_case.WishUseCases
 import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,12 +24,18 @@ private const val TAG = "HomeViewModel"
 class HomeViewModel @Inject constructor(
 
     state: SavedStateHandle,
-    private val useCases: WishUseCases
+    private val useCases: WishUseCases,
+    private val mainUseCases: MainUseCases
 
 ):ViewModel() {
 
 
+    private val _userToken = prefs?.accessToken
     private val userToken = state.get<String>(NavigationKey.AccessToken.value) ?: ""
+
+    private val _userID = mutableStateOf( 1 )
+    val userID : Int?
+        get() = _userID.value
 
     val query =  mutableStateOf(TextFieldValue()) // password textfield
     val direction = mutableStateOf("desc")
@@ -45,7 +52,21 @@ class HomeViewModel @Inject constructor(
         Log.i(TAG, "Remember Me: ${prefs?.rememberMe}")
 
              updateList()
+            getOwnProfile()
         }
+
+    private fun getOwnProfile (){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val requestUserProfile = async{mainUseCases.getOwnProfile(token = _userToken.toString())}
+
+            requestUserProfile.join()
+
+            _userID.value = requestUserProfile.await().body()?.user_id?:0 // default value of 0 userID
+
+        }
+
+    }
 
          fun updateList(){
 
@@ -82,6 +103,31 @@ class HomeViewModel @Inject constructor(
                     _allWishes.value = requestAllWishes.await().body()?: emptyList<WishDTO>()
 
                 }
+            }
+            is HomeEvents.Search -> {
+
+                viewModelScope.launch (Dispatchers.IO){
+
+                    val requestSearchWish = async{RetrofitInstance.wishApi.getSearchWish(token = retrofitToken, search = query.value.text)}
+
+                    requestSearchWish.join()
+                    _allWishes.value = requestSearchWish.await().body()?: emptyList<WishDTO>()
+
+                }
+
+
+            }
+            HomeEvents.GetLikedWishes -> {
+
+                viewModelScope.launch (Dispatchers.IO){
+
+                    val requestSearchWish = async{RetrofitInstance.wishApi.getWishLikedByAUser(token = retrofitToken, userID = _userID.value)}
+
+                    requestSearchWish.join()
+                    _allWishes.value = requestSearchWish.await().body()?: emptyList<WishDTO>()
+
+                }
+
             }
         }
 

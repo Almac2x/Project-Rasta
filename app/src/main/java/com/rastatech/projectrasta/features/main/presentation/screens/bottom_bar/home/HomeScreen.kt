@@ -25,32 +25,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.ui.components.CustomSortItem
 import com.rastatech.projectrasta.ui.components.NewWishTile
 import com.rastatech.projectrasta.ui.components.wish_list_page.ShimmerTile
-import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import androidx.compose.material.Icon
 import androidx.compose.material.icons.filled.*
-import androidx.compose.material.icons.rounded.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Yellow
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.Dp
-import com.rastatech.projectrasta.R
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.rastatech.projectrasta.features.main.domain.util.DisplayType
-import com.rastatech.projectrasta.ui.components.CustomTextField
-import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
-
 
 
 @ExperimentalAnimationApi
@@ -104,6 +95,7 @@ fun HomeScreen(
                     keyboardActions = KeyboardActions(
                         onDone = {
 
+                                 viewModel.onEvent(HomeEvents.Search(query = viewModel.query.value.text))
                         },
                     ),
                     leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Search Icon") },
@@ -208,13 +200,16 @@ private fun CategoriesDropDown(name: String, content : String,viewModel: HomeVie
 
                 )
             )
+
             if (expanded) {
-
-                Categories(viewModel = viewModel)
-
-
+                Surface(modifier = Modifier.fillMaxWidth()){
+                    Categories(viewModel = viewModel)
+                }
             }
+
         }
+
+
         IconButton(onClick = { expanded = !expanded }) {
             Icon(
                 imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
@@ -223,8 +218,8 @@ private fun CategoriesDropDown(name: String, content : String,viewModel: HomeVie
                 } else {
                     "Show Less"
                 }
-
             )
+
         }
     }
 }
@@ -239,10 +234,12 @@ private fun Categories(viewModel: HomeViewModel,) {
         Sort.Upvote,
         Sort.Downvote,
         Sort.Recent,
-        Sort.Donated
+        Sort.Donated,
+        Sort.Liked
     )
 
     val scrollState = rememberScrollState()
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -259,6 +256,7 @@ private fun Categories(viewModel: HomeViewModel,) {
                         Sort.Downvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Downvote.value, direction = viewModel.direction.value))}
                         Sort.Recent -> {viewModel.onEvent(HomeEvents.GetFilteredWishes( sort = "updatedAt", direction = viewModel.direction.value))}
                         Sort.Donated -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Donated.value, direction = viewModel.direction.value))}
+                        Sort.Liked ->{viewModel.onEvent(HomeEvents.GetLikedWishes)}
                     }
                 }
             )

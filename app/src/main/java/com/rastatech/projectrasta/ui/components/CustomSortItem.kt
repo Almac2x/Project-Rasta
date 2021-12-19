@@ -3,10 +3,7 @@ package com.rastatech.projectrasta.ui.components
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -17,11 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.home.Sort
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
@@ -46,13 +45,24 @@ fun CustomSortItem(sortItem: Sort, onClick: () -> Unit) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
-            Icon(
-                modifier = Modifier
-                    .size(50.dp),
-                tint = sortItem.tint,
-                imageVector = sortItem.icon,
-                contentDescription = sortItem.title
-            )
+
+            if(sortItem == Sort.Liked){
+                Icon(
+                    tint = Color.Red,
+                    modifier = Modifier.size(50.dp),
+                    painter = painterResource(R.drawable.heart_grey),
+                    contentDescription = "heart"
+                )
+            }else{
+                Icon(
+                    modifier = Modifier
+                        .size(50.dp),
+                    tint = sortItem.tint,
+                    imageVector = sortItem.icon,
+                    contentDescription = sortItem.title
+                )
+            }
+
             Text(
                 color = Color.Black,
                 textAlign = TextAlign.Center,

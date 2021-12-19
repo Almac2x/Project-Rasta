@@ -33,7 +33,7 @@ sealed class Sort(
     )
 
     object Recent: Sort(
-        title = "Most Recent",
+        title = "Recent",
         value = "desc",
         icon = Icons.Outlined.AccessTime,
         tint = Color.Green
@@ -44,5 +44,12 @@ sealed class Sort(
         value = "rastagemsRequired",
         icon = Icons.Outlined.CardGiftcard,
         tint = Color.Magenta
+    )
+
+    object Liked: Sort(
+        title = "Liked",
+        value = "liked",
+        icon = Icons.Outlined.ThumbUp,
+        tint = Color.Red
     )
 }

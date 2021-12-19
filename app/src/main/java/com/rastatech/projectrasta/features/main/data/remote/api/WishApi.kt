@@ -12,6 +12,9 @@ import retrofit2.http.*
 interface WishApi {
 
 
+
+
+
     @GET("/api/wishes/{${ApiKey.WishID.value}}/donators")
     suspend fun getDonators(@Header(ApiKey.Authorization.value) token: String,
                         @Path(ApiKey.WishID.value)wishID : Int
@@ -40,6 +43,11 @@ interface WishApi {
     suspend fun  getHomeScreenWishes(@Header(ApiKey.Authorization.value) token: String
     ): Response<List<WishDTO>>
 
+    @GET("/api/wishes/liked/{${ApiKey.UserID.value}}")
+    suspend fun getWishLikedByAUser(@Header(ApiKey.Authorization.value) token: String,
+                                    @Path(ApiKey.UserID.value)userID : Int
+    ): Response<List<WishDTO>>
+
 
     @GET("/api/wishes")
     suspend fun  getFilteredWishes(@Header(ApiKey.Authorization.value) token: String,
@@ -47,6 +55,10 @@ interface WishApi {
                                    @Query(ApiKey.Direction.value) direction: String
     ): Response<List<WishDTO>>
 
+    @GET("/api/wishes")
+    suspend fun  getSearchWish(@Header(ApiKey.Authorization.value) token: String,
+                                   @Query(ApiKey.Search.value) search: String,
+    ): Response<List<WishDTO>>
 
     /**
      * Swagger:fetchWishesDonatedByUser

@@ -7,4 +7,8 @@ sealed class HomeEvents{
     data class GetFilteredWishes(val sort : String? = "",
                                  val direction: String?=""): HomeEvents()
 
+    data class Search(val query: String=""): HomeEvents()
+
+    object GetLikedWishes:HomeEvents()
+
 }

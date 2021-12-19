@@ -15,6 +15,10 @@ sealed class ApiKey{
         const val value = "sort"
     }
 
+    object Search: ApiKey(){
+        const val  value = "search"
+    }
+
 
     object UserName: ApiKey(){
         const val value = "username"
