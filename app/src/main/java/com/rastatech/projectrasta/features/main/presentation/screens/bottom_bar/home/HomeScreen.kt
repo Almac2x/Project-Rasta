@@ -129,11 +129,16 @@ fun HomeScreen(
                   DropdownMenu(modifier =Modifier.background(Color.White),
                       expanded = expanded, onDismissRequest = { expanded = !expanded }) {
 
-                      DropdownMenuItem(onClick = { expanded = !expanded}) {
+                      DropdownMenuItem(onClick = { expanded = !expanded
+
+                                                viewModel.direction.value = "asc"
+                            }) {
                           Text(text = "Ascending")
 
                       }
-                      DropdownMenuItem(onClick = { expanded = !expanded}) {
+                      DropdownMenuItem(onClick = { expanded = !expanded
+                                                    viewModel.direction.value = "desc"
+                            }) {
                           Text(text = "Descending")
 
                       }
@@ -250,10 +255,10 @@ private fun Categories(viewModel: HomeViewModel,) {
                 sortItem = sort,
                 onClick = {
                     when(sort) {
-                        Sort.Upvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Upvote.value, direction = "desc"))}
-                        Sort.Downvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Downvote.value, direction = "desc"))}
-                        Sort.Recent -> {viewModel.onEvent(HomeEvents.GetFilteredWishes( sort = "updatedAt", direction = "desc"))}
-                        Sort.Donated -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Donated.value, direction = "desc"))}
+                        Sort.Upvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Upvote.value, direction = viewModel.direction.value))}
+                        Sort.Downvote -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Downvote.value, direction = viewModel.direction.value))}
+                        Sort.Recent -> {viewModel.onEvent(HomeEvents.GetFilteredWishes( sort = "updatedAt", direction = viewModel.direction.value))}
+                        Sort.Donated -> {viewModel.onEvent(HomeEvents.GetFilteredWishes(sort = Sort.Donated.value, direction = viewModel.direction.value))}
                     }
                 }
             )

@@ -44,7 +44,7 @@ interface WishApi {
     @GET("/api/wishes")
     suspend fun  getFilteredWishes(@Header(ApiKey.Authorization.value) token: String,
                                    @Query(ApiKey.Sort.value) sort: String,
-                                   @Query(ApiKey.Direction.value) desc: String
+                                   @Query(ApiKey.Direction.value) direction: String
     ): Response<List<WishDTO>>
 
 

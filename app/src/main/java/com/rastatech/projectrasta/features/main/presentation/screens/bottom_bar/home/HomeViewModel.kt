@@ -31,7 +31,7 @@ class HomeViewModel @Inject constructor(
     private val userToken = state.get<String>(NavigationKey.AccessToken.value) ?: ""
 
     val query =  mutableStateOf(TextFieldValue()) // password textfield
-    val order = mutableStateOf(false)
+    val direction = mutableStateOf("desc")
 
     private var _allWishes   = mutableStateOf(emptyList<WishDTO>())
     val allWishes : List<WishDTO>
@@ -76,7 +76,7 @@ class HomeViewModel @Inject constructor(
                 viewModelScope.launch (Dispatchers.IO){
 
                     val requestAllWishes = async{RetrofitInstance.wishApi.getFilteredWishes(token = retrofitToken,
-                                                sort = event.sort?:"", desc = "desc")}
+                                                sort = event.sort?:"", direction = event.direction?:"desc")}
 
                     requestAllWishes.join()
                     _allWishes.value = requestAllWishes.await().body()?: emptyList<WishDTO>()
