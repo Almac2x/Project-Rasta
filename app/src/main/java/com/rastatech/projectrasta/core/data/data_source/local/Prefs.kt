@@ -6,6 +6,7 @@ import android.content.SharedPreferences
 
 private const val ACCESS_TOKEN = "access_token"
 private const val REMEMBER_ME = "remember_me"
+private const val FINGERPRINT = "fingerprint"
 class Prefs (context: Context) {
 
     private val prefName = "SecretRastaPref"
@@ -14,6 +15,10 @@ class Prefs (context: Context) {
     val editor: SharedPreferences.Editor = preferences.edit()
 
 
+
+    var fingerprint : Boolean?
+        get() = preferences.getBoolean(FINGERPRINT, null == false)
+        set(value) = preferences.edit().putBoolean(FINGERPRINT, value ?: false).apply()
 
     var rememberMe : Boolean?
         get() = preferences.getBoolean(REMEMBER_ME, null == false)

@@ -1,5 +1,6 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.profile
 
+import android.app.Dialog
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -13,7 +14,11 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Logout
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -83,6 +89,7 @@ fun UserProfileScreen(
 
                             prefs?.accessToken = null
                             prefs?.rememberMe = false
+                            prefs?.fingerprint = false
 
                         mainNavController?.navigate(AUTH_GRAPH_ROUTE){
 
@@ -239,12 +246,70 @@ private fun UserTopBar(viewModel: UserProfileViewModel, userType: UserType, bott
                             fontWeight = FontWeight.Bold,
                             fontSize = 20.sp,
                         )
+                    }else{
+                        // Settings
+                        IconButton(
+                            onClick = {
+                                viewModel.settingsAlertDialog.value = true
+
+                            }
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Settings,
+                                contentDescription = "Settings"
+                            )
+
+                        }
+
+                        if(viewModel.settingsAlertDialog.value){
+                            SettingDialog(viewModel.settingsAlertDialog)
+                        }
+
                     }
                 }
             }
         }
     }
 }
+
+
+@Composable
+private fun SettingDialog(isVisible : MutableState<Boolean>){
+
+
+    val fingerprint = remember { mutableStateOf(prefs?.fingerprint)}
+
+
+    AlertDialog(
+        onDismissRequest = { isVisible.value = false },
+
+        text = {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.size(width = 200.dp, height = 200.dp)
+            ) {
+
+                Text(text = "Enable Fingerprint: ", fontWeight = FontWeight.Bold, fontSize = 28.sp)
+            }
+
+        },
+        confirmButton = {
+
+            Switch(modifier = Modifier.padding(start = 10.dp),
+                checked = fingerprint.value ?: false,
+                onCheckedChange = {
+                    fingerprint.value = it
+                    prefs?.fingerprint = it
+                    Log.i( TAG, "${prefs?.fingerprint}")
+                }
+            )
+        },
+    )
+
+
+}
+
+
 
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi

@@ -228,12 +228,6 @@ fun WishItemPageScreen(
             }
 
 
-
-
-
-
-
-
             Spacer(modifier = Modifier.height(space))
 
 

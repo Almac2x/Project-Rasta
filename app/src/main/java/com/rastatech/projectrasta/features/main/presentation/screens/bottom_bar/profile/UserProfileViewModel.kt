@@ -59,6 +59,9 @@ class UserProfileViewModel @Inject constructor(
     val logout = mutableStateOf(false)
     val logoutAlertDialog = mutableStateOf(false)
 
+    val settingsAlertDialog = mutableStateOf(false)
+
+
     private var _numberOfActiveWishes = mutableStateOf(0)
     val numberOfActiveWishes : Int
         get() = _numberOfActiveWishes.value
@@ -74,7 +77,6 @@ class UserProfileViewModel @Inject constructor(
     private var _imageURL  = mutableStateOf("")
     val imageURL: String
         get() = _imageURL.value
-
 
     init {
         Log.i(TAG, "Initializing")

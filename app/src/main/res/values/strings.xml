@@ -5,5 +5,11 @@
     <string name="title_activity_login">Login</string>
 
 
+    <string name="prompt_info_title">Project Rasta Authentication</string>
+    <string name="prompt_info_subtitle">Please login to get access</string>
+    <string name="prompt_info_description">Project Rasta is using Android biometric authentication</string>
+    <string name="prompt_info_use_app_password">Use app password</string>
+
+
 
 </resources>

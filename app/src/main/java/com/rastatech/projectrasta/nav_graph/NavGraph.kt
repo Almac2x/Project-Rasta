@@ -1,11 +1,14 @@
 package com.rastatech.projectrasta.nav_graph
 
+import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.fragment.app.FragmentActivity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.rastatech.projectrasta.features.splash.presentation.screens.SplashScreen
@@ -31,7 +34,7 @@ const val HOME_GRAPH_ROUTE = "root_home"
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @Composable
-fun NavGraph(navController : NavHostController) {
+fun NavGraph(navController : NavHostController, context: Context) {
     NavHost(
         navController = navController,
         startDestination = AuthScreens.Splash.route,
@@ -40,7 +43,7 @@ fun NavGraph(navController : NavHostController) {
     ){
 
         composable(route = AuthScreens.Splash.route){
-            SplashScreen(navController = navController)
+            SplashScreen(navController = navController, context = context)
         }
 
         authNavGraph(navController = navController)

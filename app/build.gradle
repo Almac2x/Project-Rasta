@@ -95,6 +95,9 @@ android {
 
 dependencies {
 
+    //Biometric
+    implementation 'androidx.biometric:biometric:1.0.1'
+
     // Image Loader
     implementation "com.github.skydoves:landscapist-glide:1.4.4"
 
