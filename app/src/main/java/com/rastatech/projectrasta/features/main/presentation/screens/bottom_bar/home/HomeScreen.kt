@@ -51,6 +51,7 @@ import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
 
 
+
 @ExperimentalAnimationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @ExperimentalPagerApi
@@ -169,14 +170,6 @@ fun HomeScreen(
         )
 
 
-
-        /*
-        WishList(
-            navController = bottomBarNavController,
-            displayType = DisplayType.ReadOnly,
-            wishEntities = viewModel.allWishes,
-            updateList = {viewModel.updateList()}
-        )*/
     }
 }
 

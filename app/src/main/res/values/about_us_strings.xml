@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-<string name = "our_heritage">"Our story begins in 2021 along the deep corners of Google Meet.
-                    It was here where we found our intense admiration for the great Rastaman,
-                    to whom our greatest works are dedicated. Guided by his awesome ways of making
-                    us happy, we want to also share the happiness to you, and that's why the company
-                    was born."</string>
+<string name = "our_heritage">"Our story begins in 2021 along the deep corners of Google Meet. It was here where we found our intense admiration for the great Rastaman, to whom our greatest works are dedicated. Guided by his awesome ways of making us happy, we want to also share the happiness to you, and that's why the company was born."</string>
 <string name = "company_tagline"> "Wachu gonna give?"</string>
-<string name = "company_description">"Our story begins in 2021 along the deep corners of Google Meet.
-                    It was here where we found our intense admiration for the great Rastaman,
-                    to whom our greatest works are dedicated. Guided by his awesome ways of making
-                    us happy, we want to also share the happiness to you, and that's why the company
-                    was born."</string>
+<string name = "company_description">"Our story begins in 2021 along the deep corners of Google Meet. It was here where we found our intense admiration for the great Rastaman, to whom our greatest works are dedicated. Guided by his awesome ways of making us happy, we want to also share the happiness to you, and that's why the company was born."</string>
 </resources>

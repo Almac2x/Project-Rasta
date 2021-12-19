@@ -84,7 +84,7 @@ fun AboutScreen() {
 
         val aboutTile = mapOf<String,String>(
             "Our Heritage" to stringResource(id = R.string.our_heritage),
-            "Company Description" to stringResource(id = R.string.company_tagline),
+            "Company Description" to stringResource(id = R.string.company_description),
             "Company Tagline" to stringResource(id = R.string.company_tagline)
         )
 

@@ -10,7 +10,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 
 //private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
-private const val BASE_URL = "https://shielded-ridge-49519.herokuapp.com/"
+//private const val BASE_URL = "https://shielded-ridge-49519.herokuapp.com/"
+private const val BASE_URL = "https://secret-rasta-mini-project-ycimv.ondigitalocean.app/"
 object RetrofitInstance {
 
     private val client = OkHttpClient.Builder()

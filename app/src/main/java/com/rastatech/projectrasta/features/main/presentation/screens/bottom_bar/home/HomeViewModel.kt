@@ -31,6 +31,7 @@ class HomeViewModel @Inject constructor(
     private val userToken = state.get<String>(NavigationKey.AccessToken.value) ?: ""
 
     val query =  mutableStateOf(TextFieldValue()) // password textfield
+    val order = mutableStateOf(false)
 
     private var _allWishes   = mutableStateOf(emptyList<WishDTO>())
     val allWishes : List<WishDTO>
