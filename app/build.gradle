@@ -95,6 +95,10 @@ android {
 
 dependencies {
 
+
+    //QR Code Generator
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.3'
+
     //Biometric
     implementation 'androidx.biometric:biometric:1.0.1'
 

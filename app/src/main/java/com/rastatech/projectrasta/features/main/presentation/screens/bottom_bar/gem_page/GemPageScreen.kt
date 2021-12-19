@@ -1,7 +1,11 @@
 package com.rastatech.projectrasta.features.main.presentation.screens.bottom_bar.gem_page
 
+import android.graphics.Bitmap
 import android.os.Build
+import android.util.Log
 import android.widget.Toast
+import androidmads.library.qrgenearator.QRGContents
+import androidmads.library.qrgenearator.QRGEncoder
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.*
 import androidx.compose.animation.core.MutableTransitionState
@@ -12,23 +16,27 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.QrCode
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.graphics.vector.rememberVectorPainter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.google.zxing.WriterException
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.features.main.domain.util.ShowType
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.ShimmerAnimation
@@ -84,20 +92,43 @@ fun GemPageScreen(
         SendGemDialog(viewModel = viewModel)
     }
 
+    //Show QR Code Dialog
+    if(viewModel.showQRCodeDialog.value){
+        QRDialog(isVisible = viewModel.showQRCodeDialog, userName = viewModel.userName)
+    }
+    
+    
+
     // UI
     Scaffold(
         topBar = {
             TopAppBar(backgroundColor = AppColorPalette.background, elevation = 0.dp) {
                 Box(
                     modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                    contentAlignment = Alignment.BottomStart
                 ) {
-                    Text(
+
+                    IconButton(
+                        onClick = {
+                            viewModel.showQRCodeDialog.value = true
+
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.QrCode,
+                            contentDescription = "QR Code"
+                        )
+                    }
+
+                    Text(modifier = Modifier.fillMaxWidth(),
                         text = BottomBarScreens.GemsPage.title,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.Center
                     )
+
                 }
+
             }
         }
     ) {
@@ -156,12 +187,7 @@ fun GemPageScreen(
 
                 }
             }
-
-
-
-
-
-
+            
             Spacer(modifier = Modifier.height(space))
 
             // Rasta Gem Logo
@@ -211,6 +237,49 @@ fun GemPageScreen(
         }
     }
 }
+
+
+@Composable
+private fun QRDialog(isVisible : MutableState<Boolean>,userName: String){
+
+   var  qrgEncoder : QRGEncoder
+   var bitmap : Bitmap
+    
+    AlertDialog(
+        onDismissRequest = { isVisible.value = false },
+
+        text = {
+            Box(contentAlignment = Alignment.Center,
+                modifier = Modifier.size(width = 200.dp, height = 200.dp)
+            ) {
+
+                //setting this dimensions inside our qr code encoder to generate our qr code.
+                //setting this dimensions inside our qr code encoder to generate our qr code.
+                qrgEncoder = QRGEncoder("$userName", null, QRGContents.Type.TEXT, 300)
+
+                    //getting our qrcode in the form of bitmap.
+                    bitmap = qrgEncoder.encodeAsBitmap()
+                    // the bitmap is set inside our image view using .setimagebitmap method.
+
+                    Image(
+                        bitmap = bitmap.asImageBitmap(),
+                        contentDescription = ""
+                    )
+            }
+
+        },
+        confirmButton = {
+
+                        Box(modifier = Modifier.fillMaxWidth()){
+                            Text(text = "User")
+                        }
+                        
+        },
+    )
+
+
+}
+
 
 @Composable
 private fun AddGemsDialog(viewModel: GemPageViewModel) {

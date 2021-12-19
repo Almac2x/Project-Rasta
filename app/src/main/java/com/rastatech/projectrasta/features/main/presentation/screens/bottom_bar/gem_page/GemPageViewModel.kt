@@ -9,6 +9,8 @@ import androidx.lifecycle.viewModelScope
 import com.google.android.gms.common.api.internal.ApiKey
 import com.rastatech.projectrasta.SecretRastaApp
 import com.rastatech.projectrasta.core.remote.api.RetrofitInstance
+import com.rastatech.projectrasta.features.main.domain.use_case.MainUseCases
+import com.rastatech.projectrasta.nav_graph.util.NavigationKey
 import com.rastatech.projectrasta.utils.ValidateInput
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
@@ -19,6 +21,7 @@ private const val TAG = "GemPageViewModel"
 
 @HiltViewModel
 class GemPageViewModel@Inject constructor(
+    private val mainUseCases: MainUseCases,
 
     state: SavedStateHandle
 
@@ -31,6 +34,8 @@ class GemPageViewModel@Inject constructor(
     private val _gemBalance = mutableStateOf(-1)
     val gemBalance : Int
         get() = _gemBalance.value
+
+    var showQRCodeDialog = mutableStateOf(false)
 
     private val _showAddGemDialog = mutableStateOf(false)
     val showAddGemDialog: State<Boolean>
@@ -54,15 +59,48 @@ class GemPageViewModel@Inject constructor(
 
      val amount = mutableStateOf(0)
 
+    private val _userID = mutableStateOf( state.get<Int?>(NavigationKey.UserID.value) )
+    val userID : Int?
+        get() = _userID.value
+
+    private val _userName = mutableStateOf("" )
+    val userName : String
+        get() = _userName.value
+
+
 
     init {
 
         viewModelScope.launch(Dispatchers.Main) {
 
-            getBalance()
+            async{getBalance()}
+            async { getOwnProfile() }
 
         }
 
+
+    }
+
+    private fun getOwnProfile (){
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val requestUserProfile = async{mainUseCases.getOwnProfile(token = _userToken.toString())}
+
+            requestUserProfile.join()
+
+            _userID.value = requestUserProfile.await().body()?.user_id?:0 // default value of 0 userID
+
+
+            /* requestUserActiveWishList.join()
+             requestUserWishListFulfilled.join()
+             requestUserWishStatus.join()*/
+
+
+            val profile = requestUserProfile.await().body()
+
+            _userName.value = profile?.username.toString()
+
+        }
 
     }
 
