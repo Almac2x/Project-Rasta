@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.Dp
 import com.rastatech.projectrasta.R
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.ui.components.CustomTextField
 import com.rastatech.projectrasta.ui.theme.TextFieldCornerRadius
 
@@ -163,7 +164,7 @@ fun HomeScreen(
                     }
                 }else {
                     items(items = viewModel.allWishes,){ wish ->
-                        NewWishTile(bottomBarNavController = bottomBarNavController, wish = wish)
+                        NewWishTile(bottomBarNavController = bottomBarNavController, wish = wish, displayType = DisplayType.ReadOnly)
                     }
                 }
             }

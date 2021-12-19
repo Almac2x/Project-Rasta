@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
@@ -28,11 +30,14 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.SecretRastaApp.Companion.prefs
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.UserType
 import com.rastatech.projectrasta.nav_graph.AUTH_GRAPH_ROUTE
 import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.CustomProfileImage
 import com.rastatech.projectrasta.ui.components.CustomTextWithCount
+import com.rastatech.projectrasta.ui.components.NewWishTile
+import com.rastatech.projectrasta.ui.components.wish_list_page.ShimmerTile
 import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -104,60 +109,77 @@ fun UserProfileScreen(
 
 
 
+    
+
     //Hard Coded Please adapt this to Make A Wish Screen
     Scaffold(
         topBar = {
             UserTopBar(viewModel = viewModel, userType = userType, bottomBarNavController = bottomBarNavController)
         }
     ) {
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Box(modifier = Modifier.padding(10.dp)) {
-                CustomProfileImage(
-                    url = viewModel.imageURL,
-                    diameter = 150.dp,
-                    borderThickness = 5.dp
-                )
-            }
 
-            Box(modifier = Modifier.padding(10.dp)) {
-                Column {
-                    Text(
-                        text = "${viewModel.firstName} ${viewModel.lastName}",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 32.sp
-                    )
+        LazyColumn(modifier = Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(start = 5.dp, bottom = 50.dp),
 
-                    Text(
-                        text = viewModel.userName,
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
-                        fontSize = 15.sp
-                    )
+            content = {
+
+                item {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Box(modifier = Modifier.padding(10.dp)) {
+                            CustomProfileImage(
+                                url = viewModel.imageURL,
+                                diameter = 150.dp,
+                                borderThickness = 5.dp
+                            )
+                        }
+
+                        Box(modifier = Modifier.padding(10.dp)) {
+                            Column {
+                                Text(
+                                    text = "${viewModel.firstName} ${viewModel.lastName}",
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 32.sp
+                                )
+
+                                Text(
+                                    text = viewModel.userName,
+                                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                                    fontSize = 15.sp
+                                )
+                            }
+                        }
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceEvenly
+                        ) {
+                            CustomTextWithCount(title = "Active Wishes", count = viewModel.numberOfActiveWishes)
+                            CustomTextWithCount(title = "Wishes Fulfilled", count = viewModel.numberOfFulfiledWishes)
+                        }
+
+                        Box(modifier = Modifier
+                            .fillMaxWidth()
+                        ) {
+                            UserProfileTabScreen(
+                                userType = userType,
+                                viewModel = viewModel,
+                                bottomNavController = bottomBarNavController
+                            )
+                        }
+                    }
                 }
-            }
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                CustomTextWithCount(title = "Active Wishes", count = viewModel.numberOfActiveWishes)
-                CustomTextWithCount(title = "Wishes Fulfilled", count = viewModel.numberOfFulfiledWishes)
             }
+        )
 
-            Box(modifier = Modifier
-                .fillMaxSize()
-            ) {
-                UserProfileTabScreen(
-                    userType = userType,
-                    viewModel = viewModel,
-                    bottomNavController = bottomBarNavController
-                )
-            }
-        }
+
+
+
     }
 }
 

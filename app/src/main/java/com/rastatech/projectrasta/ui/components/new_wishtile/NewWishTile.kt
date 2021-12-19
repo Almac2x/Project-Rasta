@@ -2,10 +2,7 @@ package com.rastatech.projectrasta.ui.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
@@ -31,33 +28,122 @@ import androidx.navigation.compose.rememberNavController
 import com.rastatech.projectrasta.R
 import com.rastatech.projectrasta.features.main.data.remote.dto.WishDTO
 import com.rastatech.projectrasta.features.main.data.remote.dto.WisherDTO
+import com.rastatech.projectrasta.features.main.domain.util.DisplayType
 import com.rastatech.projectrasta.features.main.domain.util.VoteType
+import com.rastatech.projectrasta.nav_graph.screens.BottomBarScreens
 import com.rastatech.projectrasta.ui.components.new_wishtile.NewWishTileViewModel
 import com.rastatech.projectrasta.ui.components.vote_button.CustomVoteButton
 import com.rastatech.projectrasta.ui.components.wish_list_page.WishPageEvents
+import com.rastatech.projectrasta.ui.theme.AppColorPalette
 import com.rastatech.projectrasta.ui.theme.CardCornerRadius
 import com.rastatech.projectrasta.ui.theme.Shapes
 import com.skydoves.landscapist.glide.GlideImage
 
 
+@ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @Composable
 fun NewWishTile (
     bottomBarNavController: NavController,
     wish: WishDTO,
-    viewModel: NewWishTileViewModel = hiltViewModel()
+    displayType: DisplayType,
+    viewModel: NewWishTileViewModel = hiltViewModel(),
 
 ) {
 
     val heartButtonSize = 35.dp
     val horizontalPadding = 10.dp
 
+    val openDialog = remember { mutableStateOf(false)  }
     val heart = remember { mutableStateOf(wish.liked)}
+
+
+
+    if (openDialog.value) {
+        AlertDialog(
+            onDismissRequest = {
+                openDialog.value = false
+            },
+            title = {
+                Text(
+                    text = "Update or Delete?",
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            },
+            text = {
+                Column(verticalArrangement = Arrangement.SpaceEvenly) {
+                    Text(
+                        text = "Wish Name: Wish Name",
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black
+                    )
+                    Text(
+                        text = "What would you like to do with this wish?",
+                        color = Color.Black
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        bottomBarNavController.navigate(BottomBarScreens.UpdateWish.navigate(wish?.wish_id?:0)){
+
+                        } // required arguments
+                        openDialog.value = false
+                    }
+                ) {
+                    Text(text = "Update")
+                }
+            },
+            dismissButton = {
+                Button(    //  <- Delete Button
+                    colors = ButtonDefaults
+                        .buttonColors(
+                            backgroundColor = AppColorPalette.error,
+                            contentColor = AppColorPalette.onError
+                        ),
+                    onClick = {
+
+
+                        viewModel.onEvent(WishPageEvents.DeleteWish(wishID = wish?.wish_id!!))
+
+                        //updateList?.invoke()
+
+                        openDialog.value = false
+                    }
+                ) {
+                    Text(text = "Delete")
+                }
+            }
+        )
+    }
+
+
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp),
+            .padding(start = 10.dp, end = 10.dp, top = 5.dp, bottom = 5.dp)
+            .combinedClickable(
+                onClick = {
+
+                    bottomBarNavController.navigate(BottomBarScreens.WishItem.navigate(wishID = wish?.wish_id!!)) {
+
+                    }
+                    // go to Wish Item Page
+                },
+                onLongClick = {
+
+                    if (displayType == DisplayType.Editable) {
+                        // update or delete alert dialog
+                        openDialog.value = true
+                    }
+
+                },
+            ),
         shape = CardCornerRadius.small,
         elevation = 10.dp
     ) {
@@ -262,6 +348,7 @@ fun WishNameRow(
 }
 
 
+@ExperimentalFoundationApi
 @RequiresApi(Build.VERSION_CODES.N)
 @Preview
 @Composable
@@ -269,6 +356,7 @@ fun NewWishTilePreview() {
 
     NewWishTile(
         bottomBarNavController = rememberNavController(),
+        displayType = DisplayType.ReadOnly,
         wish = WishDTO(
             wish_id = 1,
             wish_name = "Wish Name",
