@@ -32,6 +32,7 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.zxing.WriterException
@@ -245,36 +246,46 @@ private fun QRDialog(isVisible : MutableState<Boolean>,userName: String){
    var  qrgEncoder : QRGEncoder
    var bitmap : Bitmap
     
-    AlertDialog(
+    Dialog(
         onDismissRequest = { isVisible.value = false },
 
-        text = {
-            Box(contentAlignment = Alignment.Center,
-                modifier = Modifier.size(width = 200.dp, height = 200.dp)
-            ) {
+        content = {
 
-                //setting this dimensions inside our qr code encoder to generate our qr code.
-                //setting this dimensions inside our qr code encoder to generate our qr code.
-                qrgEncoder = QRGEncoder("$userName", null, QRGContents.Type.TEXT, 300)
+            Surface() {
 
-                    //getting our qrcode in the form of bitmap.
-                    bitmap = qrgEncoder.encodeAsBitmap()
-                    // the bitmap is set inside our image view using .setimagebitmap method.
+                Box(contentAlignment = Alignment.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                ) {
+                    Column(modifier = Modifier.padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally) {
 
-                    Image(
-                        bitmap = bitmap.asImageBitmap(),
-                        contentDescription = ""
-                    )
+                        //setting this dimensions inside our qr code encoder to generate our qr code.
+                        qrgEncoder = QRGEncoder("$userName", null, QRGContents.Type.TEXT, 550)
+
+                        //getting our qrcode in the form of bitmap.
+                        bitmap = qrgEncoder.encodeAsBitmap()
+                        // the bitmap is set inside our image view using .setimagebitmap method.
+
+                        Image(
+                            bitmap = bitmap.asImageBitmap(),
+                            contentDescription = ""
+                        )
+
+                        Text(modifier = Modifier.fillMaxWidth(),
+                            textAlign = TextAlign.Center,
+                            fontSize = 25.sp,
+                            fontWeight = FontWeight.Bold,
+                            text = "Your QR")
+
+                    }
+
+                }
             }
 
-        },
-        confirmButton = {
 
-                        Box(modifier = Modifier.fillMaxWidth()){
-                            Text(text = "User")
-                        }
-                        
         },
+
     )
 
 }
