@@ -277,7 +277,6 @@ private fun QRDialog(isVisible : MutableState<Boolean>,userName: String){
         },
     )
 
-
 }
 
 
